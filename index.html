@@ -959,6 +959,7 @@ footer{
           <input type="hidden" name="_subject" value="Nouveau message via meg-mtb">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" id="form-next" value="" />
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
           <button type="submit" class="f-submit" data-i18n="f-submit">Envoyer →</button>
         </form>
@@ -1393,12 +1394,15 @@ function setErr(inputId, errId, show) {
   document.getElementById(errId).classList.toggle('show', show);
   return !show;
 }
-const FORM_ENDPOINT = 'https://formsubmit.co/ajax/meg.matesanz@gmail.com';
-document.getElementById('con-form').addEventListener('submit', async e => {
-  e.preventDefault();
+// Submit natif vers FormSubmit (zéro CORS) + redirection retour via _next
+// On garde la validation client : si invalide, preventDefault. Sinon laisse partir.
+const conForm = document.getElementById('con-form');
+const formNext = document.getElementById('form-next');
+if (formNext) formNext.value = location.origin + location.pathname + '?sent=1#contact';
+
+conForm.addEventListener('submit', e => {
   const name   = document.getElementById('f-name').value.trim();
   const email  = document.getElementById('f-email').value.trim();
-  const studio = document.getElementById('f-studio').value.trim();
   const msg    = document.getElementById('f-msg').value.trim();
   const honey  = document.querySelector('#con-form [name="_honey"]')?.value || '';
   const ok = [
@@ -1406,49 +1410,24 @@ document.getElementById('con-form').addEventListener('submit', async e => {
     setErr('f-email','err-email', !validEmail(email)),
     setErr('f-msg','err-msg', msg.length < 10),
   ].every(Boolean);
-  if (!ok) return;
-  if (honey) return; // bot trap — silent fail
-
-  const form = document.getElementById('con-form');
-  const errPanel = document.getElementById('f-error');
-  const okPanel  = document.getElementById('f-success');
-  const btn = form.querySelector('.f-submit');
-  const originalLabel = btn ? btn.textContent : '';
-  if (errPanel) errPanel.classList.remove('show');
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = (lang === 'fr' ? 'Envoi…' : 'Sending…');
+  if (!ok || honey) {
+    e.preventDefault();
+    return;
   }
-
-  try {
-    // URLSearchParams → Content-Type form-urlencoded = pas de CORS preflight
-    const body = new URLSearchParams();
-    body.set('name', name);
-    body.set('email', email);
-    body.set('studio', studio || '—');
-    body.set('message', msg);
-    body.set('_subject', 'Nouveau message via meg-mtb — ' + name + (studio ? ' (' + studio + ')' : ''));
-    body.set('_template', 'table');
-    body.set('_captcha', 'false');
-    const res = await fetch(FORM_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body
-    });
-    const data = await res.json().catch(() => ({}));
-    const success = data.success === true || data.success === 'true';
-    if (!res.ok || (data.success !== undefined && !success)) {
-      throw new Error(data.message || ('HTTP ' + res.status));
-    }
-    if (!quests.form) { awardXP(400); completeQuest('form'); }
-    form.style.display = 'none';
-    if (okPanel) okPanel.classList.add('show');
-  } catch (err) {
-    console.error('[con-form] échec envoi FormSubmit:', err);
-    if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
-    if (errPanel) errPanel.classList.add('show');
-  }
+  // Validation OK → on laisse le navigateur faire le POST natif vers FormSubmit.
+  // FormSubmit renverra vers _next ( = ?sent=1#contact) une fois le mail envoyé.
+  const btn = conForm.querySelector('.f-submit');
+  if (btn) { btn.disabled = true; btn.textContent = (lang === 'fr' ? 'Envoi…' : 'Sending…'); }
 });
+
+// Au chargement : si on revient de FormSubmit avec ?sent=1, on affiche le succès
+if (new URLSearchParams(location.search).get('sent') === '1') {
+  conForm.style.display = 'none';
+  document.getElementById('f-success').classList.add('show');
+  if (!quests.form) { awardXP(400); completeQuest('form'); }
+  // Nettoie l'URL pour ne pas reshow le succès au refresh
+  history.replaceState(null, '', location.pathname + '#contact');
+}
 ['f-name','f-email','f-msg'].forEach(id => {
   document.getElementById(id).addEventListener('input', e => {
     e.target.classList.remove('err');
