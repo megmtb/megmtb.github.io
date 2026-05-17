@@ -1421,26 +1421,30 @@ document.getElementById('con-form').addEventListener('submit', async e => {
   }
 
   try {
+    // URLSearchParams → Content-Type form-urlencoded = pas de CORS preflight
+    const body = new URLSearchParams();
+    body.set('name', name);
+    body.set('email', email);
+    body.set('studio', studio || '—');
+    body.set('message', msg);
+    body.set('_subject', 'Nouveau message via meg-mtb — ' + name + (studio ? ' (' + studio + ')' : ''));
+    body.set('_template', 'table');
+    body.set('_captcha', 'false');
     const res = await fetch(FORM_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        name, email,
-        studio: studio || '—',
-        message: msg,
-        _subject: 'Nouveau message via meg-mtb — ' + name + (studio ? ' (' + studio + ')' : ''),
-        _template: 'table',
-        _captcha: 'false',
-      })
+      headers: { 'Accept': 'application/json' },
+      body
     });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok || data.success === 'false' || data.success === false) {
-      throw new Error(data.message || 'submission failed');
+    const success = data.success === true || data.success === 'true';
+    if (!res.ok || (data.success !== undefined && !success)) {
+      throw new Error(data.message || ('HTTP ' + res.status));
     }
     if (!quests.form) { awardXP(400); completeQuest('form'); }
     form.style.display = 'none';
     if (okPanel) okPanel.classList.add('show');
   } catch (err) {
+    console.error('[con-form] échec envoi FormSubmit:', err);
     if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
     if (errPanel) errPanel.classList.add('show');
   }
