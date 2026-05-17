@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap (à décommenter une fois le site en ligne avec ton vrai domaine)
+# Sitemap: https://www.meg-mtb.com/sitemap.xml

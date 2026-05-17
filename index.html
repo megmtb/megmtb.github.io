@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meg M.T.B. — Partenaire Opérationnelle</title>
+  <meta name="description" content="8+ ans d'expertise pour piloter votre comm, marketing, ops et événementiel. Studios de jeux vidéo indépendants." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* ── RESET ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+ul{list-style:none}
+
+/* ── TOKENS ─────────────────────────────────────────── */
+:root{
+  --bg:      #08080f;
+  --bg2:     #0d0d18;
+  --bg3:     #111120;
+  --surface: rgba(255,255,255,0.04);
+  --s2:      rgba(255,255,255,0.07);
+  --border:  rgba(255,255,255,0.08);
+  --b2:      rgba(255,255,255,0.15);
+  /* Palette personnalisée : orange / jaune / bleu / crème */
+  --v:       #73A5CA;  /* bleu — début de gradient (remplace l'ancien violet) */
+  --o:       #E87F24;  /* orange — fin de gradient, accent chaud */
+  --mint:    #FFC81E;  /* jaune — XP, succès, quêtes (ex-vert mint) */
+  --gold:    #FFC81E;  /* jaune — légendaire / premium */
+  --blue:    #73A5CA;  /* bleu — info, nav active, liens */
+  --cream:   #FEFDDF;  /* crème — accents doux, highlights texte */
+  --txt:     #ffffff;
+  --muted:   #8a93a3;
+  --dim:     rgba(255,255,255,0.38);
+  --font:    'Space Grotesk',system-ui,sans-serif;
+  --r:       10px;
+  --rl:      18px;
+}
+
+/* ── BASE ─────────────────────────────────────────── */
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--txt);
+  overflow-x:hidden;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.container{max-width:1160px;margin:0 auto;padding:0 28px}
+
+/* ── UTILITIES ─────────────────────────────────────── */
+.grad{color:var(--o)}
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease}
+.fade-up.visible{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
+
+/* ── ICONS (Lucide-style sprite) ─────────────────────────── */
+.icon{
+  display:inline-block;vertical-align:middle;flex-shrink:0;
+  fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.icon-sm{width:14px;height:14px}
+.icon-md{width:20px;height:20px}
+.icon-lg{width:28px;height:28px}
+.icon-xl{width:34px;height:34px}
+
+/* ── BUTTONS ─────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 22px;border:none;border-radius:var(--r);
+  font-family:var(--font);font-size:.9rem;font-weight:700;
+  cursor:pointer;transition:.2s;white-space:nowrap;
+}
+.btn-grad{background:var(--o);color:#fff}
+.btn-grad:hover{opacity:.88;transform:translateY(-2px)}
+.btn-ghost{background:var(--surface);border:1px solid var(--b2);color:#fff}
+.btn-ghost:hover{background:var(--s2);transform:translateY(-2px)}
+.btn-mint{background:var(--mint);color:#000}
+.btn-mint:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-sm{padding:9px 16px;font-size:.82rem}
+
+/* ── HEADER ─────────────────────────────────────── */
+#hdr{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(8,8,15,.92);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s;
+}
+.hdr-top{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;height:64px;
+}
+.logo{font-size:1rem;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+nav{display:flex;align-items:center;gap:24px}
+nav a{font-size:.82rem;font-weight:600;color:var(--muted);transition:color .2s}
+nav a:hover,nav a.active{color:var(--blue)}
+.lang-toggle{
+  display:flex;align-items:center;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:100px;padding:3px;gap:2px;flex-shrink:0;
+}
+.lang-btn{
+  padding:4px 11px;border-radius:100px;border:none;
+  background:transparent;color:var(--muted);
+  font-size:.75rem;font-weight:700;transition:.2s;
+}
+.lang-btn.active{background:var(--blue);color:#fff}
+
+/* XP BAR */
+.xp-row{
+  display:flex;align-items:center;gap:10px;
+  padding:5px 28px 6px;border-top:1px solid var(--border);
+  background:rgba(8,8,15,.6);
+}
+.xp-label{font-size:.68rem;font-weight:700;color:var(--mint);letter-spacing:.08em;white-space:nowrap}
+.xp-track{
+  flex:1;height:5px;background:rgba(255,255,255,.08);
+  border-radius:100px;overflow:hidden;
+}
+.xp-fill{
+  height:100%;width:0%;
+  background:var(--mint);
+  border-radius:100px;transition:width .3s ease;
+}
+.xp-count{font-size:.68rem;font-weight:700;color:var(--muted);white-space:nowrap;min-width:60px;text-align:right}
+
+/* Mobile burger */
+.burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;padding:4px;
+}
+.burger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+
+/* ── LEVELUP TOAST ─────────────────────────────────── */
+#lvl-toast{
+  position:fixed;top:100px;left:50%;transform:translateX(-50%) translateY(-20px);
+  background:var(--o);
+  color:#fff;font-weight:800;font-size:.95rem;
+  padding:10px 28px;border-radius:100px;
+  opacity:0;pointer-events:none;z-index:9999;
+  transition:opacity .3s,transform .3s;
+  letter-spacing:.05em;
+}
+#lvl-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── HERO ─────────────────────────────────────────── */
+#hero{
+  min-height:100vh;
+  padding:calc(64px + 36px) 28px 80px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  background:var(--bg);
+}
+/* Grid texture (purement décorative — lignes 1px) */
+#hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(115,165,202,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(115,165,202,.04) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--b2);
+  border-radius:100px;padding:6px 16px;
+  font-size:.75rem;font-weight:600;color:var(--muted);
+  letter-spacing:.06em;margin-bottom:28px;position:relative;z-index:1;
+}
+.hero-badge::before{content:'▶';color:var(--mint);font-size:.6rem}
+.hero-h1{
+  font-size:clamp(3rem,8vw,7rem);font-weight:700;
+  line-height:1.0;position:relative;z-index:1;margin-bottom:4px;
+  letter-spacing:-.02em;
+}
+.hero-h2{
+  font-size:clamp(3rem,8vw,7rem);font-weight:700;
+  line-height:1.0;position:relative;z-index:1;margin-bottom:28px;
+  letter-spacing:-.02em;
+  color:transparent;
+  -webkit-text-stroke:2px rgba(255,255,255,.55);
+}
+.hero-sub{
+  font-size:1rem;color:var(--muted);line-height:1.7;
+  max-width:500px;margin-bottom:36px;position:relative;z-index:1;
+}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:56px;position:relative;z-index:1}
+.hero-stats{
+  display:flex;gap:0;position:relative;z-index:1;
+  border:1px solid var(--border);border-radius:var(--rl);
+  background:var(--surface);overflow:hidden;
+}
+.h-stat{
+  display:flex;align-items:center;gap:10px;
+  padding:16px 28px;
+  border-right:1px solid var(--border);
+}
+.h-stat:last-child{border-right:none}
+.h-stat-icon{font-size:1.3rem}
+.h-stat-num{font-size:1.4rem;font-weight:700;line-height:1}
+.h-stat-lbl{font-size:.62rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+
+/* ── DIAGNOSTIC ─────────────────────────────────── */
+#diagnostic{
+  padding:80px 0;background:var(--bg2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.sec-label{
+  display:inline-block;font-size:.68rem;font-weight:700;
+  color:var(--mint);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;
+}
+.sec-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;margin-bottom:10px}
+.sec-sub{font-size:.95rem;color:var(--muted);max-width:520px;margin-bottom:40px;line-height:1.65}
+
+.diag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.prob-tile{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:20px 18px;
+  cursor:pointer;transition:border-color .2s,background .2s,transform .15s;
+  position:relative;user-select:none;
+}
+.prob-tile:hover{border-color:var(--b2);background:var(--s2);transform:translateY(-2px)}
+.prob-tile.selected{
+  border-color:var(--v);background:rgba(115,165,202,.1);
+  box-shadow:0 0 0 1px var(--v);
+}
+.prob-tile.selected .pt-check{opacity:1;transform:scale(1)}
+.pt-icon{font-size:1.6rem;margin-bottom:10px}
+.pt-title{font-size:.88rem;font-weight:700;margin-bottom:4px;line-height:1.3}
+.pt-handle{font-size:.72rem;color:var(--dim)}
+.pt-check{
+  position:absolute;top:12px;right:12px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--v);display:flex;align-items:center;justify-content:center;
+  font-size:.6rem;color:#fff;
+  opacity:0;transform:scale(.5);transition:.2s;
+}
+
+/* Result panel */
+#diag-result{
+  display:none;
+  background:var(--surface);border:1px solid var(--b2);
+  border-radius:var(--rl);padding:24px 28px;
+  align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+#diag-result.visible{display:flex}
+.diag-score-display{display:flex;align-items:center;gap:14px}
+.diag-score-num{
+  font-size:2.8rem;font-weight:700;
+  color:var(--o);
+  line-height:1;
+}
+.diag-score-lbl{font-size:.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.diag-msg{font-size:.95rem;color:#fff;line-height:1.55;max-width:440px}
+
+/* ── SERVICES ─────────────────────────────────────── */
+#services{padding:80px 0;background:var(--bg)}
+.services-sub{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+
+.cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-bottom:52px;padding-top:18px}
+
+.card-wrap{position:relative}
+
+/* Playing card (Balatro-inspired) */
+.play-card{
+  position:relative;display:flex;flex-direction:column;gap:14px;
+  border-radius:var(--rl);padding:22px 22px 20px;
+  border:1px solid;background:var(--bg3);
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1),
+             box-shadow .35s ease,border-color .25s ease;
+  min-height:100%;
+}
+.play-card:hover{transform:translateY(-4px)}
+
+/* Rarity borders / ambient glow */
+.r-common{border-color:rgba(122,133,149,.45);background:var(--bg3)}
+.r-rare{border-color:rgba(115,165,202,.55);background:var(--bg3)}
+.r-epic{border-color:rgba(232,127,36,.55);background:var(--bg3)}
+.r-legendary{border-color:var(--gold);background:var(--bg3)}
+
+/* Lift state — Balatro-style emphasis on the recommended card */
+.play-card.lifted{
+  transform:translateY(-18px) scale(1.025);
+  box-shadow:0 32px 60px rgba(0,0,0,.55),0 0 50px var(--lift-glow,rgba(115,165,202,.45));
+}
+.r-common.lifted{--lift-glow:rgba(122,133,149,.35)}
+.r-rare.lifted{--lift-glow:rgba(115,165,202,.55)}
+.r-epic.lifted{--lift-glow:rgba(232,127,36,.55)}
+.r-legendary.lifted{--lift-glow:rgba(255,200,30,.55);animation:none}
+.play-card.lifted::after{
+  content:attr(data-rec-label);
+  position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  background:var(--mint);
+  color:#000;font-size:.74rem;font-weight:900;
+  letter-spacing:.14em;padding:8px 20px;border-radius:100px;
+  text-transform:uppercase;white-space:nowrap;
+  box-shadow:0 10px 28px rgba(255,200,30,.55),0 0 32px rgba(255,200,30,.35);
+  animation:recpulse 2.4s ease-in-out infinite;
+}
+@keyframes recpulse{
+  0%,100%{transform:translateX(-50%) scale(1)}
+  50%{transform:translateX(-50%) scale(1.06)}
+}
+
+/* Top: rarity badge */
+.rarity-badge{
+  display:inline-block;font-size:.58rem;font-weight:800;
+  letter-spacing:.14em;padding:4px 11px;border-radius:100px;width:fit-content;
+}
+.rb-common{background:rgba(122,133,149,.2);color:#a0aaba;border:1px solid rgba(122,133,149,.35)}
+.rb-rare{background:rgba(115,165,202,.18);color:#73A5CA;border:1px solid rgba(115,165,202,.4)}
+.rb-epic{background:rgba(232,127,36,.18);color:#E87F24;border:1px solid rgba(232,127,36,.4)}
+.rb-legendary{background:rgba(255,200,30,.18);color:var(--gold);border:1px solid rgba(255,200,30,.45)}
+
+/* Card icon block */
+.pc-icon{
+  display:flex;align-items:center;justify-content:center;
+  width:54px;height:54px;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+}
+.pc-icon .icon{stroke-width:1.8}
+.r-common .pc-icon{color:#a0aaba}
+.r-rare .pc-icon{color:#73A5CA;background:rgba(115,165,202,.08);border-color:rgba(115,165,202,.25)}
+.r-epic .pc-icon{color:#E87F24;background:rgba(232,127,36,.08);border-color:rgba(232,127,36,.25)}
+.r-legendary .pc-icon{color:var(--gold);background:rgba(255,200,30,.08);border-color:rgba(255,200,30,.3)}
+
+/* Name + tagline */
+.pc-head{display:flex;flex-direction:column;gap:2px}
+.pc-name{font-size:1.15rem;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+.pc-tagline{font-size:.78rem;color:var(--muted)}
+
+/* Features */
+.pc-features{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.pc-features li{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:.82rem;color:rgba(255,255,255,.84);line-height:1.45;
+}
+.cf-arrow{color:var(--o);font-weight:900;flex-shrink:0;line-height:1.45}
+
+/* Prominent price (par rareté) */
+.pc-price{
+  font-size:1.75rem;font-weight:800;
+  letter-spacing:-.01em;line-height:1;
+  text-align:center;margin-top:auto;
+  text-shadow:0 0 18px currentColor;
+}
+.r-common .pc-price{color:var(--cream);text-shadow:none}
+.r-rare .pc-price{color:var(--blue)}
+.r-epic .pc-price{color:var(--o)}
+.r-legendary .pc-price{color:var(--gold)}
+
+/* Stats row (Durée + Format seulement, prix sorti au-dessus) */
+.pc-stats{
+  display:flex;border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+}
+.cs{flex:1;padding:9px 0;text-align:center;border-right:1px solid var(--border)}
+.cs:last-child{border-right:none}
+.cs-val{font-size:.85rem;font-weight:700;line-height:1;margin-bottom:3px}
+.cs-key{font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
+
+/* CTA */
+.pc-cta{margin-top:2px;justify-content:center;width:100%}
+
+/* "Recommandé" tag (pastille flottante au-dessus de la carte) */
+.rec-tag{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:var(--gold);
+  border-radius:100px;padding:5px 16px;
+  font-size:.62rem;font-weight:800;color:#000;
+  white-space:nowrap;letter-spacing:.08em;z-index:2;
+  box-shadow:0 4px 14px rgba(0,0,0,.45);
+  transition:opacity .25s ease;
+}
+/* Hide the static rec-tag dès qu'un défi est sélectionné au diagnostic */
+body.diag-active .rec-tag{opacity:0;pointer-events:none}
+
+/* ── REFERENCES ─────────────────────────────────── */
+#references{
+  padding:80px 0;background:var(--bg2);color:var(--txt);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+#references .sec-label{color:var(--mint)}
+#references .sec-title{color:#fff}
+#references .sec-sub{color:var(--muted)}
+.hof-grid{
+  display:flex;flex-wrap:wrap;gap:16px;
+  justify-content:center;margin-bottom:40px;
+}
+.hof-card{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:20px 18px;min-width:110px;
+  transition:transform .2s,border-color .2s,background .2s;
+}
+.hof-card:hover{transform:translateY(-3px);border-color:var(--b2);background:var(--s2)}
+.hof-logo{
+  width:60px;height:60px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+  background:#fff;
+  box-shadow:0 0 0 1px rgba(255,255,255,.1);
+}
+.hof-logo img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+.hof-name{font-size:.82rem;font-weight:700;color:#fff;text-align:center;line-height:1.2}
+.refs-stats{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.refs-pill{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:14px 20px;
+  font-size:.95rem;font-weight:700;color:#fff;
+}
+.refs-pill strong{font-size:1.1rem;color:var(--gold)}
+
+/* ── CONTACT ─────────────────────────────────────── */
+#contact{padding:80px 0;background:var(--bg3)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.contact-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--rl);padding:32px;
+}
+.cc-title{font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.cc-sub{font-size:.78rem;color:var(--muted);margin-bottom:24px}
+.fg{margin-bottom:16px}
+.fg label{
+  display:block;font-size:.65rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;
+}
+.fg input,.fg textarea{
+  width:100%;padding:11px 14px;
+  background:rgba(255,255,255,.06);border:1px solid var(--border);
+  border-radius:var(--r);color:#fff;font-family:var(--font);font-size:.88rem;
+  outline:none;transition:border-color .2s;
+}
+.fg input:focus,.fg textarea:focus{border-color:var(--blue)}
+.fg input.err,.fg textarea.err{border-color:#ff5b5b}
+.fg textarea{resize:vertical;min-height:90px}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--dim);font-style:italic}
+.ferr{font-size:.72rem;color:#ff5b5b;margin-top:4px;display:none}
+.ferr.show{display:block}
+.f-submit{
+  width:100%;padding:13px;
+  background:var(--blue);border:none;border-radius:var(--r);
+  color:#fff;font-family:var(--font);font-size:.9rem;font-weight:700;cursor:pointer;
+  transition:.2s;
+}
+.f-submit:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.f-success{
+  display:none;padding:16px;text-align:center;
+  background:rgba(255,200,30,.08);border:1px solid rgba(255,200,30,.25);
+  border-radius:var(--r);font-weight:600;margin-top:12px;
+}
+.f-success.show{display:block}
+.f-error{
+  display:none;padding:14px;text-align:center;
+  background:rgba(255,91,91,.08);border:1px solid rgba(255,91,91,.3);
+  border-radius:var(--r);font-size:.85rem;color:#ff5b5b;margin-top:12px;
+}
+.f-error.show{display:block}
+.f-submit:disabled{opacity:.6;cursor:wait}
+
+/* Calendar */
+.cal-month-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cal-nav{
+  background:rgba(255,255,255,.07);border:1px solid var(--border);
+  border-radius:var(--r);padding:6px 12px;font-size:.9rem;font-weight:900;
+  color:#fff;transition:.2s;
+}
+.cal-nav:hover{background:rgba(255,255,255,.12)}
+.cal-nav:disabled{opacity:.25;pointer-events:none}
+#cal-month-lbl{font-size:.9rem;font-weight:700}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
+.cal-hdr{
+  text-align:center;font-size:.6rem;font-weight:700;
+  color:var(--muted);text-transform:uppercase;padding:4px 0;
+}
+.cal-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:6px;font-size:.8rem;font-weight:600;
+  cursor:pointer;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.04);transition:.15s;
+}
+.cal-day:hover{background:rgba(115,165,202,.2);border-color:var(--blue)}
+.cal-day.today{border-color:var(--blue);color:var(--blue)}
+.cal-day.sel{background:var(--blue);border-color:var(--blue);font-weight:700}
+.cal-day.off{opacity:.18;pointer-events:none}
+#slot-section{display:none;margin-bottom:12px}
+.slot-lbl{font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:8px}
+.slots{display:flex;flex-wrap:wrap;gap:7px}
+.slot{
+  padding:7px 14px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.2);border-radius:var(--r);
+  font-size:.78rem;font-weight:600;cursor:pointer;transition:.15s;
+}
+.slot:hover{background:rgba(115,165,202,.2);border-color:var(--blue)}
+.slot.sel{background:var(--blue);border-color:var(--blue)}
+.rdv-confirm{
+  display:none;padding:12px 14px;
+  background:rgba(115,165,202,.08);border:1px solid rgba(115,165,202,.2);
+  border-radius:var(--r);font-size:.82rem;color:var(--muted);
+}
+.rdv-confirm.show{display:block}
+.rdv-confirm strong{color:#fff}
+
+/* ── FOOTER ─────────────────────────────────────── */
+footer{
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:20px 0;
+}
+.footer-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-logo{font-size:.88rem;font-weight:700}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:.78rem;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:.72rem;color:var(--muted)}
+
+/* ── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:960px){
+  .diag-grid{grid-template-columns:repeat(2,1fr)}
+  .cards-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  nav{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:0;align-items:stretch;
+    background:rgba(8,8,15,.98);border-bottom:1px solid var(--border);
+    padding:8px 0;z-index:999;
+  }
+  nav.open{display:flex}
+  nav a{padding:12px 24px;font-size:.95rem}
+  .burger{display:flex}
+  .hdr-top{gap:8px}
+  .hdr-cta{padding:7px 11px;font-size:.7rem}
+  .lang-btn{padding:3px 8px;font-size:.68rem}
+  .hero-stats{flex-direction:column;width:100%;max-width:320px}
+  .h-stat{border-right:none;border-bottom:1px solid var(--border)}
+  .h-stat:last-child{border-bottom:none}
+  .hof-grid{gap:10px}
+  .hof-card{min-width:90px;padding:16px 12px}
+  .xp-row{padding:5px 20px 6px}
+}
+@media(max-width:380px){
+  .lang-toggle{display:none}
+  .hdr-cta{padding:6px 9px;font-size:.65rem}
+}
+@media(max-width:480px){
+  .diag-grid{grid-template-columns:1fr 1fr}
+  .hero-h1,.hero-h2{font-size:clamp(2.2rem,11vw,3.5rem)}
+}
+
+/* ── XP POPUP ─────────────────────────────────── */
+.xp-popup{
+  position:fixed;pointer-events:none;
+  font-size:1rem;font-weight:900;
+  color:var(--mint);
+  text-shadow:0 0 14px rgba(255,200,30,.7);
+  z-index:9998;
+  animation:xpfloat 1.3s ease-out forwards;
+  letter-spacing:.04em;
+}
+@keyframes xpfloat{
+  0%{opacity:0;transform:translate(-50%,0) scale(.9)}
+  15%{opacity:1;transform:translate(-50%,-6px) scale(1.1)}
+  100%{opacity:0;transform:translate(-50%,-50px) scale(1)}
+}
+
+/* ── QUEST LOG ─────────────────────────────────── */
+#quest-log{
+  position:fixed;bottom:18px;right:18px;
+  background:rgba(13,13,24,.95);backdrop-filter:blur(14px);
+  border:1px solid var(--b2);border-radius:var(--rl);
+  padding:14px 16px;width:240px;z-index:990;
+  transform:translateY(140%);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 12px 40px rgba(0,0,0,.6);
+}
+#quest-log.show{transform:translateY(0)}
+#quest-log.minimized .ql-items{display:none}
+#quest-log.minimized{padding:10px 16px}
+.ql-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;cursor:pointer;user-select:none;
+}
+#quest-log.minimized .ql-header{margin-bottom:0}
+.ql-title{
+  font-size:.65rem;font-weight:800;color:var(--mint);
+  text-transform:uppercase;letter-spacing:.12em;
+}
+.ql-toggle{
+  background:none;border:none;color:var(--muted);
+  font-size:1rem;font-weight:900;cursor:pointer;padding:0 4px;line-height:1;
+}
+.ql-items{display:flex;flex-direction:column;gap:8px}
+.ql-item{
+  display:flex;align-items:center;gap:9px;
+  font-size:.78rem;color:var(--muted);
+  transition:color .25s;
+}
+.ql-item.done{color:#fff}
+.ql-item.done span:last-child{text-decoration:line-through;text-decoration-color:rgba(255,200,30,.6)}
+.ql-check{
+  width:15px;height:15px;border-radius:50%;
+  border:1.5px solid var(--muted);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:.55rem;color:transparent;
+  transition:.25s;
+}
+.ql-item.done .ql-check{
+  background:var(--mint);border-color:var(--mint);color:#000;
+}
+@media(max-width:480px){
+  #quest-log{bottom:10px;right:10px;left:10px;width:auto}
+}
+
+  </style>
+</head>
+<body>
+
+<!-- ══════════ ICON SPRITE (Lucide-style, MIT) ══════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-trending-down" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
+    <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></symbol>
+    <symbol id="i-calendar-clock" viewBox="0 0 24 24"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><path d="M17.5 17.5 16 16.3V14"/><circle cx="16" cy="16" r="6"/></symbol>
+    <symbol id="i-gamepad" viewBox="0 0 24 24"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></symbol>
+    <symbol id="i-swords" viewBox="0 0 24 24"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" x2="19" y1="19" y2="13"/><line x1="16" x2="20" y1="16" y2="20"/><line x1="19" x2="21" y1="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" x2="9" y1="14" y2="18"/><line x1="7" x2="4" y1="17" y2="20"/><line x1="3" x2="5" y1="19" y2="21"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+  </defs>
+</svg>
+
+<!-- ══════════ HEADER ══════════ -->
+<header id="hdr">
+  <div class="container">
+    <div class="hdr-top">
+      <a href="#hero" class="logo">MEG <span class="grad">M.T.B.</span></a>
+      <nav id="main-nav">
+        <a href="#diagnostic" data-i18n="nav-diag">Diagnostic</a>
+        <a href="#services"   data-i18n="nav-services">Services</a>
+        <a href="#references" data-i18n="nav-refs">Références</a>
+        <a href="#contact"    data-i18n="nav-contact">Contact</a>
+      </nav>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="fr">FR</button>
+        <button class="lang-btn"        data-lang="en">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-mint btn-sm hdr-cta" data-i18n="nav-cta">Prendre RDV</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <!-- XP BAR -->
+  <div class="xp-row container">
+    <span class="xp-label" id="xp-level-lbl">LVL 1</span>
+    <div class="xp-track"><div class="xp-fill" id="xp-fill"></div></div>
+    <span class="xp-count" id="xp-count">0 XP</span>
+  </div>
+</header>
+
+<div id="lvl-toast">LEVEL UP !</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <p class="hero-badge fade-up" data-i18n="hero-badge">Partenaire Opérationnelle · Studios Indépendants</p>
+  <h1 class="hero-h1 fade-up d1"><span class="grad">LEVEL UP</span></h1>
+  <h2 class="hero-h2 fade-up d2" data-i18n="hero-h2">YOUR STUDIO.</h2>
+  <p class="hero-sub fade-up d3" data-i18n="hero-sub">
+    8+ ans d'expertise dédiée aux studios de jeux vidéo indépendants.<br>
+    Je pilote comm, marketing, ops et événementiel — pour que vous puissiez créer.
+  </p>
+  <div class="hero-ctas fade-up d4">
+    <a href="#services" class="btn btn-grad" data-i18n="hero-btn1">Découvrir les offres →</a>
+    <a href="#diagnostic" class="btn btn-ghost" data-i18n="hero-btn2">Lancer le diagnostic</a>
+  </div>
+  <div class="hero-stats fade-up d4">
+    <div class="h-stat">
+      <span class="h-stat-icon"><svg class="icon icon-lg"><use href="#i-gamepad"/></svg></span>
+      <div><div class="h-stat-num">8+</div><div class="h-stat-lbl" data-i18n="stat-xp">ANNÉES XP</div></div>
+    </div>
+    <div class="h-stat">
+      <span class="h-stat-icon"><svg class="icon icon-lg"><use href="#i-swords"/></svg></span>
+      <div><div class="h-stat-num">30+</div><div class="h-stat-lbl" data-i18n="stat-clients">CLIENTS</div></div>
+    </div>
+    <div class="h-stat">
+      <span class="h-stat-icon"><svg class="icon icon-lg"><use href="#i-wallet"/></svg></span>
+      <div><div class="h-stat-num">+1M€</div><div class="h-stat-lbl" data-i18n="stat-budgets">BUDGETS</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DIAGNOSTIC ══════════ -->
+<section id="diagnostic">
+  <div class="container">
+    <p class="sec-label fade-up" data-i18n="diag-label">DIAGNOSTIC DE STUDIO</p>
+    <h2 class="sec-title fade-up" data-i18n="diag-title">Vous reconnaissez-vous ?</h2>
+    <p class="sec-sub fade-up" data-i18n="diag-sub">Cliquez sur chaque situation qui vous parle. On calculera votre profil en direct.</p>
+
+    <div class="diag-grid">
+      <div class="prob-tile fade-up d1" data-idx="0">
+        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-clock"/></svg></div>
+        <div class="pt-title" data-i18n="p1-t">Trop de logistique, pas assez de création</div>
+        <div class="pt-handle" data-i18n="p1-h">Boss : Burnout</div>
+        <div class="pt-check">✓</div>
+      </div>
+      <div class="prob-tile fade-up d2" data-idx="1">
+        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-trending-down"/></svg></div>
+        <div class="pt-title" data-i18n="p2-t">Ma communauté ne convertit pas au lancement</div>
+        <div class="pt-handle" data-i18n="p2-h">Boss : Launch Fail</div>
+        <div class="pt-check">✓</div>
+      </div>
+      <div class="prob-tile fade-up d3" data-idx="2">
+        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-coins"/></svg></div>
+        <div class="pt-title" data-i18n="p3-t">Mes investissements ne rentrent pas</div>
+        <div class="pt-handle" data-i18n="p3-h">Boss : Budget Burn</div>
+        <div class="pt-check">✓</div>
+      </div>
+      <div class="prob-tile fade-up d1" data-idx="3">
+        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-megaphone"/></svg></div>
+        <div class="pt-title" data-i18n="p4-t">Je manque de visibilité et de wishlist</div>
+        <div class="pt-handle" data-i18n="p4-h">Boss : Wishlist Drought</div>
+        <div class="pt-check">✓</div>
+      </div>
+      <div class="prob-tile fade-up d2" data-idx="4">
+        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-brain"/></svg></div>
+        <div class="pt-title" data-i18n="p5-t">Je ne sais pas par où commencer</div>
+        <div class="pt-handle" data-i18n="p5-h">Boss : Overwhelm</div>
+        <div class="pt-check">✓</div>
+      </div>
+      <div class="prob-tile fade-up d3" data-idx="5">
+        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-calendar-clock"/></svg></div>
+        <div class="pt-title" data-i18n="p6-t">Mon lancement approche et je ne suis pas prêt(e)</div>
+        <div class="pt-handle" data-i18n="p6-h">Boss : Panic Mode</div>
+        <div class="pt-check">✓</div>
+      </div>
+    </div>
+
+    <div id="diag-result">
+      <div class="diag-score-display">
+        <div class="diag-score-num" id="diag-score">0</div>
+        <div>
+          <div class="diag-score-lbl" data-i18n="diag-score-lbl">DÉFIS IDENTIFIÉS</div>
+          <div style="font-size:.68rem;color:var(--dim)" data-i18n="diag-score-sub">sur 6 possibles</div>
+        </div>
+      </div>
+      <div class="diag-msg" id="diag-msg"></div>
+      <a id="diag-cta" href="#services" class="btn btn-grad" data-i18n="diag-cta-btn">Voir la recommandation →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SERVICES ══════════ -->
+<section id="services">
+  <div class="container">
+    <p class="sec-label fade-up" data-i18n="srv-label">OFFRES</p>
+    <h2 class="sec-title fade-up" data-i18n="srv-title">Choisissez votre classe</h2>
+    <p class="sec-sub fade-up" data-i18n="srv-sub">Cliquez sur une carte pour découvrir le détail de l'offre.</p>
+
+    <div class="cards-grid">
+
+      <!-- Card 1 — L'Étincelle (MISSION FLASH) -->
+      <div class="card-wrap fade-up d1">
+        <article class="play-card r-common" id="card-1">
+          <span class="rarity-badge rb-common" data-i18n="r-common">MISSION FLASH</span>
+          <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-flame"/></svg></div>
+          <div class="pc-head">
+            <div class="pc-name" data-i18n="s1-name">L'ÉTINCELLE</div>
+            <div class="pc-tagline" data-i18n="s1-tag">Diagnostic Flash</div>
+          </div>
+          <ul class="pc-features">
+            <li><span class="cf-arrow">→</span><span data-i18n="s1-f1">Session visio 90 min — Red Flags</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s1-f2">Compte-rendu livré sous 48h</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s1-f3">Priorisation des actions immédiates</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s1-f4">Idéal avant un lancement ou salon</span></li>
+          </ul>
+          <div class="pc-price" data-i18n="s1-price">650€</div>
+          <div class="pc-stats">
+            <div class="cs"><div class="cs-val">90min</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
+            <div class="cs"><div class="cs-val" data-i18n="cs-visio">Visio</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
+          </div>
+          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver →</span></a>
+        </article>
+      </div>
+
+      <!-- Card 2 — Le Réalignement (CAMPAGNE) -->
+      <div class="card-wrap fade-up d2">
+        <article class="play-card r-rare" id="card-2">
+          <span class="rarity-badge rb-rare" data-i18n="r-rare">CAMPAGNE</span>
+          <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-zap"/></svg></div>
+          <div class="pc-head">
+            <div class="pc-name" data-i18n="s2-name">LE RÉALIGNEMENT</div>
+            <div class="pc-tagline" data-i18n="s2-tag">Accompagnement Mensuel</div>
+          </div>
+          <ul class="pc-features">
+            <li><span class="cf-arrow">→</span><span data-i18n="s2-f1">4 sessions de travail / mois</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s2-f2">Suivi stratégique hebdomadaire</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s2-f3">Revue des KPIs et ajustements</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s2-f4">Accès Slack prioritaire</span></li>
+          </ul>
+          <div class="pc-price" data-i18n="s2-price-full">2 200€ – 3 500€</div>
+          <div class="pc-stats">
+            <div class="cs"><div class="cs-val" data-i18n="cs-1mo">1 mois</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
+            <div class="cs"><div class="cs-val" data-i18n="cs-mensuel">Mensuel</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
+          </div>
+          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver →</span></a>
+        </article>
+      </div>
+
+      <!-- Card 3 — Le Lancement (RAID) -->
+      <div class="card-wrap fade-up d3">
+        <article class="play-card r-epic" id="card-3">
+          <span class="rarity-badge rb-epic" data-i18n="r-epic">RAID</span>
+          <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-target"/></svg></div>
+          <div class="pc-head">
+            <div class="pc-name" data-i18n="s3-name">LE LANCEMENT</div>
+            <div class="pc-tagline" data-i18n="s3-tag">Projet Ponctuel</div>
+          </div>
+          <ul class="pc-features">
+            <li><span class="cf-arrow">→</span><span data-i18n="s3-f1">Planification et rétroplanning</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s3-f2">Coordination équipes &amp; prestataires</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s3-f3">Gestion on-site si besoin</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s3-f4">Bilan post-événement</span></li>
+          </ul>
+          <div class="pc-price" data-i18n="cs-sur-devis">Sur Devis</div>
+          <div class="pc-stats">
+            <div class="cs"><div class="cs-val" data-i18n="cs-proj">Projet</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
+            <div class="cs"><div class="cs-val" data-i18n="cs-ponct">Ponctuel</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
+          </div>
+          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver →</span></a>
+        </article>
+      </div>
+
+      <!-- Card 4 — Le Bras Droit (ALLIANCE) -->
+      <div class="card-wrap fade-up d4">
+        <div class="rec-tag" data-i18n="rec-tag">⭐ RECOMMANDÉ</div>
+        <article class="play-card r-legendary" id="card-4">
+          <span class="rarity-badge rb-legendary" data-i18n="r-legendary">✦ ALLIANCE</span>
+          <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-rocket"/></svg></div>
+          <div class="pc-head">
+            <div class="pc-name" data-i18n="s4-name">LE BRAS DROIT</div>
+            <div class="pc-tagline" data-i18n="s4-tag">Partenariat Opérationnel</div>
+          </div>
+          <ul class="pc-features">
+            <li><span class="cf-arrow">→</span><span data-i18n="s4-f1">Présence 3 jours / semaine</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s4-f2">Gestion comm, events et ops</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s4-f3">Coordination prestataires</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s4-f4">Reporting &amp; vision stratégique</span></li>
+          </ul>
+          <div class="pc-price" data-i18n="cs-sur-devis">Sur Devis</div>
+          <div class="pc-stats">
+            <div class="cs"><div class="cs-val" data-i18n="cs-ongoing">Ongoing</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
+            <div class="cs"><div class="cs-val" data-i18n="cs-3j">3j/sem</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
+          </div>
+          <a href="#contact" class="btn btn-grad btn-sm pc-cta"><svg class="icon icon-sm"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver →</span></a>
+        </article>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ RÉFÉRENCES ══════════ -->
+<section id="references">
+  <div class="container">
+    <p class="sec-label fade-up" data-i18n="ref-label">HALL OF FAME</p>
+    <h2 class="sec-title fade-up" data-i18n="ref-title">Ils m'ont fait confiance</h2>
+    <p class="sec-sub fade-up" data-i18n="ref-sub">Des studios qui ont choisi de déléguer pour mieux créer.</p>
+    <div class="hof-grid fade-up">
+      <div class="hof-card">
+        <div class="hof-logo"><img src="Icons/capitalgames.jpg" alt="Capital Game" loading="lazy"/></div>
+        <div class="hof-name">Capital Game</div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-logo"><img src="Icons/NTWU.jpg" alt="NTWU" loading="lazy"/></div>
+        <div class="hof-name">NTWU</div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-logo"><img src="Icons/institutfrancais.svg" alt="Institut français" loading="lazy"/></div>
+        <div class="hof-name">Institut<br>français</div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-logo" style="padding:8px"><img src="Icons/capcom.svg" alt="CAPCOM" loading="lazy" style="object-fit:contain"/></div>
+        <div class="hof-name">CAPCOM</div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-logo"><img src="Icons/oldskullgame.png" alt="Old Skull Games" loading="lazy"/></div>
+        <div class="hof-name">Old Skull</div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-logo"><img src="Icons/warningup_logo.jpg" alt="Warning Up" loading="lazy"/></div>
+        <div class="hof-name">Warning Up</div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-logo"><img src="Icons/Gamevestor.avif" alt="Gamevestor" loading="lazy"/></div>
+        <div class="hof-name">Gamevestor</div>
+      </div>
+    </div>
+    <div class="refs-stats fade-up">
+      <div class="refs-pill"><strong data-i18n="rp1n">30+</strong><span data-i18n="rp1l">Studios accompagnés</span></div>
+      <div class="refs-pill"><strong data-i18n="rp2n">8+</strong><span data-i18n="rp2l">Années d'expertise</span></div>
+      <div class="refs-pill"><strong data-i18n="rp3n">+1M€</strong><span data-i18n="rp3l">Budgets pilotés</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact">
+  <div class="container">
+    <p class="sec-label fade-up" data-i18n="con-label">CONTACT</p>
+    <h2 class="sec-title fade-up" data-i18n="con-title">Prenons rendez-vous</h2>
+    <div class="contact-grid">
+
+      <!-- Form -->
+      <div class="contact-card fade-up d1">
+        <div class="cc-title" data-i18n="f-title">Envoyez un message</div>
+        <div class="cc-sub" data-i18n="f-sub">Je réponds sous 24h · audit gratuit inclus</div>
+        <form id="con-form" action="https://formsubmit.co/meg.matesanz@gmail.com" method="POST" novalidate>
+          <div class="fg">
+            <label for="f-name" data-i18n="f-name-lbl">NOM *</label>
+            <input type="text" id="f-name" name="name" autocomplete="name" data-i18n-ph="ph-name" />
+            <div class="ferr" id="err-name" data-i18n="err-name">Ce champ est requis.</div>
+          </div>
+          <div class="fg">
+            <label for="f-email" data-i18n="f-email-lbl">EMAIL *</label>
+            <input type="email" id="f-email" name="email" autocomplete="email" data-i18n-ph="ph-email" />
+            <div class="ferr" id="err-email" data-i18n="err-email">Email invalide.</div>
+          </div>
+          <div class="fg">
+            <label for="f-studio" data-i18n="f-studio-lbl">STUDIO</label>
+            <input type="text" id="f-studio" name="studio" autocomplete="organization" data-i18n-ph="ph-studio" />
+          </div>
+          <div class="fg">
+            <label for="f-msg" data-i18n="f-msg-lbl">MESSAGE *</label>
+            <textarea id="f-msg" name="message" data-i18n-ph="ph-msg"></textarea>
+            <div class="ferr" id="err-msg" data-i18n="err-msg">Merci de décrire votre projet.</div>
+          </div>
+          <!-- FormSubmit config + honeypot anti-bot -->
+          <input type="hidden" name="_subject" value="Nouveau message via meg-mtb">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+          <button type="submit" class="f-submit" data-i18n="f-submit">Envoyer →</button>
+        </form>
+        <div class="f-error" id="f-error" data-i18n="f-err">⚠ Oups, l'envoi a échoué. Réessaie ou écris à meg.matesanz@gmail.com</div>
+        <div class="f-success" id="f-success" data-i18n="f-ok">✅ Message envoyé ! Je reviens vers vous sous 24h.</div>
+      </div>
+
+      <!-- Calendar -->
+      <div class="contact-card fade-up d2">
+        <div class="cc-title"><svg class="icon icon-md" style="margin-right:6px;color:var(--blue)"><use href="#i-calendar"/></svg><span data-i18n="cal-title">Réserver un créneau</span></div>
+        <div class="cc-sub" data-i18n="cal-sub">Jours ouvrés · Créneaux disponibles</div>
+        <div class="cal-month-row">
+          <button class="cal-nav" id="cal-prev">&#8592;</button>
+          <span id="cal-month-lbl"></span>
+          <button class="cal-nav" id="cal-next">&#8594;</button>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div id="slot-section">
+          <div class="slot-lbl">
+            <span data-i18n="slot-lbl">Horaire pour le</span>
+            <strong id="sel-date-lbl"></strong>
+          </div>
+          <div class="slots">
+            <div class="slot" data-t="10:00">10:00</div>
+            <div class="slot" data-t="10:30">10:30</div>
+            <div class="slot" data-t="11:00">11:00</div>
+            <div class="slot" data-t="11:30">11:30</div>
+            <div class="slot" data-t="14:30">14:30</div>
+            <div class="slot" data-t="15:00">15:00</div>
+            <div class="slot" data-t="16:30">16:30</div>
+            <div class="slot" data-t="17:00">17:00</div>
+          </div>
+        </div>
+        <div class="rdv-confirm" id="rdv-confirm">
+          <span data-i18n="rdv-prefix">🎉 Créneau :</span>
+          <strong id="rdv-txt"></strong><br>
+          <span style="font-size:.75rem;color:var(--dim)" data-i18n="rdv-note">Remplissez le formulaire pour confirmer.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ QUEST LOG ══════════ -->
+<aside id="quest-log" aria-label="Quest log">
+  <div class="ql-header" id="ql-header">
+    <span class="ql-title" data-i18n="ql-title">QUÊTES EN COURS</span>
+    <button class="ql-toggle" id="ql-toggle" aria-label="Toggle quest log">−</button>
+  </div>
+  <div class="ql-items" id="ql-items">
+    <div class="ql-item" data-quest="diag"><span class="ql-check">✓</span><span data-i18n="ql-diag">Lancer le diagnostic</span></div>
+    <div class="ql-item" data-quest="card"><span class="ql-check">✓</span><span data-i18n="ql-card">Explorer une classe</span></div>
+    <div class="ql-item" data-quest="slot"><span class="ql-check">✓</span><span data-i18n="ql-slot">Choisir un créneau</span></div>
+    <div class="ql-item" data-quest="form"><span class="ql-check">✓</span><span data-i18n="ql-form">Envoyer un message</span></div>
+  </div>
+</aside>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#hero" class="footer-logo">MEG <span class="grad">M.T.B.</span></a>
+      <div class="footer-links">
+        <a href="#diagnostic" data-i18n="nav-diag">Diagnostic</a>
+        <a href="#services"   data-i18n="nav-services">Services</a>
+        <a href="#references" data-i18n="nav-refs">Références</a>
+        <a href="#contact"    data-i18n="nav-contact">Contact</a>
+      </div>
+      <span class="footer-copy" data-i18n="footer-copy">© 2026 Meg M.T.B.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ JAVASCRIPT ══════════ -->
+<script>
+/* ── I18N ─────────────────────────────────────────────── */
+const T = {
+fr:{
+  'nav-diag':'Diagnostic','nav-services':'Services','nav-refs':'Références','nav-contact':'Contact','nav-cta':'Prendre RDV',
+  'hero-badge':'Partenaire Opérationnelle · Studios Indépendants',
+  'hero-h2':'YOUR STUDIO.',
+  'hero-sub':'8+ ans d\'expertise dédiée aux studios de jeux vidéo indépendants.<br>Je pilote comm, marketing, ops et événementiel — pour que vous puissiez créer.',
+  'hero-btn1':'Découvrir les offres →','hero-btn2':'Lancer le diagnostic',
+  'stat-xp':'ANNÉES XP','stat-clients':'CLIENTS','stat-budgets':'BUDGETS',
+  'diag-label':'DIAGNOSTIC DE STUDIO','diag-title':'Vous reconnaissez-vous ?',
+  'diag-sub':'Cliquez sur chaque situation qui vous parle. On calculera votre profil en direct.',
+  'p1-t':'Trop de logistique, pas assez de création',
+  'p2-t':'Ma communauté ne convertit pas au lancement',
+  'p3-t':'Mes investissements ne rentrent pas',
+  'p4-t':'Je manque de visibilité et de wishlist',
+  'p5-t':'Je ne sais pas par où commencer',
+  'p6-t':'Mon lancement approche et je ne suis pas prêt(e)',
+  'p1-h':'Boss : Burnout','p2-h':'Boss : Launch Fail','p3-h':'Boss : Budget Burn',
+  'p4-h':'Boss : Wishlist Drought','p5-h':'Boss : Overwhelm','p6-h':'Boss : Panic Mode',
+  'diag-score-lbl':'DÉFIS IDENTIFIÉS','diag-score-sub':'sur 6 possibles',
+  'diag-msg-0':'Aucun signal d\'alarme ? Parfois les blocages sont invisibles. Un audit gratuit ne coûte rien.',
+  'diag-msg-1':'Un ou deux points d\'attention. L\'Étincelle peut les clarifier en 90 minutes.',
+  'diag-msg-2':'Plusieurs blocages identifiés. Le Réalignement est fait pour toi.',
+  'diag-msg-3':'Niveau de difficulté élevé. Le Bras Droit change tout.',
+  'diag-cta-btn':'Voir la recommandation →',
+  'srv-label':'OFFRES','srv-title':'Choisissez votre classe',
+  'srv-sub':'Cliquez sur une carte pour découvrir le détail de l\'offre.',
+  'r-common':'MISSION FLASH','r-rare':'CAMPAGNE','r-epic':'RAID','r-legendary':'✦ ALLIANCE',
+  'rec-tag':'⭐ RECOMMANDÉ',
+  's1-name':'L\'ÉTINCELLE','s1-tag':'Diagnostic Flash','s1-price':'650€',
+  's1-f1':'Session visio 90 min — Red Flags','s1-f2':'Compte-rendu livré sous 48h',
+  's1-f3':'Priorisation des actions immédiates','s1-f4':'Idéal avant un lancement ou salon',
+  's2-name':'LE RÉALIGNEMENT','s2-tag':'Accompagnement Mensuel','s2-price':'2 200€+',
+  's2-price-full':'2 200€ – 3 500€',
+  's2-f1':'4 sessions de travail / mois','s2-f2':'Suivi stratégique hebdomadaire',
+  's2-f3':'Revue des KPIs et ajustements','s2-f4':'Accès Slack prioritaire',
+  's3-name':'LE LANCEMENT','s3-tag':'Projet Ponctuel',
+  's3-f1':'Planification et rétroplanning','s3-f2':'Coordination équipes & prestataires',
+  's3-f3':'Gestion on-site si besoin','s3-f4':'Bilan post-événement',
+  's4-name':'LE BRAS DROIT','s4-tag':'Partenariat Opérationnel',
+  's4-f1':'Présence 3 jours / semaine','s4-f2':'Gestion comm, events et ops',
+  's4-f3':'Coordination prestataires','s4-f4':'Reporting & vision stratégique',
+  'cs-dur':'Durée','cs-fmt':'Format','cs-prix':'Prix',
+  'cs-visio':'Visio','cs-1mo':'1 mois','cs-mensuel':'Mensuel',
+  'cs-proj':'Projet','cs-ponct':'Ponctuel','cs-devis':'Devis','cs-sur-devis':'Sur Devis',
+  'cs-ongoing':'Ongoing','cs-3j':'3j/sem',
+  'card-hint':'','card-book':'Réserver →',
+  'ref-label':'HALL OF FAME','ref-title':'Ils m\'ont fait confiance',
+  'ref-sub':'Des studios qui ont choisi de déléguer pour mieux créer.',
+  'rp1n':'30+','rp1l':'Studios accompagnés',
+  'rp2n':'8+','rp2l':'Années d\'expertise',
+  'rp3n':'+1M€','rp3l':'Budgets pilotés',
+  'con-label':'CONTACT','con-title':'Prenons rendez-vous',
+  'f-title':'Envoyez un message','f-sub':'Je réponds sous 24h · audit gratuit inclus',
+  'f-name-lbl':'NOM *','f-email-lbl':'EMAIL *','f-studio-lbl':'STUDIO','f-msg-lbl':'MESSAGE *',
+  'ph-name':'Jane Doe','ph-email':'jane@studio.com','ph-studio':'Indie Studio XYZ','ph-msg':'Décrivez votre projet...',
+  'f-submit':'Envoyer →','f-ok':'✅ Message envoyé ! Je reviens vers vous sous 24h.',
+  'f-err':'⚠ Oups, l\'envoi a échoué. Réessaie ou écris à meg.matesanz@gmail.com',
+  'err-name':'Ce champ est requis.','err-email':'Email invalide.','err-msg':'Merci de décrire votre projet.',
+  'cal-title':'Réserver un créneau','cal-sub':'Jours ouvrés · Créneaux disponibles',
+  'slot-lbl':'Horaire pour le','rdv-prefix':'🎉 Créneau :',
+  'rdv-note':'Remplissez le formulaire pour confirmer.',
+  'footer-copy':'© 2026 Meg M.T.B.',
+  'DAYS':['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],
+  'MONTHS':['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+  'lvl-up':'NIVEAU SUPÉRIEUR !',
+  'ql-title':'QUÊTES EN COURS',
+  'ql-diag':'Lancer le diagnostic','ql-card':'Explorer une classe',
+  'ql-slot':'Choisir un créneau','ql-form':'Envoyer un message',
+  'slot-prefix':'Créneau souhaité : ',
+  'rec-for-you':'RECOMMANDÉ POUR VOUS',
+},
+en:{
+  'nav-diag':'Diagnostic','nav-services':'Services','nav-refs':'References','nav-contact':'Contact','nav-cta':'Book a Call',
+  'hero-badge':'Operational Partner · Independent Studios',
+  'hero-h2':'YOUR STUDIO.',
+  'hero-sub':'8+ years of expertise dedicated to indie game studios.<br>I drive comms, marketing, ops and events — so you can focus on creating.',
+  'hero-btn1':'View services →','hero-btn2':'Run the diagnostic',
+  'stat-xp':'YEARS XP','stat-clients':'CLIENTS','stat-budgets':'BUDGETS',
+  'diag-label':'STUDIO DIAGNOSTIC','diag-title':'Does this sound like you?',
+  'diag-sub':'Click each situation that resonates. We\'ll calculate your profile in real time.',
+  'p1-t':'Too much logistics, not enough creation',
+  'p2-t':'My community doesn\'t convert at launch',
+  'p3-t':'My investments aren\'t paying off',
+  'p4-t':'I lack visibility and wishlists',
+  'p5-t':'I don\'t know where to start',
+  'p6-t':'My launch is coming and I\'m not ready',
+  'p1-h':'Boss: Burnout','p2-h':'Boss: Launch Fail','p3-h':'Boss: Budget Burn',
+  'p4-h':'Boss: Wishlist Drought','p5-h':'Boss: Overwhelm','p6-h':'Boss: Panic Mode',
+  'diag-score-lbl':'CHALLENGES IDENTIFIED','diag-score-sub':'out of 6',
+  'diag-msg-0':'No red flags? Blockers are often invisible. A free audit costs nothing.',
+  'diag-msg-1':'One or two pain points. The Spark can clarify them in 90 minutes.',
+  'diag-msg-2':'Multiple blockers identified. The Realignment is built for you.',
+  'diag-msg-3':'High difficulty level. The Right Hand changes everything.',
+  'diag-cta-btn':'See the recommendation →',
+  'srv-label':'SERVICES','srv-title':'Choose your class',
+  'srv-sub':'Click a card to see the full offer details.',
+  'r-common':'FLASH MISSION','r-rare':'CAMPAIGN','r-epic':'RAID','r-legendary':'✦ ALLIANCE',
+  'rec-tag':'⭐ RECOMMENDED',
+  's1-name':'THE SPARK','s1-tag':'Flash Diagnosis','s1-price':'€650',
+  's1-f1':'90-min video session — Red Flags','s1-f2':'Report delivered within 48h',
+  's1-f3':'Immediate action prioritization','s1-f4':'Ideal before a launch or trade show',
+  's2-name':'THE REALIGNMENT','s2-tag':'Monthly Support','s2-price':'€2,200+',
+  's2-price-full':'€2,200 – €3,500',
+  's2-f1':'4 work sessions / month','s2-f2':'Weekly strategic follow-up',
+  's2-f3':'KPI review and adjustments','s2-f4':'Priority Slack access',
+  's3-name':'THE LAUNCH','s3-tag':'One-off Project',
+  's3-f1':'Planning and back-schedule','s3-f2':'Teams & vendors coordination',
+  's3-f3':'On-site management if needed','s3-f4':'Post-event debrief',
+  's4-name':'THE RIGHT HAND','s4-tag':'Operational Partnership',
+  's4-f1':'Presence 3 days / week','s4-f2':'Comms, events and ops management',
+  's4-f3':'Vendor coordination','s4-f4':'Reporting & strategic vision',
+  'cs-dur':'Duration','cs-fmt':'Format','cs-prix':'Price',
+  'cs-visio':'Video','cs-1mo':'1 month','cs-mensuel':'Monthly',
+  'cs-proj':'Project','cs-ponct':'One-off','cs-devis':'Quote','cs-sur-devis':'Custom Quote',
+  'cs-ongoing':'Ongoing','cs-3j':'3d/wk',
+  'card-hint':'','card-book':'Book →',
+  'ref-label':'HALL OF FAME','ref-title':'They trusted me',
+  'ref-sub':'Studios that chose to delegate so they could create better.',
+  'rp1n':'30+','rp1l':'Studios served',
+  'rp2n':'8+','rp2l':'Years of expertise',
+  'rp3n':'+€1M','rp3l':'Budgets managed',
+  'con-label':'CONTACT','con-title':"Let's meet",
+  'f-title':'Send a message','f-sub':'I respond within 24h · free audit included',
+  'f-name-lbl':'NAME *','f-email-lbl':'EMAIL *','f-studio-lbl':'STUDIO','f-msg-lbl':'MESSAGE *',
+  'ph-name':'Jane Doe','ph-email':'jane@studio.com','ph-studio':'Indie Studio XYZ','ph-msg':'Describe your project...',
+  'f-submit':'Send →','f-ok':"✅ Message sent! I'll get back to you within 24h.",
+  'f-err':'⚠ Oops, sending failed. Try again or email meg.matesanz@gmail.com',
+  'err-name':'This field is required.','err-email':'Invalid email.','err-msg':'Please describe your project.',
+  'cal-title':'Book a slot','cal-sub':'Business days · Available slots',
+  'slot-lbl':'Time for','rdv-prefix':'🎉 Slot:',
+  'rdv-note':"Fill out the form to confirm.",
+  'footer-copy':'© 2026 Meg M.T.B.',
+  'DAYS':['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+  'MONTHS':['January','February','March','April','May','June','July','August','September','October','November','December'],
+  'lvl-up':'LEVEL UP!',
+  'ql-title':'ACTIVE QUESTS',
+  'ql-diag':'Run the diagnostic','ql-card':'Explore a class',
+  'ql-slot':'Pick a slot','ql-form':'Send a message',
+  'slot-prefix':'Preferred slot: ',
+  'rec-for-you':'RECOMMENDED FOR YOU',
+}};
+
+let lang = localStorage.getItem('lang') || 'fr';
+
+function applyLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  const d = T[l];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (d[k] !== undefined) el.innerHTML = d[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.dataset.i18nPh;
+    if (d[k] !== undefined) el.placeholder = d[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  // Refresh the "recommended" banner on any lifted card
+  const lifted = document.querySelector('.play-card.lifted');
+  if (lifted && d['rec-for-you']) lifted.setAttribute('data-rec-label', d['rec-for-you']);
+  buildCal();
+  localStorage.setItem('lang', l);
+}
+
+/* ── XP / GAMIFICATION ─────────────────────────────────────── */
+const XP_LEVELS = [0, 200, 500, 800, 1100, 1300];
+const XP_MAX = XP_LEVELS[XP_LEVELS.length - 1];
+let totalXP = 0;
+let xpLevel = 1;
+const quests = { diag:false, card:false, slot:false, form:false };
+const xpAwarded = { diag:new Set(), card:new Set() };
+
+function awardXP(amount, ev) {
+  totalXP = Math.min(XP_MAX, totalXP + amount);
+  const fill   = document.getElementById('xp-fill');
+  const count  = document.getElementById('xp-count');
+  const lvlLbl = document.getElementById('xp-level-lbl');
+  if (fill)  fill.style.width = ((totalXP / XP_MAX) * 100) + '%';
+  if (count) count.textContent = totalXP + ' XP';
+  const lvl = XP_LEVELS.filter(l => totalXP >= l).length;
+  if (lvl > xpLevel) {
+    xpLevel = lvl;
+    if (lvlLbl) lvlLbl.textContent = 'LVL ' + lvl;
+    const toast = document.getElementById('lvl-toast');
+    if (toast) {
+      toast.textContent = (T[lang]['lvl-up'] || 'LEVEL UP!') + ' — LVL ' + lvl;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+  }
+  // Floating "+XP" popup near the click
+  if (ev) {
+    const pop = document.createElement('div');
+    pop.className = 'xp-popup';
+    pop.textContent = '+' + amount + ' XP';
+    let x, y;
+    if (ev.clientX) { x = ev.clientX; y = ev.clientY - 10; }
+    else if (ev.target && ev.target.getBoundingClientRect) {
+      const r = ev.target.getBoundingClientRect();
+      x = r.left + r.width / 2; y = r.top + 10;
+    } else { x = window.innerWidth / 2; y = 120; }
+    pop.style.left = x + 'px';
+    pop.style.top  = y + 'px';
+    document.body.appendChild(pop);
+    setTimeout(() => pop.remove(), 1400);
+  }
+  // Reveal quest log on first XP
+  const ql = document.getElementById('quest-log');
+  if (ql && !ql.classList.contains('show')) ql.classList.add('show');
+}
+
+function completeQuest(name) {
+  if (quests[name]) return;
+  quests[name] = true;
+  const el = document.querySelector('.ql-item[data-quest="' + name + '"]');
+  if (el) el.classList.add('done');
+}
+
+// Header shadow on scroll (separate from XP)
+window.addEventListener('scroll', () => {
+  const h = document.getElementById('hdr');
+  if (h) h.style.boxShadow = window.scrollY > 40 ? '0 4px 28px rgba(0,0,0,.5)' : 'none';
+}, { passive: true });
+
+/* ── DIAGNOSTIC ─────────────────────────────────────── */
+const selected = new Set();
+document.querySelectorAll('.prob-tile').forEach(tile => {
+  tile.addEventListener('click', e => {
+    const i = +tile.dataset.idx;
+    if (selected.has(i)) { selected.delete(i); tile.classList.remove('selected'); }
+    else {
+      selected.add(i); tile.classList.add('selected');
+      if (!xpAwarded.diag.has(i)) {
+        xpAwarded.diag.add(i);
+        awardXP(50, e);
+      }
+    }
+    if (selected.size >= 1) completeQuest('diag');
+    updateDiag();
+  });
+});
+
+function updateDiag() {
+  const n = selected.size;
+  const scoreEl = document.getElementById('diag-score');
+  const msgEl   = document.getElementById('diag-msg');
+  const ctaEl   = document.getElementById('diag-cta');
+  const panel   = document.getElementById('diag-result');
+  if (scoreEl) scoreEl.textContent = n;
+  let mk, recCard;
+  if (n === 0)    { mk = 'diag-msg-0'; recCard = null; }
+  else if (n <= 2){ mk = 'diag-msg-1'; recCard = 'card-1'; }
+  else if (n <= 4){ mk = 'diag-msg-2'; recCard = 'card-2'; }
+  else            { mk = 'diag-msg-3'; recCard = 'card-4'; }
+  if (msgEl) msgEl.textContent = T[lang][mk] || '';
+  if (ctaEl) {
+    ctaEl.href = recCard ? '#' + recCard : '#contact';
+    ctaEl.dataset.recCard = recCard || '';
+  }
+  if (panel) panel.classList.toggle('visible', n > 0);
+  // Diagnostic engagé → le rec-tag statique se retire pour laisser la place à la reco perso
+  document.body.classList.toggle('diag-active', n > 0);
+}
+
+// CTA click → scroll pile sur la carte recommandée et "lift" Balatro
+const diagCtaEl = document.getElementById('diag-cta');
+if (diagCtaEl) {
+  diagCtaEl.addEventListener('click', e => {
+    const id = diagCtaEl.dataset.recCard;
+    if (!id) return; // 0 défi → fallback #contact (smooth scroll fait le job)
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const card = document.getElementById(id);
+    if (!card) return;
+    const target = card.closest('.card-wrap') || card;
+    const top = target.getBoundingClientRect().top + window.scrollY - 140;
+    window.scrollTo({ top, behavior:'smooth' });
+    setTimeout(() => liftCard(id), 600);
+  });
+}
+
+/* ── PLAY CARDS — view-based XP + lift effect ──────────── */
+// Award XP the first time each card enters viewport
+const cardObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const id = e.target.id;
+    if (id && !xpAwarded.card.has(id)) {
+      xpAwarded.card.add(id);
+      awardXP(100);
+    }
+    completeQuest('card');
+    cardObs.unobserve(e.target);
+  });
+}, { threshold: 0.45 });
+document.querySelectorAll('.play-card').forEach(c => cardObs.observe(c));
+
+// Balatro-style lift on the recommended card
+function liftCard(id) {
+  document.querySelectorAll('.play-card.lifted').forEach(c => {
+    c.classList.remove('lifted');
+    c.removeAttribute('data-rec-label');
+  });
+  const card = document.getElementById(id);
+  if (!card) return;
+  card.setAttribute('data-rec-label', T[lang]['rec-for-you'] || 'RECOMMENDED FOR YOU');
+  card.classList.add('lifted');
+}
+
+/* ── SCROLL ANIMATIONS ──────────────────────────────── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+/* ── SCROLL SPY ─────────────────────────────────────── */
+const navLinks = document.querySelectorAll('nav a[href^="#"]');
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting)
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+e.target.id));
+  });
+}, { threshold: 0.35 });
+document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+
+/* ── SMOOTH SCROLL ──────────────────────────────────── */
+const hdr = document.getElementById('hdr');
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id === '#') return;
+    const t = document.querySelector(id);
+    if (!t) return;
+    e.preventDefault();
+    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - hdr.offsetHeight - 8, behavior: 'smooth' });
+  });
+});
+
+/* ── MOBILE MENU ─────────────────────────────────────── */
+const nav  = document.getElementById('main-nav');
+const burg = document.getElementById('burger');
+burg.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  burg.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+nav.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
+  nav.classList.remove('open');
+  burg.setAttribute('aria-expanded', 'false');
+}));
+
+/* ── FORM ───────────────────────────────────────────── */
+function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function setErr(inputId, errId, show) {
+  document.getElementById(inputId).classList.toggle('err', show);
+  document.getElementById(errId).classList.toggle('show', show);
+  return !show;
+}
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/meg.matesanz@gmail.com';
+document.getElementById('con-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const name   = document.getElementById('f-name').value.trim();
+  const email  = document.getElementById('f-email').value.trim();
+  const studio = document.getElementById('f-studio').value.trim();
+  const msg    = document.getElementById('f-msg').value.trim();
+  const honey  = document.querySelector('#con-form [name="_honey"]')?.value || '';
+  const ok = [
+    setErr('f-name','err-name', name.length < 2),
+    setErr('f-email','err-email', !validEmail(email)),
+    setErr('f-msg','err-msg', msg.length < 10),
+  ].every(Boolean);
+  if (!ok) return;
+  if (honey) return; // bot trap — silent fail
+
+  const form = document.getElementById('con-form');
+  const errPanel = document.getElementById('f-error');
+  const okPanel  = document.getElementById('f-success');
+  const btn = form.querySelector('.f-submit');
+  const originalLabel = btn ? btn.textContent : '';
+  if (errPanel) errPanel.classList.remove('show');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = (lang === 'fr' ? 'Envoi…' : 'Sending…');
+  }
+
+  try {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name, email,
+        studio: studio || '—',
+        message: msg,
+        _subject: 'Nouveau message via meg-mtb — ' + name + (studio ? ' (' + studio + ')' : ''),
+        _template: 'table',
+        _captcha: 'false',
+      })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.success === 'false' || data.success === false) {
+      throw new Error(data.message || 'submission failed');
+    }
+    if (!quests.form) { awardXP(400); completeQuest('form'); }
+    form.style.display = 'none';
+    if (okPanel) okPanel.classList.add('show');
+  } catch (err) {
+    if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
+    if (errPanel) errPanel.classList.add('show');
+  }
+});
+['f-name','f-email','f-msg'].forEach(id => {
+  document.getElementById(id).addEventListener('input', e => {
+    e.target.classList.remove('err');
+    const err = document.getElementById('err-' + id.replace('f-',''));
+    if (err) err.classList.remove('show');
+  });
+});
+
+/* ── CALENDAR ─────────────────────────────────────────── */
+const today = new Date(); today.setHours(0,0,0,0);
+let calY = today.getFullYear(), calM = today.getMonth();
+let selDay = null;
+
+function buildCal() {
+  const grid  = document.getElementById('cal-grid');
+  const lbl   = document.getElementById('cal-month-lbl');
+  const prev  = document.getElementById('cal-prev');
+  const next  = document.getElementById('cal-next');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const d = T[lang];
+  if (lbl)  lbl.textContent = d['MONTHS'][calM] + ' ' + calY;
+  if (prev) prev.disabled = (calY === today.getFullYear() && calM === today.getMonth());
+
+  d['DAYS'].forEach(name => {
+    const h = document.createElement('div');
+    h.className = 'cal-hdr'; h.textContent = name;
+    grid.appendChild(h);
+  });
+
+  const first = new Date(calY, calM, 1);
+  const days  = new Date(calY, calM + 1, 0).getDate();
+  const off   = first.getDay() === 0 ? 6 : first.getDay() - 1;
+  for (let i = 0; i < off; i++) {
+    const e = document.createElement('div'); e.className = 'cal-day off'; grid.appendChild(e);
+  }
+
+  const slots    = document.getElementById('slot-section');
+  const selLbl   = document.getElementById('sel-date-lbl');
+  const rdvConf  = document.getElementById('rdv-confirm');
+
+  for (let d2 = 1; d2 <= days; d2++) {
+    const date = new Date(calY, calM, d2);
+    const dow  = date.getDay();
+    const past = date < today;
+    const wknd = dow === 0 || dow === 6;
+    const cell = document.createElement('div');
+    cell.textContent = d2;
+    if (wknd || past) {
+      cell.className = 'cal-day off';
+    } else {
+      cell.className = 'cal-day';
+      if (date.getTime() === today.getTime()) cell.classList.add('today');
+      cell.addEventListener('click', () => {
+        grid.querySelectorAll('.cal-day.sel').forEach(c => c.classList.remove('sel'));
+        cell.classList.add('sel'); selDay = cell;
+        const loc = lang === 'fr' ? 'fr-FR' : 'en-GB';
+        selLbl.textContent = date.toLocaleDateString(loc, { weekday:'long', day:'numeric', month:'long' });
+        slots.style.display = 'block';
+        document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
+        rdvConf.classList.remove('show');
+      });
+    }
+    grid.appendChild(cell);
+  }
+
+  document.querySelectorAll('.slot').forEach(slot => {
+    slot.onclick = (e) => {
+      document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
+      slot.classList.add('sel');
+      const sep = lang === 'fr' ? ' à ' : ' at ';
+      const txt = selLbl.textContent + sep + slot.dataset.t;
+      document.getElementById('rdv-txt').textContent = txt;
+      rdvConf.classList.add('show');
+      // Pré-remplit le champ message avec le créneau choisi
+      const msgField = document.getElementById('f-msg');
+      if (msgField) {
+        const prefix = T[lang]['slot-prefix'] || 'Slot: ';
+        const line = prefix + txt;
+        const existing = (msgField.value || '').replace(/^(Créneau souhaité|Preferred slot)[^\n]*\n+/m, '').trimStart();
+        msgField.value = existing ? (line + '\n\n' + existing) : (line + '\n\n');
+      }
+      if (!quests.slot) { awardXP(200, e); completeQuest('slot'); }
+    };
+  });
+}
+
+function resetCalSelection() {
+  selDay = null;
+  const slots   = document.getElementById('slot-section');
+  const rdvConf = document.getElementById('rdv-confirm');
+  if (slots)   slots.style.display = 'none';
+  if (rdvConf) rdvConf.classList.remove('show');
+  document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
+}
+document.getElementById('cal-prev').addEventListener('click', () => {
+  calM--; if (calM < 0) { calM = 11; calY--; }
+  resetCalSelection();
+  buildCal();
+});
+document.getElementById('cal-next').addEventListener('click', () => {
+  calM++; if (calM > 11) { calM = 0; calY++; }
+  resetCalSelection();
+  buildCal();
+});
+
+/* ── LANG BUTTONS ────────────────────────────────────── */
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+
+/* ── QUEST LOG TOGGLE ────────────────────────────────── */
+const qlHeader = document.getElementById('ql-header');
+const qlToggle = document.getElementById('ql-toggle');
+const qlPanel  = document.getElementById('quest-log');
+function toggleQL() {
+  if (!qlPanel) return;
+  const min = qlPanel.classList.toggle('minimized');
+  if (qlToggle) qlToggle.textContent = min ? '+' : '−';
+}
+if (qlHeader) qlHeader.addEventListener('click', toggleQL);
+if (qlToggle) qlToggle.addEventListener('click', e => { e.stopPropagation(); toggleQL(); });
+
+/* ── INIT ─────────────────────────────────────────────── */
+applyLang(lang);
+</script>
+</body>
+</html>
