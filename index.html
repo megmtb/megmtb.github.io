@@ -719,8 +719,8 @@ footer{
     <div class="diag-grid">
       <div class="prob-tile fade-up d1" data-idx="0">
         <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-clock"/></svg></div>
-        <div class="pt-title" data-i18n="p1-t">Trop de logistique, pas assez de création</div>
-        <div class="pt-handle" data-i18n="p1-h">Boss : Burnout</div>
+        <div class="pt-title" data-i18n="p1-t">Je communique mais ça ne donne rien.</div>
+        <div class="pt-handle" data-i18n="p1-h">Boss : Ghost Mode</div>
         <div class="pt-check">✓</div>
       </div>
       <div class="prob-tile fade-up d2" data-idx="1">
@@ -731,8 +731,8 @@ footer{
       </div>
       <div class="prob-tile fade-up d3" data-idx="2">
         <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-coins"/></svg></div>
-        <div class="pt-title" data-i18n="p3-t">Mes investissements ne rentrent pas</div>
-        <div class="pt-handle" data-i18n="p3-h">Boss : Budget Burn</div>
+        <div class="pt-title" data-i18n="p3-t">Ma communication ne reflète pas la qualité de mon jeu.</div>
+        <div class="pt-handle" data-i18n="p3-h">Boss : Brand mismatch</div>
         <div class="pt-check">✓</div>
       </div>
       <div class="prob-tile fade-up d1" data-idx="3">
@@ -935,7 +935,7 @@ footer{
       <div class="contact-card fade-up d1">
         <div class="cc-title" data-i18n="f-title">Envoyez un message</div>
         <div class="cc-sub" data-i18n="f-sub">Je réponds sous 24h · audit gratuit inclus</div>
-        <form id="con-form" action="https://formsubmit.co/meg.matesanz@gmail.com" method="POST" novalidate>
+        <form id="con-form" novalidate>
           <div class="fg">
             <label for="f-name" data-i18n="f-name-lbl">NOM *</label>
             <input type="text" id="f-name" name="name" autocomplete="name" data-i18n-ph="ph-name" />
@@ -955,12 +955,8 @@ footer{
             <textarea id="f-msg" name="message" data-i18n-ph="ph-msg"></textarea>
             <div class="ferr" id="err-msg" data-i18n="err-msg">Merci de décrire votre projet.</div>
           </div>
-          <!-- FormSubmit config + honeypot anti-bot -->
-          <input type="hidden" name="_subject" value="Nouveau message via meg-mtb">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" id="form-next" value="" />
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+          <!-- Honeypot anti-bot (champ invisible) -->
+          <input type="text" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
           <button type="submit" class="f-submit" data-i18n="f-submit">Envoyer →</button>
         </form>
         <div class="f-error" id="f-error" data-i18n="f-err">⚠ Oups, l'envoi a échoué. Réessaie ou écris à meg.matesanz@gmail.com</div>
@@ -1047,13 +1043,13 @@ fr:{
   'stat-xp':'ANNÉES XP','stat-clients':'CLIENTS','stat-budgets':'BUDGETS',
   'diag-label':'DIAGNOSTIC DE STUDIO','diag-title':'Vous reconnaissez-vous ?',
   'diag-sub':'Cliquez sur chaque situation qui vous parle. On calculera votre profil en direct.',
-  'p1-t':'Trop de logistique, pas assez de création',
+  'p1-t':'Je communique mais ça ne donne rien.',
   'p2-t':'Ma communauté ne convertit pas au lancement',
-  'p3-t':'Mes investissements ne rentrent pas',
+  'p3-t':'Ma communication ne reflète pas la qualité de mon jeu.',
   'p4-t':'Je manque de visibilité et de wishlist',
   'p5-t':'Je ne sais pas par où commencer',
   'p6-t':'Mon lancement approche et je ne suis pas prêt(e)',
-  'p1-h':'Boss : Burnout','p2-h':'Boss : Launch Fail','p3-h':'Boss : Budget Burn',
+  'p1-h':'Boss : Ghost Mode','p2-h':'Boss : Launch Fail','p3-h':'Boss : Brand mismatch',
   'p4-h':'Boss : Wishlist Drought','p5-h':'Boss : Overwhelm','p6-h':'Boss : Panic Mode',
   'diag-score-lbl':'DÉFIS IDENTIFIÉS','diag-score-sub':'sur 6 possibles',
   'diag-msg-0':'Aucun signal d\'alarme ? Parfois les blocages sont invisibles. Un audit gratuit ne coûte rien.',
@@ -1117,13 +1113,13 @@ en:{
   'stat-xp':'YEARS XP','stat-clients':'CLIENTS','stat-budgets':'BUDGETS',
   'diag-label':'STUDIO DIAGNOSTIC','diag-title':'Does this sound like you?',
   'diag-sub':'Click each situation that resonates. We\'ll calculate your profile in real time.',
-  'p1-t':'Too much logistics, not enough creation',
+  'p1-t':'My outreach goes nowhere.',
   'p2-t':'My community doesn\'t convert at launch',
-  'p3-t':'My investments aren\'t paying off',
+  'p3-t':'My comms don\'t reflect my game\'s quality.',
   'p4-t':'I lack visibility and wishlists',
   'p5-t':'I don\'t know where to start',
   'p6-t':'My launch is coming and I\'m not ready',
-  'p1-h':'Boss: Burnout','p2-h':'Boss: Launch Fail','p3-h':'Boss: Budget Burn',
+  'p1-h':'Boss: Ghost Mode','p2-h':'Boss: Launch Fail','p3-h':'Boss: Brand Mismatch',
   'p4-h':'Boss: Wishlist Drought','p5-h':'Boss: Overwhelm','p6-h':'Boss: Panic Mode',
   'diag-score-lbl':'CHALLENGES IDENTIFIED','diag-score-sub':'out of 6',
   'diag-msg-0':'No red flags? Blockers are often invisible. A free audit costs nothing.',
@@ -1394,40 +1390,63 @@ function setErr(inputId, errId, show) {
   document.getElementById(errId).classList.toggle('show', show);
   return !show;
 }
-// Submit natif vers FormSubmit (zéro CORS) + redirection retour via _next
-// On garde la validation client : si invalide, preventDefault. Sinon laisse partir.
-const conForm = document.getElementById('con-form');
-const formNext = document.getElementById('form-next');
-if (formNext) formNext.value = location.origin + location.pathname + '?sent=1#contact';
+// === Web3Forms ===
+// Remplace la valeur ci-dessous par la clé d'accès récupérée sur web3forms.com
+// (après confirmation par mail de meg.matesanz@gmail.com)
+const WEB3FORMS_KEY = 'REMPLACE-MOI-PAR-LA-CLE-WEB3FORMS';
 
-conForm.addEventListener('submit', e => {
+const conForm = document.getElementById('con-form');
+
+conForm.addEventListener('submit', async e => {
+  e.preventDefault();
   const name   = document.getElementById('f-name').value.trim();
   const email  = document.getElementById('f-email').value.trim();
+  const studio = document.getElementById('f-studio').value.trim();
   const msg    = document.getElementById('f-msg').value.trim();
-  const honey  = document.querySelector('#con-form [name="_honey"]')?.value || '';
+  const honey  = document.querySelector('#con-form [name="botcheck"]')?.value || '';
   const ok = [
     setErr('f-name','err-name', name.length < 2),
     setErr('f-email','err-email', !validEmail(email)),
     setErr('f-msg','err-msg', msg.length < 10),
   ].every(Boolean);
-  if (!ok || honey) {
-    e.preventDefault();
-    return;
-  }
-  // Validation OK → on laisse le navigateur faire le POST natif vers FormSubmit.
-  // FormSubmit renverra vers _next ( = ?sent=1#contact) une fois le mail envoyé.
-  const btn = conForm.querySelector('.f-submit');
-  if (btn) { btn.disabled = true; btn.textContent = (lang === 'fr' ? 'Envoi…' : 'Sending…'); }
-});
+  if (!ok || honey) return;
 
-// Au chargement : si on revient de FormSubmit avec ?sent=1, on affiche le succès
-if (new URLSearchParams(location.search).get('sent') === '1') {
-  conForm.style.display = 'none';
-  document.getElementById('f-success').classList.add('show');
-  if (!quests.form) { awardXP(400); completeQuest('form'); }
-  // Nettoie l'URL pour ne pas reshow le succès au refresh
-  history.replaceState(null, '', location.pathname + '#contact');
-}
+  const errPanel = document.getElementById('f-error');
+  const okPanel  = document.getElementById('f-success');
+  const btn = conForm.querySelector('.f-submit');
+  const originalLabel = btn ? btn.textContent : '';
+  if (errPanel) errPanel.classList.remove('show');
+  if (btn) { btn.disabled = true; btn.textContent = (lang === 'fr' ? 'Envoi…' : 'Sending…'); }
+
+  try {
+    const data = new FormData();
+    data.set('access_key', WEB3FORMS_KEY);
+    data.set('name', name);
+    data.set('email', email);
+    data.set('studio', studio || '—');
+    data.set('message', msg);
+    data.set('subject', 'Nouveau message via meg-mtb — ' + name + (studio ? ' (' + studio + ')' : ''));
+    data.set('from_name', 'meg-mtb · ' + name);
+    data.set('botcheck', honey);
+
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    });
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok || !json.success) {
+      throw new Error(json.message || ('HTTP ' + res.status));
+    }
+    if (!quests.form) { awardXP(400); completeQuest('form'); }
+    conForm.style.display = 'none';
+    if (okPanel) okPanel.classList.add('show');
+  } catch (err) {
+    console.error('[con-form] échec Web3Forms:', err);
+    if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
+    if (errPanel) errPanel.classList.add('show');
+  }
+});
 ['f-name','f-email','f-msg'].forEach(id => {
   document.getElementById(id).addEventListener('input', e => {
     e.target.classList.remove('err');
