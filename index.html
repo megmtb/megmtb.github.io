@@ -333,6 +333,19 @@ nav a:hover,nav a.active{color:var(--blue)}
 .pc-name{font-size:1.15rem;font-weight:700;line-height:1.15;letter-spacing:-.01em}
 .pc-tagline{font-size:.78rem;color:var(--muted)}
 
+/* Description (paragraphe d'intro avant la liste des livrables) */
+.pc-desc{
+  font-size:.88rem;line-height:1.6;
+  color:rgba(255,255,255,.82);
+  margin:2px 0 2px;
+  padding-left:12px;
+  border-left:3px solid var(--border);
+}
+.r-common .pc-desc{border-left-color:rgba(122,133,149,.5)}
+.r-rare .pc-desc{border-left-color:rgba(115,165,202,.55)}
+.r-epic .pc-desc{border-left-color:rgba(232,127,36,.55)}
+.r-legendary .pc-desc{border-left-color:rgba(255,200,30,.55)}
+
 /* Features */
 .pc-features{display:flex;flex-direction:column;gap:6px;margin-top:2px}
 .pc-features li{
@@ -789,13 +802,14 @@ footer{
             <div class="pc-name" data-i18n="s1-name">L'ÉTINCELLE</div>
             <div class="pc-tagline" data-i18n="s1-tag">Diagnostic Flash</div>
           </div>
+          <p class="pc-desc" data-i18n="s1-desc">Un flou persiste sur vos décisions marketing. Cette session reformule le vrai problème avant toute proposition. Avant d'investir, un appel pour vérifier qu'on résout le bon problème.</p>
           <ul class="pc-features">
-            <li><span class="cf-arrow">→</span><span data-i18n="s1-f1">Session visio 90 min — Red Flags</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s1-f1">Session visio 90 min</span></li>
             <li><span class="cf-arrow">→</span><span data-i18n="s1-f2">Compte-rendu livré sous 48h</span></li>
             <li><span class="cf-arrow">→</span><span data-i18n="s1-f3">Priorisation des actions immédiates</span></li>
             <li><span class="cf-arrow">→</span><span data-i18n="s1-f4">Idéal avant un lancement ou salon</span></li>
           </ul>
-          <div class="pc-price" data-i18n="s1-price">650€</div>
+          <div class="pc-price" data-i18n="s1-price">400€</div>
           <div class="pc-stats">
             <div class="cs"><div class="cs-val">90min</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
             <div class="cs"><div class="cs-val" data-i18n="cs-visio">Visio</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
@@ -813,11 +827,12 @@ footer{
             <div class="pc-name" data-i18n="s2-name">LE RÉALIGNEMENT</div>
             <div class="pc-tagline" data-i18n="s2-tag">Accompagnement Mensuel</div>
           </div>
+          <p class="pc-desc" data-i18n="s2-desc">Votre page Steam est en ligne, vos réseaux actifs depuis plusieurs mois. Les wishlists stagnent et le trafic ne suit pas. On identifie ce qui coince avant que vous n'investissiez davantage.</p>
           <ul class="pc-features">
-            <li><span class="cf-arrow">→</span><span data-i18n="s2-f1">4 sessions de travail / mois</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s2-f2">Suivi stratégique hebdomadaire</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s2-f3">Revue des KPIs et ajustements</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s2-f4">Accès Slack prioritaire</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s2-f1">Audit complet de votre page Steam et de vos supports</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s2-f2">Identification des points de friction qui freinent la conversion</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s2-f3">Plan d'action classé par impact, applicable sans intermédiaire</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s2-f4">Suivi et ajustements de votre stratégie</span></li>
           </ul>
           <div class="pc-price" data-i18n="s2-price-full">2 200€ – 3 500€</div>
           <div class="pc-stats">
@@ -837,11 +852,12 @@ footer{
             <div class="pc-name" data-i18n="s3-name">LE LANCEMENT</div>
             <div class="pc-tagline" data-i18n="s3-tag">Projet Ponctuel</div>
           </div>
+          <p class="pc-desc" data-i18n="s3-desc">La date approche et il y a mille choses à coordonner en dehors du dev. On prend en charge tout ce qui entoure la sortie pour que vous puissiez rester concentré sur votre jeu.</p>
           <ul class="pc-features">
             <li><span class="cf-arrow">→</span><span data-i18n="s3-f1">Planification et rétroplanning</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s3-f2">Coordination équipes &amp; prestataires</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s3-f3">Gestion on-site si besoin</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s3-f4">Bilan post-événement</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s3-f2">Coordination presse, partenaires et prestataires</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s3-f3">Gestion opérationnelle jusqu'au jour J</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s3-f4">Reporting &amp; vision stratégique</span></li>
           </ul>
           <div class="pc-price" data-i18n="cs-sur-devis">Sur Devis</div>
           <div class="pc-stats">
@@ -852,21 +868,22 @@ footer{
         </article>
       </div>
 
-      <!-- Card 4 — Le Bras Droit (ALLIANCE) -->
+      <!-- Card 4 — L'Alliance (ALLIANCE) -->
       <div class="card-wrap fade-up d4">
         <div class="rec-tag" data-i18n="rec-tag">⭐ RECOMMANDÉ</div>
         <article class="play-card r-legendary" id="card-4">
           <span class="rarity-badge rb-legendary" data-i18n="r-legendary">✦ ALLIANCE</span>
           <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-rocket"/></svg></div>
           <div class="pc-head">
-            <div class="pc-name" data-i18n="s4-name">LE BRAS DROIT</div>
+            <div class="pc-name" data-i18n="s4-name">L'ALLIANCE</div>
             <div class="pc-tagline" data-i18n="s4-tag">Partenariat Opérationnel</div>
           </div>
+          <p class="pc-desc" data-i18n="s4-desc">Le marketing vous prend un temps que vous n'avez pas, sur des décisions que vous ne devriez pas prendre seul en parallèle du dev. On devient votre binôme stratégique et opérationnel.</p>
           <ul class="pc-features">
-            <li><span class="cf-arrow">→</span><span data-i18n="s4-f1">Présence 3 jours / semaine</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s4-f2">Gestion comm, events et ops</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s4-f3">Coordination prestataires</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s4-f4">Reporting &amp; vision stratégique</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s4-f1">Pilotage de votre comm, des events et des ops</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s4-f2">Coordination des prestataires et suivi des priorités</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s4-f3">Présence régulière pour ne jamais perdre le fil</span></li>
+            <li><span class="cf-arrow">→</span><span data-i18n="s4-f4">Vision long terme : du lancement au post-lancement</span></li>
           </ul>
           <div class="pc-price" data-i18n="cs-sur-devis">Sur Devis</div>
           <div class="pc-stats">
@@ -1065,29 +1082,33 @@ fr:{
   'diag-msg-0':'Aucun signal d\'alarme ? Parfois les blocages sont invisibles. Un audit gratuit ne coûte rien.',
   'diag-msg-1':'Un ou deux points d\'attention. L\'Étincelle peut les clarifier en 90 minutes.',
   'diag-msg-2':'Plusieurs blocages identifiés. Le Réalignement est fait pour toi.',
-  'diag-msg-3':'Niveau de difficulté élevé. Le Bras Droit change tout.',
+  'diag-msg-3':'Niveau de difficulté élevé. L\'Alliance change tout.',
   'diag-cta-btn':'Voir la recommandation →',
   'srv-label':'OFFRES','srv-title':'Choisissez votre classe',
   'srv-sub':'Cliquez sur une carte pour découvrir le détail de l\'offre.',
   'r-common':'MISSION FLASH','r-rare':'CAMPAGNE','r-epic':'RAID','r-legendary':'✦ ALLIANCE',
   'rec-tag':'⭐ RECOMMANDÉ',
-  's1-name':'L\'ÉTINCELLE','s1-tag':'Diagnostic Flash','s1-price':'650€',
-  's1-f1':'Session visio 90 min — Red Flags','s1-f2':'Compte-rendu livré sous 48h',
+  's1-name':'L\'ÉTINCELLE','s1-tag':'Diagnostic Flash','s1-price':'400€',
+  's1-desc':'Un flou persiste sur vos décisions marketing. Cette session reformule le vrai problème avant toute proposition. Avant d\'investir, un appel pour vérifier qu\'on résout le bon problème.',
+  's1-f1':'Session visio 90 min','s1-f2':'Compte-rendu livré sous 48h',
   's1-f3':'Priorisation des actions immédiates','s1-f4':'Idéal avant un lancement ou salon',
   's2-name':'LE RÉALIGNEMENT','s2-tag':'Accompagnement Mensuel','s2-price':'2 200€+',
   's2-price-full':'2 200€ – 3 500€',
-  's2-f1':'4 sessions de travail / mois','s2-f2':'Suivi stratégique hebdomadaire',
-  's2-f3':'Revue des KPIs et ajustements','s2-f4':'Accès Slack prioritaire',
+  's2-desc':'Votre page Steam est en ligne, vos réseaux actifs depuis plusieurs mois. Les wishlists stagnent et le trafic ne suit pas. On identifie ce qui coince avant que vous n\'investissiez davantage.',
+  's2-f1':'Audit complet de votre page Steam et de vos supports','s2-f2':'Identification des points de friction qui freinent la conversion',
+  's2-f3':'Plan d\'action classé par impact, applicable sans intermédiaire','s2-f4':'Suivi et ajustements de votre stratégie',
   's3-name':'LE LANCEMENT','s3-tag':'Projet Ponctuel',
-  's3-f1':'Planification et rétroplanning','s3-f2':'Coordination équipes & prestataires',
-  's3-f3':'Gestion on-site si besoin','s3-f4':'Bilan post-événement',
-  's4-name':'LE BRAS DROIT','s4-tag':'Partenariat Opérationnel',
-  's4-f1':'Présence 3 jours / semaine','s4-f2':'Gestion comm, events et ops',
-  's4-f3':'Coordination prestataires','s4-f4':'Reporting & vision stratégique',
+  's3-desc':'La date approche et il y a mille choses à coordonner en dehors du dev. On prend en charge tout ce qui entoure la sortie pour que vous puissiez rester concentré sur votre jeu.',
+  's3-f1':'Planification et rétroplanning','s3-f2':'Coordination presse, partenaires et prestataires',
+  's3-f3':'Gestion opérationnelle jusqu\'au jour J','s3-f4':'Reporting & vision stratégique',
+  's4-name':'L\'ALLIANCE','s4-tag':'Partenariat Opérationnel',
+  's4-desc':'Le marketing vous prend un temps que vous n\'avez pas, sur des décisions que vous ne devriez pas prendre seul en parallèle du dev. On devient votre binôme stratégique et opérationnel.',
+  's4-f1':'Pilotage de votre comm, des events et des ops','s4-f2':'Coordination des prestataires et suivi des priorités',
+  's4-f3':'Présence régulière pour ne jamais perdre le fil','s4-f4':'Vision long terme : du lancement au post-lancement',
   'cs-dur':'Durée','cs-fmt':'Format','cs-prix':'Prix',
-  'cs-visio':'Visio','cs-1mo':'1 mois','cs-mensuel':'Mensuel',
-  'cs-proj':'Projet','cs-ponct':'Ponctuel','cs-devis':'Devis','cs-sur-devis':'Sur Devis',
-  'cs-ongoing':'Ongoing','cs-3j':'3j/sem',
+  'cs-visio':'Visio','cs-1mo':'1 mois','cs-mensuel':'Mensuel · Bilan inclus',
+  'cs-proj':'Durée selon projet','cs-ponct':'Sur mesure','cs-devis':'Devis','cs-sur-devis':'Sur Devis',
+  'cs-ongoing':'Durée selon projet','cs-3j':'Sur mesure',
   'card-hint':'','card-book':'Réserver →',
   'ref-label':'HALL OF FAME','ref-title':'Ils m\'ont fait confiance',
   'ref-sub':'Des studios qui ont choisi de déléguer pour mieux créer.',
@@ -1135,29 +1156,33 @@ en:{
   'diag-msg-0':'No red flags? Blockers are often invisible. A free audit costs nothing.',
   'diag-msg-1':'One or two pain points. The Spark can clarify them in 90 minutes.',
   'diag-msg-2':'Multiple blockers identified. The Realignment is built for you.',
-  'diag-msg-3':'High difficulty level. The Right Hand changes everything.',
+  'diag-msg-3':'High difficulty level. The Alliance changes everything.',
   'diag-cta-btn':'See the recommendation →',
   'srv-label':'SERVICES','srv-title':'Choose your class',
   'srv-sub':'Click a card to see the full offer details.',
   'r-common':'FLASH MISSION','r-rare':'CAMPAIGN','r-epic':'RAID','r-legendary':'✦ ALLIANCE',
   'rec-tag':'⭐ RECOMMENDED',
-  's1-name':'THE SPARK','s1-tag':'Flash Diagnosis','s1-price':'€650',
-  's1-f1':'90-min video session — Red Flags','s1-f2':'Report delivered within 48h',
+  's1-name':'THE SPARK','s1-tag':'Flash Diagnosis','s1-price':'€400',
+  's1-desc':'There\'s fog around your marketing decisions. This session reframes the real problem before any proposal. Before you invest, a call to make sure we\'re solving the right thing.',
+  's1-f1':'90-min video session','s1-f2':'Report delivered within 48h',
   's1-f3':'Immediate action prioritization','s1-f4':'Ideal before a launch or trade show',
   's2-name':'THE REALIGNMENT','s2-tag':'Monthly Support','s2-price':'€2,200+',
   's2-price-full':'€2,200 – €3,500',
-  's2-f1':'4 work sessions / month','s2-f2':'Weekly strategic follow-up',
-  's2-f3':'KPI review and adjustments','s2-f4':'Priority Slack access',
+  's2-desc':'Your Steam page is live, your channels have been active for months. Wishlists are flatlining and traffic isn\'t following. We pinpoint what\'s stuck before you spend more.',
+  's2-f1':'Full audit of your Steam page and supporting assets','s2-f2':'Identify friction points blocking conversion',
+  's2-f3':'Action plan ranked by impact, ready to apply without a middleman','s2-f4':'Follow-up and strategy adjustments',
   's3-name':'THE LAUNCH','s3-tag':'One-off Project',
-  's3-f1':'Planning and back-schedule','s3-f2':'Teams & vendors coordination',
-  's3-f3':'On-site management if needed','s3-f4':'Post-event debrief',
-  's4-name':'THE RIGHT HAND','s4-tag':'Operational Partnership',
-  's4-f1':'Presence 3 days / week','s4-f2':'Comms, events and ops management',
-  's4-f3':'Vendor coordination','s4-f4':'Reporting & strategic vision',
+  's3-desc':'The date is coming and there are a thousand things to coordinate outside of dev. We handle everything around the release so you can stay focused on your game.',
+  's3-f1':'Planning and back-schedule','s3-f2':'Press, partners and vendor coordination',
+  's3-f3':'Operational management through release day','s3-f4':'Reporting & strategic vision',
+  's4-name':'THE ALLIANCE','s4-tag':'Operational Partnership',
+  's4-desc':'Marketing eats time you don\'t have, on decisions you shouldn\'t make alone while shipping. We become your strategic and operational partner.',
+  's4-f1':'Run your comms, events and ops','s4-f2':'Vendor coordination and priority tracking',
+  's4-f3':'Regular presence so you never lose the thread','s4-f4':'Long-term vision: from launch to post-launch',
   'cs-dur':'Duration','cs-fmt':'Format','cs-prix':'Price',
-  'cs-visio':'Video','cs-1mo':'1 month','cs-mensuel':'Monthly',
-  'cs-proj':'Project','cs-ponct':'One-off','cs-devis':'Quote','cs-sur-devis':'Custom Quote',
-  'cs-ongoing':'Ongoing','cs-3j':'3d/wk',
+  'cs-visio':'Video','cs-1mo':'1 month','cs-mensuel':'Monthly · Report included',
+  'cs-proj':'Project-based','cs-ponct':'Custom','cs-devis':'Quote','cs-sur-devis':'Custom Quote',
+  'cs-ongoing':'Project-based','cs-3j':'Custom',
   'card-hint':'','card-book':'Book →',
   'ref-label':'HALL OF FAME','ref-title':'They trusted me',
   'ref-sub':'Studios that chose to delegate so they could create better.',
