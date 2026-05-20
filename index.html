@@ -986,7 +986,9 @@ footer{
           <input type="text" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
           <button type="submit" class="f-submit" data-i18n="f-submit">Envoyer →</button>
         </form>
-        <div class="f-error" id="f-error" data-i18n="f-err">⚠ Oups, l'envoi a échoué. Réessaie ou écris à contact@megmtb.com</div>
+        <div class="f-error" id="f-error">
+          <span data-i18n="f-err">⚠ Oups, l'envoi a échoué. Réessaie ou écris à </span><span class="email-cloak" data-u="contact" data-d="megmtb" data-t="com"></span>
+        </div>
         <div class="f-success" id="f-success" data-i18n="f-ok">✅ Message envoyé ! Je reviens vers vous sous 24h.</div>
       </div>
 
@@ -1120,7 +1122,7 @@ fr:{
   'f-name-lbl':'NOM *','f-email-lbl':'EMAIL *','f-studio-lbl':'STUDIO','f-msg-lbl':'MESSAGE *',
   'ph-name':'Jane Doe','ph-email':'jane@studio.com','ph-studio':'Indie Studio XYZ','ph-msg':'Décrivez votre projet...',
   'f-submit':'Envoyer →','f-ok':'✅ Message envoyé ! Je reviens vers vous sous 24h.',
-  'f-err':'⚠ Oups, l\'envoi a échoué. Réessaie ou écris à contact@megmtb.com',
+  'f-err':'⚠ Oups, l\'envoi a échoué. Réessaie ou écris à ',
   'err-name':'Ce champ est requis.','err-email':'Email invalide.','err-msg':'Merci de décrire votre projet.',
   'cal-title':'Réserver un créneau','cal-sub':'Jours ouvrés · Créneaux disponibles',
   'slot-lbl':'Horaire pour le','rdv-prefix':'🎉 Créneau :',
@@ -1194,7 +1196,7 @@ en:{
   'f-name-lbl':'NAME *','f-email-lbl':'EMAIL *','f-studio-lbl':'STUDIO','f-msg-lbl':'MESSAGE *',
   'ph-name':'Jane Doe','ph-email':'jane@studio.com','ph-studio':'Indie Studio XYZ','ph-msg':'Describe your project...',
   'f-submit':'Send →','f-ok':"✅ Message sent! I'll get back to you within 24h.",
-  'f-err':'⚠ Oops, sending failed. Try again or email contact@megmtb.com',
+  'f-err':'⚠ Oops, sending failed. Try again or email ',
   'err-name':'This field is required.','err-email':'Invalid email.','err-msg':'Please describe your project.',
   'cal-title':'Book a slot','cal-sub':'Business days · Available slots',
   'slot-lbl':'Time for','rdv-prefix':'🎉 Slot:',
@@ -1426,8 +1428,7 @@ function setErr(inputId, errId, show) {
   return !show;
 }
 // === Web3Forms ===
-// Remplace la valeur ci-dessous par la clé d'accès récupérée sur web3forms.com
-// (après confirmation par mail de meg.matesanz@gmail.com)
+// Clé d'accès récupérée sur web3forms.com (associée à la mailbox de Meg)
 const WEB3FORMS_KEY = '3e998051-e9b8-4a0a-aec4-6f0168ae5cec';
 
 const conForm = document.getElementById('con-form');
@@ -1602,6 +1603,19 @@ function toggleQL() {
 }
 if (qlHeader) qlHeader.addEventListener('click', toggleQL);
 if (qlToggle) qlToggle.addEventListener('click', e => { e.stopPropagation(); toggleQL(); });
+
+/* ── EMAIL CLOAK — reconstruction runtime, anti-scrapers ───── */
+document.querySelectorAll('.email-cloak').forEach(el => {
+  const u = el.dataset.u, d = el.dataset.d, t = el.dataset.t;
+  if (!u || !d || !t) return;
+  // String.fromCharCode(64) = '@'  →  pas de '@' littéral dans le source JS
+  const addr = u + String.fromCharCode(64) + d + '.' + t;
+  const a = document.createElement('a');
+  a.href = 'mailto:' + addr;
+  a.textContent = addr;
+  a.style.color = 'inherit';
+  el.appendChild(a);
+});
 
 /* ── INIT ─────────────────────────────────────────────── */
 applyLang(lang);
