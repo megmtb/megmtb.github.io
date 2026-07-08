@@ -600,6 +600,40 @@ footer{
   100%{opacity:0;transform:translate(-50%,-50px) scale(1)}
 }
 
+/* ── COOKIE INFO BANNER ─────────────────────────────────── */
+.cookie-banner{
+  position:fixed;bottom:16px;left:50%;
+  transform:translateX(-50%) translateY(150%);
+  background:rgba(13,13,24,.95);backdrop-filter:blur(14px);
+  border:1px solid var(--b2);border-radius:100px;
+  padding:8px 8px 8px 20px;
+  display:none;align-items:center;gap:14px;
+  font-size:.75rem;color:var(--muted);line-height:1.4;
+  z-index:995;max-width:calc(100% - 32px);
+  box-shadow:0 10px 28px rgba(0,0,0,.5);
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+}
+.cookie-banner.show{display:flex;transform:translateX(-50%) translateY(0)}
+.cb-text{flex:1;min-width:0}
+.cb-btn{
+  background:var(--o);color:#fff;
+  border:none;border-radius:100px;
+  padding:7px 20px;font-size:.72rem;font-weight:700;
+  cursor:pointer;transition:filter .15s;
+  white-space:nowrap;letter-spacing:.03em;
+}
+.cb-btn:hover{filter:brightness(1.1)}
+@media(max-width:640px){
+  .cookie-banner{
+    left:12px;right:12px;transform:translateY(150%);
+    border-radius:14px;padding:12px 14px;
+    flex-direction:column;align-items:stretch;gap:10px;text-align:center;
+    max-width:none;
+  }
+  .cookie-banner.show{transform:translateY(0)}
+  .cb-btn{width:100%}
+}
+
 /* ── QUEST LOG ─────────────────────────────────── */
 #quest-log{
   position:fixed;bottom:18px;right:18px;
@@ -1039,6 +1073,12 @@ footer{
   </div>
 </section>
 
+<!-- ══════════ COOKIE INFO BANNER ══════════ -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+  <span class="cb-text" data-i18n="cb-text">Ce site utilise Google Analytics pour mesurer son audience. En continuant, tu acceptes.</span>
+  <button id="cookie-ok" class="cb-btn" data-i18n="cb-ok">OK</button>
+</div>
+
 <!-- ══════════ QUEST LOG ══════════ -->
 <aside id="quest-log" aria-label="Quest log">
   <div class="ql-header" id="ql-header">
@@ -1146,6 +1186,8 @@ fr:{
   'ql-slot':'Choisir un créneau','ql-form':'Envoyer un message',
   'slot-prefix':'Créneau souhaité : ',
   'rec-for-you':'RECOMMANDÉ POUR VOUS',
+  'cb-text':'Ce site utilise Google Analytics pour mesurer son audience. En continuant, tu acceptes.',
+  'cb-ok':'OK',
 },
 en:{
   'nav-diag':'Diagnostic','nav-services':'Services','nav-refs':'References','nav-contact':'Contact','nav-cta':'Book a Call',
@@ -1220,6 +1262,8 @@ en:{
   'ql-slot':'Pick a slot','ql-form':'Send a message',
   'slot-prefix':'Preferred slot: ',
   'rec-for-you':'RECOMMENDED FOR YOU',
+  'cb-text':'This site uses Google Analytics to measure audience. By continuing, you accept.',
+  'cb-ok':'OK',
 }};
 
 let lang = localStorage.getItem('lang') || 'fr';
@@ -1613,6 +1657,22 @@ function toggleQL() {
 }
 if (qlHeader) qlHeader.addEventListener('click', toggleQL);
 if (qlToggle) qlToggle.addEventListener('click', e => { e.stopPropagation(); toggleQL(); });
+
+/* ── COOKIE INFO BANNER — persistance localStorage ───── */
+(function() {
+  const KEY = 'cookie-ack-v1';
+  const bar = document.getElementById('cookie-banner');
+  if (!bar) return;
+  if (!localStorage.getItem(KEY)) {
+    // Petit délai pour laisser le page peindre avant le slide-in
+    setTimeout(() => bar.classList.add('show'), 600);
+  }
+  document.getElementById('cookie-ok')?.addEventListener('click', () => {
+    localStorage.setItem(KEY, String(Date.now()));
+    bar.classList.remove('show');
+    setTimeout(() => { bar.style.display = 'none'; }, 500);
+  });
+})();
 
 /* ── EMAIL CLOAK — reconstruction runtime, anti-scrapers ───── */
 document.querySelectorAll('.email-cloak').forEach(el => {
