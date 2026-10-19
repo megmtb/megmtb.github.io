@@ -3,16 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meg M.T.B. — Partenaire Opérationnelle</title>
+  <title>Meg M.T.B. | Partenaire opérationnelle des studios indépendants</title>
   <meta name="description" content="8+ ans d'expertise pour piloter votre comm, marketing, ops et événementiel. Studios de jeux vidéo indépendants." />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J6J8FDWQBG"></script>
+  <meta name="theme-color" content="#08080f" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- JS actif : les animations d'apparition ne masquent le contenu que si le script tourne -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Google Analytics : chargé UNIQUEMENT après consentement explicite (bannière cookies, voir fin de page) -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-J6J8FDWQBG');
+    window.loadAnalytics = function () {
+      if (window.__gaLoaded) return;
+      window.__gaLoaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-J6J8FDWQBG';
+      document.head.appendChild(s);
+      gtag('js', new Date());
+      gtag('config', 'G-J6J8FDWQBG');
+    };
+    try { if (localStorage.getItem('cookie-consent-v2') === 'granted') window.loadAnalytics(); } catch (e) {}
   </script>
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -22,10 +36,20 @@
   <style>
 /* ── RESET ─────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:104px;color-scheme:dark}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer}
 ul{list-style:none}
+
+/* ── ACCESSIBILITÉ ─────────────────────────────────── */
+:focus-visible{outline:2px solid var(--cream);outline-offset:3px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{
+  position:absolute;left:16px;top:-60px;z-index:2000;
+  background:var(--cream);color:#000;font-weight:700;font-size:.9rem;
+  padding:10px 16px;border-radius:var(--r);transition:top .2s;
+}
+.skip-link:focus{top:12px}
 
 /* ── TOKENS ─────────────────────────────────────────── */
 :root{
@@ -37,15 +61,15 @@ ul{list-style:none}
   --border:  rgba(255,255,255,0.08);
   --b2:      rgba(255,255,255,0.15);
   /* Palette personnalisée : orange / jaune / bleu / crème */
-  --v:       #73A5CA;  /* bleu — début de gradient (remplace l'ancien violet) */
-  --o:       #E87F24;  /* orange — fin de gradient, accent chaud */
-  --mint:    #FFC81E;  /* jaune — XP, succès, quêtes (ex-vert mint) */
-  --gold:    #FFC81E;  /* jaune — légendaire / premium */
-  --blue:    #73A5CA;  /* bleu — info, nav active, liens */
-  --cream:   #FEFDDF;  /* crème — accents doux, highlights texte */
+  --v:       #73A5CA;  /* bleu : début de gradient (remplace l'ancien violet) */
+  --o:       #E87F24;  /* orange : fin de gradient, accent chaud */
+  --mint:    #FFC81E;  /* jaune : XP, succès, quêtes (ex-vert mint) */
+  --gold:    #FFC81E;  /* jaune : légendaire / premium */
+  --blue:    #73A5CA;  /* bleu : info, nav active, liens */
+  --cream:   #FEFDDF;  /* crème : accents doux, highlights texte */
   --txt:     #ffffff;
   --muted:   #8a93a3;
-  --dim:     rgba(255,255,255,0.38);
+  --dim:     rgba(255,255,255,0.62);
   --font:    'Space Grotesk',system-ui,sans-serif;
   --r:       10px;
   --rl:      18px;
@@ -64,8 +88,8 @@ body{
 
 /* ── UTILITIES ─────────────────────────────────────── */
 .grad{color:var(--o)}
-.fade-up{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease}
-.fade-up.visible{opacity:1;transform:none}
+.js .fade-up{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease}
+.js .fade-up.visible{opacity:1;transform:none}
 .d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
 
 /* ── ICONS (Lucide-style sprite) ─────────────────────────── */
@@ -83,16 +107,16 @@ body{
 .btn{
   display:inline-flex;align-items:center;gap:8px;
   padding:13px 22px;border:none;border-radius:var(--r);
-  font-family:var(--font);font-size:.9rem;font-weight:700;
-  cursor:pointer;transition:.2s;white-space:nowrap;
+  font-family:var(--font);font-size:1rem;font-weight:700;
+  cursor:pointer;transition:transform .2s,opacity .2s,filter .2s,background-color .2s,border-color .2s;white-space:nowrap;
 }
-.btn-grad{background:var(--o);color:#fff}
+.btn-grad{background:var(--o);color:#08080f}
 .btn-grad:hover{opacity:.88;transform:translateY(-2px)}
 .btn-ghost{background:var(--surface);border:1px solid var(--b2);color:#fff}
 .btn-ghost:hover{background:var(--s2);transform:translateY(-2px)}
-.btn-mint{background:var(--mint);color:#000}
+.btn-mint{background:var(--o);color:#08080f}
 .btn-mint:hover{filter:brightness(1.1);transform:translateY(-2px)}
-.btn-sm{padding:9px 16px;font-size:.82rem}
+.btn-sm{padding:9px 16px;font-size:.875rem}
 
 /* ── HEADER ─────────────────────────────────────── */
 #hdr{
@@ -107,7 +131,7 @@ body{
 }
 .logo{font-size:1rem;font-weight:700;letter-spacing:.06em;white-space:nowrap}
 nav{display:flex;align-items:center;gap:24px}
-nav a{font-size:.82rem;font-weight:600;color:var(--muted);transition:color .2s}
+nav a{font-size:.875rem;font-weight:600;color:var(--muted);transition:color .2s}
 nav a:hover,nav a.active{color:var(--blue)}
 .lang-toggle{
   display:flex;align-items:center;
@@ -117,17 +141,17 @@ nav a:hover,nav a.active{color:var(--blue)}
 .lang-btn{
   padding:4px 11px;border-radius:100px;border:none;
   background:transparent;color:var(--muted);
-  font-size:.75rem;font-weight:700;transition:.2s;
+  font-size:.75rem;font-weight:700;transition:background-color .2s,color .2s;
 }
-.lang-btn.active{background:var(--blue);color:#fff}
+.lang-btn.active{background:var(--blue);color:#08080f}
 
 /* XP BAR */
 .xp-row{
   display:flex;align-items:center;gap:10px;
-  padding:5px 28px 6px;border-top:1px solid var(--border);
-  background:rgba(8,8,15,.6);
+  padding:5px 28px 6px;
+  background:transparent;
 }
-.xp-label{font-size:.68rem;font-weight:700;color:var(--mint);letter-spacing:.08em;white-space:nowrap}
+.xp-label{font-size:.8125rem;font-weight:700;color:var(--mint);letter-spacing:.08em;white-space:nowrap}
 .xp-track{
   flex:1;height:5px;background:rgba(255,255,255,.08);
   border-radius:100px;overflow:hidden;
@@ -137,24 +161,25 @@ nav a:hover,nav a.active{color:var(--blue)}
   background:var(--mint);
   border-radius:100px;transition:width .3s ease;
 }
-.xp-count{font-size:.68rem;font-weight:700;color:var(--muted);white-space:nowrap;min-width:60px;text-align:right}
+.xp-count{font-size:.8125rem;font-weight:700;color:var(--muted);white-space:nowrap;min-width:60px;text-align:right}
 
 /* Mobile burger */
 .burger{
   display:none;flex-direction:column;gap:5px;
   background:none;border:none;padding:4px;
 }
-.burger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+.burger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .3s,opacity .3s}
 
 /* ── LEVELUP TOAST ─────────────────────────────────── */
 #lvl-toast{
   position:fixed;top:100px;left:50%;transform:translateX(-50%) translateY(-20px);
   background:var(--o);
-  color:#fff;font-weight:800;font-size:.95rem;
+  color:#08080f;font-weight:800;font-size:.95rem;
   padding:10px 28px;border-radius:100px;
   opacity:0;pointer-events:none;z-index:9999;
   transition:opacity .3s,transform .3s;
   letter-spacing:.05em;
+  white-space:nowrap;max-width:calc(100% - 32px);
 }
 #lvl-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -166,14 +191,6 @@ nav a:hover,nav a.active{color:var(--blue)}
   text-align:center;position:relative;overflow:hidden;
   background:var(--bg);
 }
-/* Grid texture (purement décorative — lignes 1px) */
-#hero::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(115,165,202,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(115,165,202,.04) 1px,transparent 1px);
-  background-size:56px 56px;
-}
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--surface);border:1px solid var(--b2);
@@ -182,72 +199,72 @@ nav a:hover,nav a.active{color:var(--blue)}
   letter-spacing:.06em;margin-bottom:28px;position:relative;z-index:1;
 }
 .hero-badge::before{content:'▶';color:var(--mint);font-size:.6rem}
+.hero-title{margin-bottom:28px;text-wrap:balance}
 .hero-h1{
-  font-size:clamp(3rem,8vw,7rem);font-weight:700;
+  display:block;font-size:clamp(3rem,8vw,7rem);font-weight:700;
   line-height:1.0;position:relative;z-index:1;margin-bottom:4px;
   letter-spacing:-.02em;
 }
 .hero-h2{
   font-size:clamp(3rem,8vw,7rem);font-weight:700;
-  line-height:1.0;position:relative;z-index:1;margin-bottom:28px;
+  display:block;line-height:1.0;position:relative;z-index:1;
   letter-spacing:-.02em;
   color:transparent;
   -webkit-text-stroke:2px rgba(255,255,255,.55);
 }
 .hero-sub{
-  font-size:1rem;color:var(--muted);line-height:1.7;
-  max-width:500px;margin-bottom:36px;position:relative;z-index:1;
+  font-size:1.125rem;color:rgba(255,255,255,.86);line-height:1.6;
+  max-width:560px;text-wrap:balance;margin-bottom:36px;position:relative;z-index:1;
 }
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:56px;position:relative;z-index:1}
 .hero-stats{
-  display:flex;gap:0;position:relative;z-index:1;
-  border:1px solid var(--border);border-radius:var(--rl);
-  background:var(--surface);overflow:hidden;
+  display:flex;gap:40px;position:relative;z-index:1;flex-wrap:wrap;justify-content:center;
 }
 .h-stat{
   display:flex;align-items:center;gap:10px;
-  padding:16px 28px;
-  border-right:1px solid var(--border);
+  padding:0;text-align:left;
 }
-.h-stat:last-child{border-right:none}
 .h-stat-icon{font-size:1.3rem}
-.h-stat-num{font-size:1.4rem;font-weight:700;line-height:1}
-.h-stat-lbl{font-size:.62rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.h-stat-num{font-size:1.75rem;font-weight:700;line-height:1}
+.h-stat-lbl{font-size:.875rem;font-weight:500;color:var(--muted);margin-top:4px}
+
+section[id]{scroll-margin-top:96px}
 
 /* ── DIAGNOSTIC ─────────────────────────────────── */
 #diagnostic{
-  padding:80px 0;background:var(--bg2);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:120px 0;background:var(--bg2);
 }
 .sec-label{
-  display:inline-block;font-size:.68rem;font-weight:700;
+  display:inline-block;font-size:.72rem;font-weight:700;
   color:var(--mint);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;
 }
-.sec-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;margin-bottom:10px}
-.sec-sub{font-size:.95rem;color:var(--muted);max-width:520px;margin-bottom:40px;line-height:1.65}
+.sec-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;margin-bottom:10px;text-wrap:balance}
+.sec-sub{font-size:1.0625rem;color:rgba(255,255,255,.78);max-width:560px;margin-bottom:48px;line-height:1.6}
 
-.diag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.diag-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:28px}
 .prob-tile{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--rl);padding:20px 18px;
-  cursor:pointer;transition:border-color .2s,background .2s,transform .15s;
+  background:var(--s2);border:1px solid transparent;
+  border-radius:var(--rl);padding:22px 20px;
+  cursor:pointer;transition:border-color .2s,background-color .2s,transform .15s;
   position:relative;user-select:none;
+  display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;
+  width:100%;text-align:left;font-family:inherit;color:inherit;
 }
-.prob-tile:hover{border-color:var(--b2);background:var(--s2);transform:translateY(-2px)}
+.prob-tile:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
 .prob-tile.selected{
   border-color:var(--v);background:rgba(115,165,202,.1);
   box-shadow:0 0 0 1px var(--v);
 }
 .prob-tile.selected .pt-check{opacity:1;transform:scale(1)}
-.pt-icon{font-size:1.6rem;margin-bottom:10px}
-.pt-title{font-size:.88rem;font-weight:700;margin-bottom:4px;line-height:1.3}
-.pt-handle{font-size:.72rem;color:var(--dim)}
+.pt-icon{display:block;font-size:1.6rem;margin-bottom:10px}
+.pt-title{display:block;font-size:1rem;font-weight:700;margin-bottom:4px;line-height:1.3}
+.pt-handle{display:block;font-size:.8125rem;color:var(--dim)}
 .pt-check{
   position:absolute;top:12px;right:12px;
   width:20px;height:20px;border-radius:50%;
   background:var(--v);display:flex;align-items:center;justify-content:center;
   font-size:.6rem;color:#fff;
-  opacity:0;transform:scale(.5);transition:.2s;
+  opacity:0;transform:scale(.5);transition:opacity .2s,transform .2s;
 }
 
 /* Result panel */
@@ -264,11 +281,11 @@ nav a:hover,nav a.active{color:var(--blue)}
   color:var(--o);
   line-height:1;
 }
-.diag-score-lbl{font-size:.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.diag-score-lbl{font-size:.875rem;color:#fff;font-weight:600}
 .diag-msg{font-size:.95rem;color:#fff;line-height:1.55;max-width:440px}
 
 /* ── SERVICES ─────────────────────────────────────── */
-#services{padding:80px 0;background:var(--bg)}
+#services{padding:120px 0;background:var(--bg)}
 .services-sub{font-size:.88rem;color:var(--muted);margin-bottom:10px}
 
 .cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-bottom:52px;padding-top:18px}
@@ -292,23 +309,18 @@ nav a:hover,nav a.active{color:var(--blue)}
 .r-epic{border-color:rgba(232,127,36,.55);background:var(--bg3)}
 .r-legendary{border-color:var(--gold);background:var(--bg3)}
 
-/* Lift state — Balatro-style emphasis on the recommended card */
+/* Lift state : Balatro-style emphasis on the recommended card */
 .play-card.lifted{
   transform:translateY(-18px) scale(1.025);
-  box-shadow:0 32px 60px rgba(0,0,0,.55),0 0 50px var(--lift-glow,rgba(115,165,202,.45));
+  box-shadow:0 28px 48px rgba(0,0,0,.5);
 }
-.r-common.lifted{--lift-glow:rgba(122,133,149,.35)}
-.r-rare.lifted{--lift-glow:rgba(115,165,202,.55)}
-.r-epic.lifted{--lift-glow:rgba(232,127,36,.55)}
-.r-legendary.lifted{--lift-glow:rgba(255,200,30,.55);animation:none}
 .play-card.lifted::after{
   content:attr(data-rec-label);
   position:absolute;top:-16px;left:50%;transform:translateX(-50%);
   background:var(--mint);
-  color:#000;font-size:.74rem;font-weight:900;
-  letter-spacing:.14em;padding:8px 20px;border-radius:100px;
+  color:#000;font-size:.8125rem;font-weight:800;
+  letter-spacing:.08em;padding:8px 20px;border-radius:100px;
   text-transform:uppercase;white-space:nowrap;
-  box-shadow:0 10px 28px rgba(255,200,30,.55),0 0 32px rgba(255,200,30,.35);
   animation:recpulse 2.4s ease-in-out infinite;
 }
 @keyframes recpulse{
@@ -318,8 +330,8 @@ nav a:hover,nav a.active{color:var(--blue)}
 
 /* Top: rarity badge */
 .rarity-badge{
-  display:inline-block;font-size:.58rem;font-weight:800;
-  letter-spacing:.14em;padding:4px 11px;border-radius:100px;width:fit-content;
+  display:inline-block;font-size:.8125rem;font-weight:800;
+  letter-spacing:.08em;padding:4px 11px;border-radius:100px;width:fit-content;
 }
 .rb-common{background:rgba(122,133,149,.2);color:#a0aaba;border:1px solid rgba(122,133,149,.35)}
 .rb-rare{background:rgba(115,165,202,.18);color:#73A5CA;border:1px solid rgba(115,165,202,.4)}
@@ -340,12 +352,12 @@ nav a:hover,nav a.active{color:var(--blue)}
 
 /* Name + tagline */
 .pc-head{display:flex;flex-direction:column;gap:2px}
-.pc-name{font-size:1.15rem;font-weight:700;line-height:1.15;letter-spacing:-.01em}
-.pc-tagline{font-size:.78rem;color:var(--muted)}
+.pc-name{font-size:1.375rem;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+.pc-tagline{font-size:.875rem;color:var(--muted)}
 
 /* Description (paragraphe d'intro avant la liste des livrables) */
 .pc-desc{
-  font-size:.88rem;line-height:1.6;
+  font-size:1rem;line-height:1.6;max-width:62ch;
   color:rgba(255,255,255,.82);
   margin:2px 0 2px;
   padding-left:12px;
@@ -360,21 +372,22 @@ nav a:hover,nav a.active{color:var(--blue)}
 .pc-features{display:flex;flex-direction:column;gap:6px;margin-top:2px}
 .pc-features li{
   display:flex;align-items:flex-start;gap:8px;
-  font-size:.82rem;color:rgba(255,255,255,.84);line-height:1.45;
+  font-size:.9375rem;color:rgba(255,255,255,.86);line-height:1.5;
 }
-.cf-arrow{color:var(--o);font-weight:900;flex-shrink:0;line-height:1.45}
+.cf-arrow{flex-shrink:0;width:6px;height:6px;margin-top:.6em;border-radius:1px;background:currentColor;color:#a0aaba}
+.r-rare .cf-arrow{color:var(--blue)}.r-epic .cf-arrow{color:var(--o)}.r-legendary .cf-arrow{color:var(--gold)}
 
 /* Prominent price (par rareté) */
 .pc-price{
   font-size:1.75rem;font-weight:800;
   letter-spacing:-.01em;line-height:1;
   text-align:center;margin-top:auto;
-  text-shadow:0 0 18px currentColor;
 }
-.r-common .pc-price{color:var(--cream);text-shadow:none}
+.r-common .pc-price{color:var(--cream)}
 .r-rare .pc-price{color:var(--blue)}
 .r-epic .pc-price{color:var(--o)}
 .r-legendary .pc-price{color:var(--gold)}
+.pc-price[data-i18n="cs-sur-devis"]{font-size:1.25rem}
 
 /* Stats row (Durée + Format seulement, prix sorti au-dessus) */
 .pc-stats{
@@ -383,8 +396,8 @@ nav a:hover,nav a.active{color:var(--blue)}
 }
 .cs{flex:1;padding:9px 0;text-align:center;border-right:1px solid var(--border)}
 .cs:last-child{border-right:none}
-.cs-val{font-size:.85rem;font-weight:700;line-height:1;margin-bottom:3px}
-.cs-key{font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
+.cs-val{font-size:.875rem;font-weight:700;line-height:1;margin-bottom:3px}
+.cs-key{font-size:.8125rem;color:var(--muted);font-weight:500}
 
 /* CTA */
 .pc-cta{margin-top:2px;justify-content:center;width:100%}
@@ -394,9 +407,8 @@ nav a:hover,nav a.active{color:var(--blue)}
   position:absolute;top:-13px;left:50%;transform:translateX(-50%);
   background:var(--gold);
   border-radius:100px;padding:5px 16px;
-  font-size:.62rem;font-weight:800;color:#000;
-  white-space:nowrap;letter-spacing:.08em;z-index:2;
-  box-shadow:0 4px 14px rgba(0,0,0,.45);
+  font-size:.8125rem;font-weight:800;color:#000;
+  white-space:nowrap;letter-spacing:.06em;z-index:2;
   transition:opacity .25s ease;
 }
 /* Hide the static rec-tag dès qu'un défi est sélectionné au diagnostic */
@@ -404,36 +416,33 @@ body.diag-active .rec-tag{opacity:0;pointer-events:none}
 
 /* ── REFERENCES ─────────────────────────────────── */
 #references{
-  padding:80px 0;background:var(--bg2);color:var(--txt);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:120px 0;background:var(--bg2);color:var(--txt);
 }
-#references .sec-label{color:var(--mint)}
 #references .sec-title{color:#fff}
 #references .sec-sub{color:var(--muted)}
 .hof-grid{
-  display:grid;
-  grid-template-columns:repeat(9, 1fr);
-  gap:10px;margin-bottom:40px;
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:10px;
 }
 .hof-card{
+  flex:0 0 calc((100% - 90px) / 10);
   display:flex;flex-direction:column;align-items:center;gap:8px;
-  background:var(--surface);border:1px solid var(--border);
+  background:transparent;border:none;
   border-radius:var(--rl);padding:14px 8px;min-width:0;
   transition:transform .2s,border-color .2s,background .2s;
 }
-.hof-card:hover{transform:translateY(-3px);border-color:var(--b2);background:var(--s2)}
+.hof-card:hover{transform:translateY(-3px)}
 .hof-logo{
   width:60px;height:60px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;overflow:hidden;
   background:#fff;
-  box-shadow:0 0 0 1px rgba(255,255,255,.1);
 }
 .hof-logo img{
   width:100%;height:100%;
   object-fit:cover;display:block;
 }
-.hof-name{font-size:.74rem;font-weight:700;color:#fff;text-align:center;line-height:1.2}
+.hof-name{font-size:.8125rem;font-weight:700;color:#fff;text-align:center;line-height:1.2}
 .refs-stats{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 .refs-pill{
   display:flex;align-items:center;gap:8px;
@@ -444,36 +453,37 @@ body.diag-active .rec-tag{opacity:0;pointer-events:none}
 .refs-pill strong{font-size:1.1rem;color:var(--gold)}
 
 /* ── CONTACT ─────────────────────────────────────── */
-#contact{padding:80px 0;background:var(--bg3)}
+#contact{padding:120px 0;background:var(--bg3)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
 .contact-card{
-  background:var(--bg2);border:1px solid var(--border);
+  background:var(--bg2);border:none;
   border-radius:var(--rl);padding:32px;
 }
 .cc-title{font-size:1.1rem;font-weight:700;margin-bottom:4px}
-.cc-sub{font-size:.78rem;color:var(--muted);margin-bottom:24px}
+.cc-sub{font-size:.875rem;color:var(--muted);margin-bottom:24px}
 .fg{margin-bottom:16px}
 .fg label{
-  display:block;font-size:.65rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;
+  display:block;font-size:.875rem;font-weight:600;
+  color:rgba(255,255,255,.86);margin-bottom:6px;
 }
 .fg input,.fg textarea{
   width:100%;padding:11px 14px;
   background:rgba(255,255,255,.06);border:1px solid var(--border);
   border-radius:var(--r);color:#fff;font-family:var(--font);font-size:.88rem;
-  outline:none;transition:border-color .2s;
+  transition:border-color .2s;
 }
 .fg input:focus,.fg textarea:focus{border-color:var(--blue)}
+.fg input:focus-visible,.fg textarea:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
 .fg input.err,.fg textarea.err{border-color:#ff5b5b}
 .fg textarea{resize:vertical;min-height:90px}
-.fg input::placeholder,.fg textarea::placeholder{color:var(--dim);font-style:italic}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.5);font-style:italic}
 .ferr{font-size:.72rem;color:#ff5b5b;margin-top:4px;display:none}
 .ferr.show{display:block}
 .f-submit{
   width:100%;padding:13px;
-  background:var(--blue);border:none;border-radius:var(--r);
-  color:#fff;font-family:var(--font);font-size:.9rem;font-weight:700;cursor:pointer;
-  transition:.2s;
+  background:var(--o);border:none;border-radius:var(--r);
+  color:#08080f;font-family:var(--font);font-size:.9rem;font-weight:700;cursor:pointer;
+  transition:filter .2s,transform .2s,opacity .2s;
 }
 .f-submit:hover{filter:brightness(1.1);transform:translateY(-1px)}
 .f-success{
@@ -495,36 +505,38 @@ body.diag-active .rec-tag{opacity:0;pointer-events:none}
 .cal-nav{
   background:rgba(255,255,255,.07);border:1px solid var(--border);
   border-radius:var(--r);padding:6px 12px;font-size:.9rem;font-weight:900;
-  color:#fff;transition:.2s;
+  color:#fff;transition:background-color .2s,opacity .2s;
 }
 .cal-nav:hover{background:rgba(255,255,255,.12)}
 .cal-nav:disabled{opacity:.25;pointer-events:none}
 #cal-month-lbl{font-size:.9rem;font-weight:700}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
 .cal-hdr{
-  text-align:center;font-size:.6rem;font-weight:700;
-  color:var(--muted);text-transform:uppercase;padding:4px 0;
+  text-align:center;font-size:.8125rem;font-weight:600;
+  color:var(--muted);padding:4px 0;
 }
 .cal-day{
   aspect-ratio:1;display:flex;align-items:center;justify-content:center;
   border-radius:6px;font-size:.8rem;font-weight:600;
   cursor:pointer;border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.04);transition:.15s;
+  background:rgba(255,255,255,.04);transition:background-color .15s,border-color .15s;
+  font-family:inherit;color:inherit;padding:0;
 }
 .cal-day:hover{background:rgba(115,165,202,.2);border-color:var(--blue)}
 .cal-day.today{border-color:var(--blue);color:var(--blue)}
-.cal-day.sel{background:var(--blue);border-color:var(--blue);font-weight:700}
+.cal-day.sel{background:var(--blue);border-color:var(--blue);font-weight:700;color:#08080f}
 .cal-day.off{opacity:.18;pointer-events:none}
 #slot-section{display:none;margin-bottom:12px}
-.slot-lbl{font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:8px}
+.slot-lbl{font-size:.875rem;font-weight:600;color:var(--muted);margin-bottom:8px}
 .slots{display:flex;flex-wrap:wrap;gap:7px}
 .slot{
   padding:7px 14px;background:rgba(255,255,255,.05);
   border:1px solid rgba(255,255,255,.2);border-radius:var(--r);
-  font-size:.78rem;font-weight:600;cursor:pointer;transition:.15s;
+  font-size:.78rem;font-weight:600;cursor:pointer;transition:background-color .15s,border-color .15s;
+  font-family:inherit;color:inherit;
 }
 .slot:hover{background:rgba(115,165,202,.2);border-color:var(--blue)}
-.slot.sel{background:var(--blue);border-color:var(--blue)}
+.slot.sel{background:var(--blue);border-color:var(--blue);color:#08080f}
 .rdv-confirm{
   display:none;padding:12px 14px;
   background:rgba(115,165,202,.08);border:1px solid rgba(115,165,202,.2);
@@ -543,14 +555,16 @@ footer{
   flex-wrap:wrap;gap:16px;
 }
 .footer-logo{font-size:.88rem;font-weight:700}
-.footer-links{display:flex;gap:20px}
-.footer-links a{font-size:.78rem;color:var(--muted);transition:color .2s}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px 20px}
+.footer-links a{font-size:.875rem;color:var(--muted);transition:color .2s}
 .footer-links a:hover{color:#fff}
 .footer-copy{font-size:.72rem;color:var(--muted)}
+.footer-cookie{background:none;border:none;padding:0;font-size:.875rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.footer-cookie:hover{color:#fff}
 
 /* ── RESPONSIVE ─────────────────────────────────── */
 @media(max-width:960px){
-  .diag-grid{grid-template-columns:repeat(2,1fr)}
+  .diag-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cards-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
 }
@@ -565,23 +579,35 @@ footer{
   nav a{padding:12px 24px;font-size:.95rem}
   .burger{display:flex}
   .hdr-top{gap:8px}
-  .hdr-cta{padding:7px 11px;font-size:.7rem}
+  .hdr-cta{padding:7px 11px;font-size:.72rem}
   .lang-btn{padding:3px 8px;font-size:.68rem}
-  .hero-stats{flex-direction:column;width:100%;max-width:320px}
-  .h-stat{border-right:none;border-bottom:1px solid var(--border)}
-  .h-stat:last-child{border-bottom:none}
-  .hof-grid{grid-template-columns:repeat(5, 1fr);gap:10px}
+  .hero-stats{gap:20px 28px}
+  .h-stat-icon{display:none}
+  .h-stat{text-align:center;display:block}
+  #diagnostic,#services,#references,#contact{padding:72px 0}
+  .hof-card{flex-basis:calc((100% - 40px) / 5)}
   .hof-card{padding:14px 8px}
   .xp-row{padding:5px 20px 6px}
 }
-@media(max-width:380px){
+@media(max-width:360px){
+  .diag-grid{grid-template-columns:1fr}
+}
+@media(max-width:340px){
   .lang-toggle{display:none}
-  .hdr-cta{padding:6px 9px;font-size:.65rem}
+  .logo{font-size:.9rem}
+  .hdr-cta{padding:6px 9px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .diag-grid{grid-template-columns:1fr 1fr}
+  .container{padding:0 16px}
+  .xp-row{padding:5px 16px 6px}
+  #hero{padding-left:16px;padding-right:16px}
+  .logo{letter-spacing:.02em}
+  #lvl-toast{top:92px;font-size:.8rem;padding:7px 18px}
+  .diag-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pt-title{hyphens:auto;overflow-wrap:break-word}
   .hero-h1,.hero-h2{font-size:clamp(2.2rem,11vw,3.5rem)}
-  .hof-grid{grid-template-columns:repeat(3, 1fr);gap:8px}
+  .hof-grid{gap:8px}
+  .hof-card{flex-basis:calc((100% - 16px) / 3)}
 }
 
 /* ── XP POPUP ─────────────────────────────────── */
@@ -589,7 +615,6 @@ footer{
   position:fixed;pointer-events:none;
   font-size:1rem;font-weight:900;
   color:var(--mint);
-  text-shadow:0 0 14px rgba(255,200,30,.7);
   z-index:9998;
   animation:xpfloat 1.3s ease-out forwards;
   letter-spacing:.04em;
@@ -604,11 +629,11 @@ footer{
 .cookie-banner{
   position:fixed;bottom:16px;left:50%;
   transform:translateX(-50%) translateY(150%);
-  background:rgba(13,13,24,.95);backdrop-filter:blur(14px);
+  background:#14141f;
   border:1px solid var(--b2);border-radius:100px;
   padding:8px 8px 8px 20px;
   display:none;align-items:center;gap:14px;
-  font-size:.75rem;color:var(--muted);line-height:1.4;
+  font-size:.875rem;color:rgba(255,255,255,.82);line-height:1.4;
   z-index:995;max-width:calc(100% - 32px);
   box-shadow:0 10px 28px rgba(0,0,0,.5);
   transition:transform .5s cubic-bezier(.4,0,.2,1);
@@ -616,13 +641,15 @@ footer{
 .cookie-banner.show{display:flex;transform:translateX(-50%) translateY(0)}
 .cb-text{flex:1;min-width:0}
 .cb-btn{
-  background:var(--o);color:#fff;
+  background:var(--o);color:#08080f;
   border:none;border-radius:100px;
-  padding:7px 20px;font-size:.72rem;font-weight:700;
+  padding:8px 20px;font-size:.875rem;font-weight:700;
   cursor:pointer;transition:filter .15s;
   white-space:nowrap;letter-spacing:.03em;
 }
 .cb-btn:hover{filter:brightness(1.1)}
+.cb-actions{display:flex;gap:8px;flex-shrink:0}
+.cb-btn-ghost{background:transparent;border:1px solid var(--b2);color:#fff}
 @media(max-width:640px){
   .cookie-banner{
     left:12px;right:12px;transform:translateY(150%);
@@ -631,13 +658,14 @@ footer{
     max-width:none;
   }
   .cookie-banner.show{transform:translateY(0)}
-  .cb-btn{width:100%}
+  .cb-actions{width:100%}
+  .cb-actions .cb-btn{flex:1}
 }
 
 /* ── QUEST LOG ─────────────────────────────────── */
 #quest-log{
   position:fixed;bottom:18px;right:18px;
-  background:rgba(13,13,24,.95);backdrop-filter:blur(14px);
+  background:#14141f;
   border:1px solid var(--b2);border-radius:var(--rl);
   padding:14px 16px;width:240px;z-index:990;
   transform:translateY(140%);
@@ -645,6 +673,7 @@ footer{
   box-shadow:0 12px 40px rgba(0,0,0,.6);
 }
 #quest-log.show{transform:translateY(0)}
+body.cb-open #quest-log{transform:translateY(140%)}
 #quest-log.minimized .ql-items{display:none}
 #quest-log.minimized{padding:10px 16px}
 .ql-header{
@@ -653,17 +682,16 @@ footer{
 }
 #quest-log.minimized .ql-header{margin-bottom:0}
 .ql-title{
-  font-size:.65rem;font-weight:800;color:var(--mint);
-  text-transform:uppercase;letter-spacing:.12em;
+  font-size:.8125rem;font-weight:700;color:var(--mint);
 }
 .ql-toggle{
   background:none;border:none;color:var(--muted);
-  font-size:1rem;font-weight:900;cursor:pointer;padding:0 4px;line-height:1;
+  font-size:1rem;font-weight:900;cursor:pointer;padding:4px 8px;line-height:1;
 }
 .ql-items{display:flex;flex-direction:column;gap:8px}
 .ql-item{
   display:flex;align-items:center;gap:9px;
-  font-size:.78rem;color:var(--muted);
+  font-size:.875rem;color:var(--muted);
   transition:color .25s;
 }
 .ql-item.done{color:#fff}
@@ -673,18 +701,34 @@ footer{
   border:1.5px solid var(--muted);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;font-size:.55rem;color:transparent;
-  transition:.25s;
+  transition:background-color .25s,border-color .25s,color .25s;
 }
 .ql-item.done .ql-check{
   background:var(--mint);border-color:var(--mint);color:#000;
 }
+.ql-check .icon{opacity:0}
+.ql-item.done .ql-check .icon{opacity:1}
 @media(max-width:480px){
   #quest-log{bottom:10px;right:10px;left:10px;width:auto}
+}
+
+/* ── RÉDUCTION DES ANIMATIONS ──────────────────────── */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;transition-delay:0s !important;
+  }
+  .js .fade-up{opacity:1;transform:none}
+  .play-card.lifted{transform:none}
+  .play-card:hover,.prob-tile:hover,.hof-card:hover,.btn:hover,.f-submit:hover{transform:none}
+  .xp-popup{display:none}
 }
 
   </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Aller au contenu</a>
 
 <!-- ══════════ ICON SPRITE (Lucide-style, MIT) ══════════ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -704,6 +748,7 @@ footer{
     <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
     <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
   </defs>
 </svg>
@@ -719,51 +764,51 @@ footer{
         <a href="#references" data-i18n="nav-refs">Références</a>
         <a href="#contact"    data-i18n="nav-contact">Contact</a>
       </nav>
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="fr">FR</button>
-        <button class="lang-btn"        data-lang="en">EN</button>
+      <div class="lang-toggle" role="group" aria-label="Langue / Language">
+        <button type="button" class="lang-btn active" data-lang="fr" lang="fr" aria-pressed="true" aria-label="Français">FR</button>
+        <button type="button" class="lang-btn"        data-lang="en" lang="en" aria-pressed="false" aria-label="English">EN</button>
       </div>
       <a href="#contact" class="btn btn-mint btn-sm hdr-cta" data-i18n="nav-cta">Prendre RDV</a>
-      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
+      <button class="burger" id="burger" aria-label="Menu" data-i18n-aria="aria-menu" aria-expanded="false" aria-controls="main-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
   <!-- XP BAR -->
-  <div class="xp-row container">
+  <div class="xp-row container" aria-hidden="true">
     <span class="xp-label" id="xp-level-lbl">LVL 1</span>
     <div class="xp-track"><div class="xp-fill" id="xp-fill"></div></div>
     <span class="xp-count" id="xp-count">0 XP</span>
   </div>
 </header>
 
-<div id="lvl-toast">LEVEL UP !</div>
+<div id="lvl-toast" role="status" aria-live="polite"></div>
+
+<main id="main" tabindex="-1">
 
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
-  <p class="hero-badge fade-up" data-i18n="hero-badge">Partenaire Opérationnelle · Studios Indépendants</p>
-  <h1 class="hero-h1 fade-up d1"><span class="grad">LEVEL UP</span></h1>
-  <h2 class="hero-h2 fade-up d2" data-i18n="hero-h2">YOUR STUDIO.</h2>
-  <p class="hero-sub fade-up d3" data-i18n="hero-sub">
-    8+ ans d'expertise dédiée aux studios de jeux vidéo indépendants.<br>
-    Je pilote comm, marketing, ops et événementiel — pour que vous puissiez créer.
-  </p>
+  <h1 class="hero-title">
+    <span class="hero-h1 fade-up d1"><span class="grad">LEVEL UP</span></span>
+    <span class="hero-h2 fade-up d2" data-i18n="hero-h2">YOUR STUDIO.</span>
+  </h1>
+  <p class="hero-sub fade-up d3" data-i18n="hero-sub">Je suis Meg, partenaire opérationnelle des studios de jeux vidéo indépendants. Depuis 8&nbsp;ans, je pilote comm, marketing, ops et événementiel pour que vous puissiez créer.</p>
   <div class="hero-ctas fade-up d4">
-    <a href="#services" class="btn btn-grad" data-i18n="hero-btn1">Découvrir les offres →</a>
+    <a href="#services" class="btn btn-grad" data-i18n="hero-btn1">Découvrir les offres</a>
     <a href="#diagnostic" class="btn btn-ghost" data-i18n="hero-btn2">Lancer le diagnostic</a>
   </div>
   <div class="hero-stats fade-up d4">
     <div class="h-stat">
-      <span class="h-stat-icon"><svg class="icon icon-lg"><use href="#i-gamepad"/></svg></span>
-      <div><div class="h-stat-num">8+</div><div class="h-stat-lbl" data-i18n="stat-xp">ANNÉES XP</div></div>
+      <span class="h-stat-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-gamepad"/></svg></span>
+      <div><div class="h-stat-num">8+</div><div class="h-stat-lbl" data-i18n="stat-xp">années d'expérience</div></div>
     </div>
     <div class="h-stat">
-      <span class="h-stat-icon"><svg class="icon icon-lg"><use href="#i-swords"/></svg></span>
-      <div><div class="h-stat-num">30+</div><div class="h-stat-lbl" data-i18n="stat-clients">CLIENTS</div></div>
+      <span class="h-stat-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-swords"/></svg></span>
+      <div><div class="h-stat-num">30+</div><div class="h-stat-lbl" data-i18n="stat-clients">studios accompagnés</div></div>
     </div>
     <div class="h-stat">
-      <span class="h-stat-icon"><svg class="icon icon-lg"><use href="#i-wallet"/></svg></span>
-      <div><div class="h-stat-num">+1M€</div><div class="h-stat-lbl" data-i18n="stat-budgets">BUDGETS</div></div>
+      <span class="h-stat-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-wallet"/></svg></span>
+      <div><div class="h-stat-num">+1&nbsp;M€</div><div class="h-stat-lbl" data-i18n="stat-budgets">de budgets pilotés</div></div>
     </div>
   </div>
 </section>
@@ -771,59 +816,59 @@ footer{
 <!-- ══════════ DIAGNOSTIC ══════════ -->
 <section id="diagnostic">
   <div class="container">
-    <p class="sec-label fade-up" data-i18n="diag-label">DIAGNOSTIC DE STUDIO</p>
-    <h2 class="sec-title fade-up" data-i18n="diag-title">Vous reconnaissez-vous ?</h2>
+    <h2 class="sec-title fade-up" id="diag-title" data-i18n="diag-title">Vous reconnaissez-vous ?</h2>
     <p class="sec-sub fade-up" data-i18n="diag-sub">Cliquez sur chaque situation qui vous parle. On calculera votre profil en direct.</p>
 
-    <div class="diag-grid">
-      <div class="prob-tile fade-up d1" data-idx="0">
-        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-clock"/></svg></div>
-        <div class="pt-title" data-i18n="p1-t">Je communique mais ça ne donne rien.</div>
-        <div class="pt-handle" data-i18n="p1-h">Boss : Ghost Mode</div>
-        <div class="pt-check">✓</div>
-      </div>
-      <div class="prob-tile fade-up d2" data-idx="1">
-        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-trending-down"/></svg></div>
-        <div class="pt-title" data-i18n="p2-t">Ma communauté ne convertit pas au lancement</div>
-        <div class="pt-handle" data-i18n="p2-h">Boss : Launch Fail</div>
-        <div class="pt-check">✓</div>
-      </div>
-      <div class="prob-tile fade-up d3" data-idx="2">
-        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-coins"/></svg></div>
-        <div class="pt-title" data-i18n="p3-t">Ma communication ne reflète pas la qualité de mon jeu.</div>
-        <div class="pt-handle" data-i18n="p3-h">Boss : Brand mismatch</div>
-        <div class="pt-check">✓</div>
-      </div>
-      <div class="prob-tile fade-up d1" data-idx="3">
-        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-megaphone"/></svg></div>
-        <div class="pt-title" data-i18n="p4-t">Je manque de visibilité et de wishlist</div>
-        <div class="pt-handle" data-i18n="p4-h">Boss : Wishlist Drought</div>
-        <div class="pt-check">✓</div>
-      </div>
-      <div class="prob-tile fade-up d2" data-idx="4">
-        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-brain"/></svg></div>
-        <div class="pt-title" data-i18n="p5-t">Je ne sais pas par où commencer</div>
-        <div class="pt-handle" data-i18n="p5-h">Boss : Overwhelm</div>
-        <div class="pt-check">✓</div>
-      </div>
-      <div class="prob-tile fade-up d3" data-idx="5">
-        <div class="pt-icon"><svg class="icon icon-lg"><use href="#i-calendar-clock"/></svg></div>
-        <div class="pt-title" data-i18n="p6-t">Mon lancement approche et je ne suis pas prêt(e)</div>
-        <div class="pt-handle" data-i18n="p6-h">Boss : Panic Mode</div>
-        <div class="pt-check">✓</div>
-      </div>
+    <div class="diag-grid" role="group" aria-labelledby="diag-title">
+      <button type="button" class="prob-tile fade-up d1" data-idx="0" aria-pressed="false">
+        <span class="pt-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg></span>
+        <span class="pt-title" data-i18n="p1-t">Je communique mais ça ne donne rien.</span>
+        <span class="pt-handle" data-i18n="p1-h">Boss : Ghost Mode</span>
+        <span class="pt-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:12px;height:12px;stroke-width:3"><use href="#i-check"/></svg></span>
+      </button>
+      <button type="button" class="prob-tile fade-up d2" data-idx="1" aria-pressed="false">
+        <span class="pt-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-trending-down"/></svg></span>
+        <span class="pt-title" data-i18n="p2-t">Ma communauté ne convertit pas au lancement</span>
+        <span class="pt-handle" data-i18n="p2-h">Boss : Launch Fail</span>
+        <span class="pt-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:12px;height:12px;stroke-width:3"><use href="#i-check"/></svg></span>
+      </button>
+      <button type="button" class="prob-tile fade-up d3" data-idx="2" aria-pressed="false">
+        <span class="pt-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-coins"/></svg></span>
+        <span class="pt-title" data-i18n="p3-t">Ma communication ne reflète pas la qualité de mon jeu.</span>
+        <span class="pt-handle" data-i18n="p3-h">Boss : Brand mismatch</span>
+        <span class="pt-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:12px;height:12px;stroke-width:3"><use href="#i-check"/></svg></span>
+      </button>
+      <button type="button" class="prob-tile fade-up d1" data-idx="3" aria-pressed="false">
+        <span class="pt-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-megaphone"/></svg></span>
+        <span class="pt-title" data-i18n="p4-t">Je manque de visibilité et de wishlist</span>
+        <span class="pt-handle" data-i18n="p4-h">Boss : Wishlist Drought</span>
+        <span class="pt-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:12px;height:12px;stroke-width:3"><use href="#i-check"/></svg></span>
+      </button>
+      <button type="button" class="prob-tile fade-up d2" data-idx="4" aria-pressed="false">
+        <span class="pt-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-brain"/></svg></span>
+        <span class="pt-title" data-i18n="p5-t">Je ne sais pas par où commencer</span>
+        <span class="pt-handle" data-i18n="p5-h">Boss : Overwhelm</span>
+        <span class="pt-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:12px;height:12px;stroke-width:3"><use href="#i-check"/></svg></span>
+      </button>
+      <button type="button" class="prob-tile fade-up d3" data-idx="5" aria-pressed="false">
+        <span class="pt-icon"><svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-calendar-clock"/></svg></span>
+        <span class="pt-title" data-i18n="p6-t">Mon lancement approche et je ne suis pas prêt(e)</span>
+        <span class="pt-handle" data-i18n="p6-h">Boss : Panic Mode</span>
+        <span class="pt-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:12px;height:12px;stroke-width:3"><use href="#i-check"/></svg></span>
+      </button>
     </div>
 
+    <p class="sr-only" id="diag-live" aria-live="polite"></p>
     <div id="diag-result">
       <div class="diag-score-display">
         <div class="diag-score-num" id="diag-score">0</div>
         <div>
-          <div class="diag-score-lbl" data-i18n="diag-score-lbl">DÉFIS IDENTIFIÉS</div>
-          <div style="font-size:.68rem;color:var(--dim)" data-i18n="diag-score-sub">sur 6 possibles</div>
+          <div class="diag-score-lbl" data-i18n="diag-score-lbl">défis identifiés</div>
+          <div style="font-size:.8125rem;color:var(--dim)" data-i18n="diag-score-sub">sur 6 possibles</div>
         </div>
       </div>
       <div class="diag-msg" id="diag-msg"></div>
-      <a id="diag-cta" href="#services" class="btn btn-grad" data-i18n="diag-cta-btn">Voir la recommandation →</a>
+      <a id="diag-cta" href="#services" class="btn btn-grad" data-i18n="diag-cta-btn">Voir ma recommandation</a>
     </div>
   </div>
 </section>
@@ -831,110 +876,109 @@ footer{
 <!-- ══════════ SERVICES ══════════ -->
 <section id="services">
   <div class="container">
-    <p class="sec-label fade-up" data-i18n="srv-label">OFFRES</p>
     <h2 class="sec-title fade-up" data-i18n="srv-title">Choisissez votre quête</h2>
-    <p class="sec-sub fade-up" data-i18n="srv-sub">Cliquez sur une carte pour découvrir le détail de l'offre.</p>
+    <p class="sec-sub fade-up" data-i18n="srv-sub">Quatre formats, du diagnostic express au partenariat au long cours.</p>
 
     <div class="cards-grid">
 
-      <!-- Card 1 — L'Étincelle (MISSION FLASH) -->
+      <!-- Card 1 : L'Étincelle (MISSION FLASH) -->
       <div class="card-wrap fade-up d1">
         <article class="play-card r-common" id="card-1">
           <span class="rarity-badge rb-common" data-i18n="r-common">MISSION FLASH</span>
-          <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-flame"/></svg></div>
+          <div class="pc-icon"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg></div>
           <div class="pc-head">
             <div class="pc-name" data-i18n="s1-name">L'ÉTINCELLE</div>
-            <div class="pc-tagline" data-i18n="s1-tag">Diagnostic Flash</div>
+            <div class="pc-tagline" data-i18n="s1-tag">Diagnostic express</div>
           </div>
           <p class="pc-desc" data-i18n="s1-desc">Un flou persiste sur vos décisions marketing. Cette session reformule le vrai problème avant toute proposition. Avant d'investir, un appel pour vérifier qu'on résout le bon problème.</p>
           <ul class="pc-features">
-            <li><span class="cf-arrow">→</span><span data-i18n="s1-f1">Session visio 90 min</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s1-f2">Compte-rendu livré sous 48h</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s1-f3">Priorisation des actions immédiates</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s1-f4">Idéal avant un lancement ou salon</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s1-f1">Session visio 90 min</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s1-f2">Compte-rendu livré sous 48&nbsp;h</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s1-f3">Priorisation des actions immédiates</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s1-f4">Idéal avant un lancement ou salon</span></li>
           </ul>
-          <div class="pc-price" data-i18n="s1-price">400€</div>
+          <div class="pc-price" data-i18n="s1-price">400&nbsp;€</div>
           <div class="pc-stats">
-            <div class="cs"><div class="cs-val">90min</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
+            <div class="cs"><div class="cs-val">90&nbsp;min</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
             <div class="cs"><div class="cs-val" data-i18n="cs-visio">Visio</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
           </div>
-          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver →</span></a>
+          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm" aria-hidden="true" focusable="false"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver</span></a>
         </article>
       </div>
 
-      <!-- Card 2 — Le Réalignement (CAMPAGNE) -->
+      <!-- Card 2 : Le Réalignement (CAMPAGNE) -->
       <div class="card-wrap fade-up d2">
         <article class="play-card r-rare" id="card-2">
           <span class="rarity-badge rb-rare" data-i18n="r-rare">CAMPAGNE</span>
-          <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-zap"/></svg></div>
+          <div class="pc-icon"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-zap"/></svg></div>
           <div class="pc-head">
             <div class="pc-name" data-i18n="s2-name">LE RÉALIGNEMENT</div>
-            <div class="pc-tagline" data-i18n="s2-tag">Accompagnement Mensuel</div>
+            <div class="pc-tagline" data-i18n="s2-tag">Accompagnement mensuel</div>
           </div>
           <p class="pc-desc" data-i18n="s2-desc">Votre page Steam est en ligne, vos réseaux actifs depuis plusieurs mois. Les wishlists stagnent et le trafic ne suit pas. On identifie ce qui coince avant que vous n'investissiez davantage.</p>
           <ul class="pc-features">
-            <li><span class="cf-arrow">→</span><span data-i18n="s2-f1">Audit complet de votre page Steam et de vos supports</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s2-f2">Identification des points de friction qui freinent la conversion</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s2-f3">Plan d'action classé par impact, applicable sans intermédiaire</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s2-f4">Suivi et ajustements de votre stratégie</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s2-f1">Audit complet de votre page Steam et de vos supports</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s2-f2">Identification des points de friction qui freinent la conversion</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s2-f3">Plan d'action classé par impact, applicable sans intermédiaire</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s2-f4">Suivi et ajustements de votre stratégie</span></li>
           </ul>
-          <div class="pc-price" data-i18n="s2-price-full">2 200€ – 3 500€</div>
+          <div class="pc-price" data-i18n="s2-price-full">De 2&nbsp;200 à 3&nbsp;500&nbsp;€</div>
           <div class="pc-stats">
             <div class="cs"><div class="cs-val" data-i18n="cs-1mo">1 mois</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
             <div class="cs"><div class="cs-val" data-i18n="cs-mensuel">Mensuel</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
           </div>
-          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver →</span></a>
+          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm" aria-hidden="true" focusable="false"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver</span></a>
         </article>
       </div>
 
-      <!-- Card 3 — Le Lancement (RAID) -->
+      <!-- Card 3 : Le Lancement (RAID) -->
       <div class="card-wrap fade-up d3">
         <article class="play-card r-epic" id="card-3">
           <span class="rarity-badge rb-epic" data-i18n="r-epic">RAID</span>
-          <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-target"/></svg></div>
+          <div class="pc-icon"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-target"/></svg></div>
           <div class="pc-head">
             <div class="pc-name" data-i18n="s3-name">LE LANCEMENT</div>
-            <div class="pc-tagline" data-i18n="s3-tag">Projet Ponctuel</div>
+            <div class="pc-tagline" data-i18n="s3-tag">Projet ponctuel</div>
           </div>
           <p class="pc-desc" data-i18n="s3-desc">La date approche et il y a mille choses à coordonner en dehors du dev. On prend en charge tout ce qui entoure la sortie pour que vous puissiez rester concentré sur votre jeu.</p>
           <ul class="pc-features">
-            <li><span class="cf-arrow">→</span><span data-i18n="s3-f1">Planification et rétroplanning</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s3-f2">Coordination presse, partenaires et prestataires</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s3-f3">Gestion opérationnelle jusqu'au jour J</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s3-f4">Reporting &amp; vision stratégique</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s3-f1">Planification et rétroplanning</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s3-f2">Coordination presse, partenaires et prestataires</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s3-f3">Gestion opérationnelle jusqu'au jour J</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s3-f4">Reporting &amp; vision stratégique</span></li>
           </ul>
-          <div class="pc-price" data-i18n="cs-sur-devis">Sur Devis</div>
+          <div class="pc-price" data-i18n="cs-sur-devis">Sur devis</div>
           <div class="pc-stats">
             <div class="cs"><div class="cs-val" data-i18n="cs-proj">Projet</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
             <div class="cs"><div class="cs-val" data-i18n="cs-ponct">Ponctuel</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
           </div>
-          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver →</span></a>
+          <a href="#contact" class="btn btn-ghost btn-sm pc-cta"><svg class="icon icon-sm" aria-hidden="true" focusable="false"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver</span></a>
         </article>
       </div>
 
-      <!-- Card 4 — L'Alliance (ALLIANCE) -->
+      <!-- Card 4 : L'Alliance (ALLIANCE) -->
       <div class="card-wrap fade-up d4">
-        <div class="rec-tag" data-i18n="rec-tag">⭐ RECOMMANDÉ</div>
+        <div class="rec-tag" data-i18n="rec-tag">RECOMMANDÉ</div>
         <article class="play-card r-legendary" id="card-4">
-          <span class="rarity-badge rb-legendary" data-i18n="r-legendary">✦ ALLIANCE</span>
-          <div class="pc-icon"><svg class="icon icon-xl"><use href="#i-rocket"/></svg></div>
+          <span class="rarity-badge rb-legendary" data-i18n="r-legendary">ALLIANCE</span>
+          <div class="pc-icon"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-rocket"/></svg></div>
           <div class="pc-head">
             <div class="pc-name" data-i18n="s4-name">L'ALLIANCE</div>
-            <div class="pc-tagline" data-i18n="s4-tag">Partenariat Opérationnel</div>
+            <div class="pc-tagline" data-i18n="s4-tag">Partenariat opérationnel</div>
           </div>
           <p class="pc-desc" data-i18n="s4-desc">Le marketing vous prend un temps que vous n'avez pas, sur des décisions que vous ne devriez pas prendre seul en parallèle du dev. On devient votre binôme stratégique et opérationnel.</p>
           <ul class="pc-features">
-            <li><span class="cf-arrow">→</span><span data-i18n="s4-f1">Pilotage de votre comm, des events et des ops</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s4-f2">Coordination des prestataires et suivi des priorités</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s4-f3">Présence régulière pour ne jamais perdre le fil</span></li>
-            <li><span class="cf-arrow">→</span><span data-i18n="s4-f4">Vision long terme : du lancement au post-lancement</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s4-f1">Pilotage de votre comm, des events et des ops</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s4-f2">Coordination des prestataires et suivi des priorités</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s4-f3">Présence régulière pour ne jamais perdre le fil</span></li>
+            <li><span class="cf-arrow" aria-hidden="true"></span><span data-i18n="s4-f4">Vision long terme : du lancement au post-lancement</span></li>
           </ul>
-          <div class="pc-price" data-i18n="cs-sur-devis">Sur Devis</div>
+          <div class="pc-price" data-i18n="cs-sur-devis">Sur devis</div>
           <div class="pc-stats">
             <div class="cs"><div class="cs-val" data-i18n="cs-ongoing">Ongoing</div><div class="cs-key" data-i18n="cs-dur">Durée</div></div>
             <div class="cs"><div class="cs-val" data-i18n="cs-3j">3j/sem</div><div class="cs-key" data-i18n="cs-fmt">Format</div></div>
           </div>
-          <a href="#contact" class="btn btn-grad btn-sm pc-cta"><svg class="icon icon-sm"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver →</span></a>
+          <a href="#contact" class="btn btn-grad btn-sm pc-cta"><svg class="icon icon-sm" aria-hidden="true" focusable="false"><use href="#i-calendar"/></svg> <span data-i18n="card-book">Réserver</span></a>
         </article>
       </div>
 
@@ -946,51 +990,49 @@ footer{
 <!-- ══════════ RÉFÉRENCES ══════════ -->
 <section id="references">
   <div class="container">
-    <p class="sec-label fade-up" data-i18n="ref-label">HALL OF FAME</p>
     <h2 class="sec-title fade-up" data-i18n="ref-title">Ils m'ont fait confiance</h2>
     <p class="sec-sub fade-up" data-i18n="ref-sub">Des studios qui ont choisi de déléguer pour mieux créer.</p>
     <div class="hof-grid fade-up">
       <div class="hof-card">
-        <div class="hof-logo" style="padding:6px"><img src="Icons/nintendologo.webp" alt="Nintendo" loading="lazy" style="object-fit:contain"/></div>
+        <div class="hof-logo" style="padding:6px"><img src="Icons/nintendologo.webp" alt="Nintendo" width="60" height="60" loading="lazy" decoding="async" style="object-fit:contain"/></div>
         <div class="hof-name">Nintendo</div>
       </div>
       <div class="hof-card">
-        <div class="hof-logo" style="padding:8px"><img src="Icons/ubisoft.svg" alt="Ubisoft" loading="lazy" style="object-fit:contain"/></div>
+        <div class="hof-logo" style="padding:8px"><img src="Icons/ubisoft.svg" alt="Ubisoft" width="60" height="60" loading="lazy" decoding="async" style="object-fit:contain"/></div>
         <div class="hof-name">Ubisoft</div>
       </div>
       <div class="hof-card">
-        <div class="hof-logo"><img src="Icons/capitalgames.jpg" alt="Capital Game" loading="lazy"/></div>
+        <div class="hof-logo"><img src="Icons/capitalgames.jpg" alt="Capital Game" width="60" height="60" loading="lazy" decoding="async"/></div>
         <div class="hof-name">Capital Game</div>
       </div>
       <div class="hof-card">
-        <div class="hof-logo"><img src="Icons/NTWU.jpg" alt="NTWU" loading="lazy"/></div>
+        <div class="hof-logo"><img src="Icons/NTWU.jpg" alt="NTWU" width="60" height="60" loading="lazy" decoding="async"/></div>
         <div class="hof-name">NTWU</div>
       </div>
       <div class="hof-card">
-        <div class="hof-logo"><img src="Icons/institutfrancais.svg" alt="Institut français" loading="lazy"/></div>
+        <div class="hof-logo"><img src="Icons/institutfrancais.svg" alt="Institut français" width="60" height="60" loading="lazy" decoding="async"/></div>
         <div class="hof-name">Institut<br>français</div>
       </div>
       <div class="hof-card">
-        <div class="hof-logo" style="padding:8px"><img src="Icons/capcom.svg" alt="CAPCOM" loading="lazy" style="object-fit:contain"/></div>
+        <div class="hof-logo" style="padding:8px"><img src="Icons/capcom.svg" alt="CAPCOM" width="60" height="60" loading="lazy" decoding="async" style="object-fit:contain"/></div>
         <div class="hof-name">CAPCOM</div>
       </div>
       <div class="hof-card">
-        <div class="hof-logo"><img src="Icons/oldskullgame.png" alt="Old Skull Games" loading="lazy"/></div>
+        <div class="hof-logo"><img src="Icons/oldskullgame.png" alt="Old Skull Games" width="60" height="60" loading="lazy" decoding="async"/></div>
         <div class="hof-name">Old Skull</div>
       </div>
       <div class="hof-card">
-        <div class="hof-logo"><img src="Icons/warningup_logo.jpg" alt="Warning Up" loading="lazy"/></div>
+        <div class="hof-logo"><img src="Icons/warningup_logo.jpg" alt="Warning Up" width="60" height="60" loading="lazy" decoding="async"/></div>
         <div class="hof-name">Warning Up</div>
       </div>
       <div class="hof-card">
-        <div class="hof-logo"><img src="Icons/Gamevestor.avif" alt="Gamevestor" loading="lazy"/></div>
+        <div class="hof-logo"><img src="Icons/Gamevestor.avif" alt="Gamevestor" width="60" height="60" loading="lazy" decoding="async"/></div>
         <div class="hof-name">Gamevestor</div>
       </div>
-    </div>
-    <div class="refs-stats fade-up">
-      <div class="refs-pill"><strong data-i18n="rp1n">30+</strong><span data-i18n="rp1l">Studios accompagnés</span></div>
-      <div class="refs-pill"><strong data-i18n="rp2n">8+</strong><span data-i18n="rp2l">Années d'expertise</span></div>
-      <div class="refs-pill"><strong data-i18n="rp3n">+1M€</strong><span data-i18n="rp3l">Budgets pilotés</span></div>
+      <div class="hof-card">
+        <div class="hof-logo"><img src="Icons/ewc.jpeg" alt="Esports World Cup" width="60" height="60" loading="lazy" decoding="async"/></div>
+        <div class="hof-name">Esports World Cup</div>
+      </div>
     </div>
   </div>
 </section>
@@ -998,74 +1040,73 @@ footer{
 <!-- ══════════ CONTACT ══════════ -->
 <section id="contact">
   <div class="container">
-    <p class="sec-label fade-up" data-i18n="con-label">CONTACT</p>
     <h2 class="sec-title fade-up" data-i18n="con-title">Prenons rendez-vous</h2>
     <div class="contact-grid">
 
       <!-- Form -->
       <div class="contact-card fade-up d1">
         <div class="cc-title" data-i18n="f-title">Envoyez un message</div>
-        <div class="cc-sub" data-i18n="f-sub">Je réponds sous 24h · audit gratuit inclus</div>
+        <div class="cc-sub" data-i18n="f-sub">Réponse sous 24&nbsp;h. Audit gratuit inclus.</div>
         <form id="con-form" novalidate>
           <div class="fg">
-            <label for="f-name" data-i18n="f-name-lbl">NOM *</label>
-            <input type="text" id="f-name" name="name" autocomplete="name" data-i18n-ph="ph-name" />
+            <label for="f-name" data-i18n="f-name-lbl">Nom *</label>
+            <input type="text" id="f-name" name="name" autocomplete="name" required aria-describedby="err-name" data-i18n-ph="ph-name" />
             <div class="ferr" id="err-name" data-i18n="err-name">Ce champ est requis.</div>
           </div>
           <div class="fg">
-            <label for="f-email" data-i18n="f-email-lbl">EMAIL *</label>
-            <input type="email" id="f-email" name="email" autocomplete="email" data-i18n-ph="ph-email" />
+            <label for="f-email" data-i18n="f-email-lbl">Email *</label>
+            <input type="email" id="f-email" name="email" autocomplete="email" inputmode="email" spellcheck="false" required aria-describedby="err-email" data-i18n-ph="ph-email" />
             <div class="ferr" id="err-email" data-i18n="err-email">Email invalide.</div>
           </div>
           <div class="fg">
-            <label for="f-studio" data-i18n="f-studio-lbl">STUDIO</label>
+            <label for="f-studio" data-i18n="f-studio-lbl">Studio</label>
             <input type="text" id="f-studio" name="studio" autocomplete="organization" data-i18n-ph="ph-studio" />
           </div>
           <div class="fg">
-            <label for="f-msg" data-i18n="f-msg-lbl">MESSAGE *</label>
-            <textarea id="f-msg" name="message" data-i18n-ph="ph-msg"></textarea>
+            <label for="f-msg" data-i18n="f-msg-lbl">Message *</label>
+            <textarea id="f-msg" name="message" required aria-describedby="err-msg" data-i18n-ph="ph-msg"></textarea>
             <div class="ferr" id="err-msg" data-i18n="err-msg">Merci de décrire votre projet.</div>
           </div>
           <!-- Honeypot anti-bot (champ invisible) -->
-          <input type="text" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
-          <button type="submit" class="f-submit" data-i18n="f-submit">Envoyer →</button>
+          <input type="text" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit" class="f-submit" data-i18n="f-submit">Envoyer</button>
         </form>
-        <div class="f-error" id="f-error">
-          <span data-i18n="f-err">⚠ Oups, l'envoi a échoué. Réessaie ou écris à </span><span class="email-cloak" data-u="contact" data-d="megmtb" data-t="com"></span>
+        <div class="f-error" id="f-error" role="alert">
+          <span data-i18n="f-err">Oups, l'envoi a échoué. Réessayez ou écrivez à </span><span class="email-cloak" data-u="contact" data-d="megmtb" data-t="com"></span>
         </div>
-        <div class="f-success" id="f-success" data-i18n="f-ok">✅ Message envoyé ! Je reviens vers vous sous 24h.</div>
+        <div class="f-success" id="f-success" role="status" tabindex="-1" data-i18n="f-ok">Message envoyé ! Je reviens vers vous sous 24&nbsp;h.</div>
       </div>
 
       <!-- Calendar -->
       <div class="contact-card fade-up d2">
-        <div class="cc-title"><svg class="icon icon-md" style="margin-right:6px;color:var(--blue)"><use href="#i-calendar"/></svg><span data-i18n="cal-title">Réserver un créneau</span></div>
-        <div class="cc-sub" data-i18n="cal-sub">Jours ouvrés · Créneaux disponibles</div>
+        <div class="cc-title"><svg class="icon icon-md" aria-hidden="true" focusable="false" style="margin-right:6px;color:var(--blue)"><use href="#i-calendar"/></svg><span data-i18n="cal-title">Proposer un créneau</span></div>
+        <div class="cc-sub" data-i18n="cal-sub">Du lundi au vendredi. Je confirme par email sous 24&nbsp;h.</div>
         <div class="cal-month-row">
-          <button class="cal-nav" id="cal-prev">&#8592;</button>
-          <span id="cal-month-lbl"></span>
-          <button class="cal-nav" id="cal-next">&#8594;</button>
+          <button type="button" class="cal-nav" id="cal-prev" aria-label="Mois précédent" data-i18n-aria="aria-prev"><span aria-hidden="true">&#8592;</span></button>
+          <span id="cal-month-lbl" aria-live="polite"></span>
+          <button type="button" class="cal-nav" id="cal-next" aria-label="Mois suivant" data-i18n-aria="aria-next"><span aria-hidden="true">&#8594;</span></button>
         </div>
         <div class="cal-grid" id="cal-grid"></div>
         <div id="slot-section">
-          <div class="slot-lbl">
+          <div class="slot-lbl" id="slot-lbl-wrap">
             <span data-i18n="slot-lbl">Horaire pour le</span>
             <strong id="sel-date-lbl"></strong>
           </div>
-          <div class="slots">
-            <div class="slot" data-t="10:00">10:00</div>
-            <div class="slot" data-t="10:30">10:30</div>
-            <div class="slot" data-t="11:00">11:00</div>
-            <div class="slot" data-t="11:30">11:30</div>
-            <div class="slot" data-t="14:30">14:30</div>
-            <div class="slot" data-t="15:00">15:00</div>
-            <div class="slot" data-t="16:30">16:30</div>
-            <div class="slot" data-t="17:00">17:00</div>
+          <div class="slots" role="group" aria-labelledby="slot-lbl-wrap">
+            <button type="button" class="slot" data-t="10:00" aria-pressed="false">10:00</button>
+            <button type="button" class="slot" data-t="10:30" aria-pressed="false">10:30</button>
+            <button type="button" class="slot" data-t="11:00" aria-pressed="false">11:00</button>
+            <button type="button" class="slot" data-t="11:30" aria-pressed="false">11:30</button>
+            <button type="button" class="slot" data-t="14:30" aria-pressed="false">14:30</button>
+            <button type="button" class="slot" data-t="15:00" aria-pressed="false">15:00</button>
+            <button type="button" class="slot" data-t="16:30" aria-pressed="false">16:30</button>
+            <button type="button" class="slot" data-t="17:00" aria-pressed="false">17:00</button>
           </div>
         </div>
-        <div class="rdv-confirm" id="rdv-confirm">
-          <span data-i18n="rdv-prefix">🎉 Créneau :</span>
+        <div class="rdv-confirm" id="rdv-confirm" role="status">
+          <span data-i18n="rdv-prefix">Créneau :</span>
           <strong id="rdv-txt"></strong><br>
-          <span style="font-size:.75rem;color:var(--dim)" data-i18n="rdv-note">Remplissez le formulaire pour confirmer.</span>
+          <span style="font-size:.875rem;color:var(--dim)" data-i18n="rdv-note">Remplissez le formulaire pour confirmer.</span>
         </div>
       </div>
 
@@ -1073,23 +1114,28 @@ footer{
   </div>
 </section>
 
+</main>
+
 <!-- ══════════ COOKIE INFO BANNER ══════════ -->
-<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
-  <span class="cb-text" data-i18n="cb-text">Ce site utilise Google Analytics pour mesurer son audience. En continuant, tu acceptes.</span>
-  <button id="cookie-ok" class="cb-btn" data-i18n="cb-ok">OK</button>
+<div id="cookie-banner" class="cookie-banner" role="region" aria-label="Cookies">
+  <span class="cb-text" data-i18n="cb-text">J'aimerais mesurer l'audience du site avec Google Analytics. Rien n'est activé sans votre accord.</span>
+  <div class="cb-actions">
+    <button type="button" id="cookie-no" class="cb-btn cb-btn-ghost" data-i18n="cb-no">Refuser</button>
+    <button type="button" id="cookie-ok" class="cb-btn" data-i18n="cb-ok">Accepter</button>
+  </div>
 </div>
 
 <!-- ══════════ QUEST LOG ══════════ -->
-<aside id="quest-log" aria-label="Quest log">
+<aside id="quest-log" aria-label="Journal de quêtes" data-i18n-aria="aria-ql">
   <div class="ql-header" id="ql-header">
-    <span class="ql-title" data-i18n="ql-title">QUÊTES EN COURS</span>
-    <button class="ql-toggle" id="ql-toggle" aria-label="Toggle quest log">−</button>
+    <span class="ql-title" data-i18n="ql-title">Quêtes en cours</span>
+    <button type="button" class="ql-toggle" id="ql-toggle" aria-label="Réduire le journal de quêtes" aria-expanded="true" aria-controls="ql-items">−</button>
   </div>
   <div class="ql-items" id="ql-items">
-    <div class="ql-item" data-quest="diag"><span class="ql-check">✓</span><span data-i18n="ql-diag">Lancer le diagnostic</span></div>
-    <div class="ql-item" data-quest="card"><span class="ql-check">✓</span><span data-i18n="ql-card">Explorer une quête</span></div>
-    <div class="ql-item" data-quest="slot"><span class="ql-check">✓</span><span data-i18n="ql-slot">Choisir un créneau</span></div>
-    <div class="ql-item" data-quest="form"><span class="ql-check">✓</span><span data-i18n="ql-form">Envoyer un message</span></div>
+    <div class="ql-item" data-quest="diag"><span class="ql-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:9px;height:9px;stroke-width:3"><use href="#i-check"/></svg></span><span data-i18n="ql-diag">Lancer le diagnostic</span></div>
+    <div class="ql-item" data-quest="card"><span class="ql-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:9px;height:9px;stroke-width:3"><use href="#i-check"/></svg></span><span data-i18n="ql-card">Explorer une quête</span></div>
+    <div class="ql-item" data-quest="slot"><span class="ql-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:9px;height:9px;stroke-width:3"><use href="#i-check"/></svg></span><span data-i18n="ql-slot">Choisir un créneau</span></div>
+    <div class="ql-item" data-quest="form"><span class="ql-check" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false" style="width:9px;height:9px;stroke-width:3"><use href="#i-check"/></svg></span><span data-i18n="ql-form">Envoyer un message</span></div>
   </div>
 </aside>
 
@@ -1104,6 +1150,7 @@ footer{
         <a href="#references" data-i18n="nav-refs">Références</a>
         <a href="#contact"    data-i18n="nav-contact">Contact</a>
       </div>
+      <button type="button" id="cookie-reopen" class="footer-cookie" data-i18n="cb-reopen">Cookies</button>
       <span class="footer-copy" data-i18n="footer-copy">© 2026 Meg M.T.B.</span>
     </div>
   </div>
@@ -1115,11 +1162,11 @@ footer{
 const T = {
 fr:{
   'nav-diag':'Diagnostic','nav-services':'Services','nav-refs':'Références','nav-contact':'Contact','nav-cta':'Prendre RDV',
-  'hero-badge':'Partenaire Opérationnelle · Studios Indépendants',
+  'hero-badge':'',
   'hero-h2':'YOUR STUDIO.',
-  'hero-sub':'8+ ans d\'expertise dédiée aux studios de jeux vidéo indépendants.<br>Je pilote comm, marketing, ops et événementiel — pour que vous puissiez créer.',
-  'hero-btn1':'Découvrir les offres →','hero-btn2':'Lancer le diagnostic',
-  'stat-xp':'ANNÉES XP','stat-clients':'CLIENTS','stat-budgets':'BUDGETS',
+  'hero-sub':'Je suis Meg, partenaire opérationnelle des studios de jeux vidéo indépendants. Depuis 8&nbsp;ans, je pilote comm, marketing, ops et événementiel pour que vous puissiez créer.',
+  'hero-btn1':'Découvrir les offres','hero-btn2':'Lancer le diagnostic',
+  'stat-xp':'années d\'expérience','stat-clients':'studios accompagnés','stat-budgets':'de budgets pilotés',
   'diag-label':'DIAGNOSTIC DE STUDIO','diag-title':'Vous reconnaissez-vous ?',
   'diag-sub':'Cliquez sur chaque situation qui vous parle. On calculera votre profil en direct.',
   'p1-t':'Je communique mais ça ne donne rien.',
@@ -1130,72 +1177,75 @@ fr:{
   'p6-t':'Mon lancement approche et je ne suis pas prêt(e)',
   'p1-h':'Boss : Ghost Mode','p2-h':'Boss : Launch Fail','p3-h':'Boss : Brand mismatch',
   'p4-h':'Boss : Wishlist Drought','p5-h':'Boss : Overwhelm','p6-h':'Boss : Panic Mode',
-  'diag-score-lbl':'DÉFIS IDENTIFIÉS','diag-score-sub':'sur 6 possibles',
+  'diag-score-lbl':'défis identifiés','diag-score-sub':'sur 6 possibles',
   'diag-msg-0':'Aucun signal d\'alarme ? Parfois les blocages sont invisibles. Un audit gratuit ne coûte rien.',
   'diag-msg-1':'Un ou deux points d\'attention. L\'Étincelle peut les clarifier en 90 minutes.',
-  'diag-msg-2':'Plusieurs blocages identifiés. Le Réalignement est fait pour toi.',
-  'diag-msg-3':'Niveau de difficulté élevé. L\'Alliance change tout.',
-  'diag-cta-btn':'Voir la recommandation →',
+  'diag-msg-2':'Plusieurs blocages identifiés. Le Réalignement est fait pour vous.',
+  'diag-msg-3':'Niveau de difficulté élevé. L\'Alliance est faite pour ça.',
+  'diag-cta-btn':'Voir ma recommandation',
   'srv-label':'OFFRES','srv-title':'Choisissez votre quête',
-  'srv-sub':'Cliquez sur une carte pour découvrir le détail de l\'offre.',
-  'r-common':'MISSION FLASH','r-rare':'CAMPAGNE','r-epic':'RAID','r-legendary':'✦ ALLIANCE',
-  'rec-tag':'⭐ RECOMMANDÉ',
-  's1-name':'L\'ÉTINCELLE','s1-tag':'Diagnostic Flash','s1-price':'400€',
+  'srv-sub':'Quatre formats, du diagnostic express au partenariat au long cours.',
+  'r-common':'MISSION FLASH','r-rare':'CAMPAGNE','r-epic':'RAID','r-legendary':'ALLIANCE',
+  'rec-tag':'RECOMMANDÉ',
+  's1-name':'L\'ÉTINCELLE','s1-tag':'Diagnostic express','s1-price':'400&nbsp;€',
   's1-desc':'Un flou persiste sur vos décisions marketing. Cette session reformule le vrai problème avant toute proposition. Avant d\'investir, un appel pour vérifier qu\'on résout le bon problème.',
-  's1-f1':'Session visio 90 min','s1-f2':'Compte-rendu livré sous 48h',
+  's1-f1':'Session visio 90&nbsp;min','s1-f2':'Compte-rendu livré sous 48&nbsp;h',
   's1-f3':'Priorisation des actions immédiates','s1-f4':'Idéal avant un lancement ou salon',
-  's2-name':'LE RÉALIGNEMENT','s2-tag':'Accompagnement Mensuel','s2-price':'2 200€+',
-  's2-price-full':'2 200€ – 3 500€',
+  's2-name':'LE RÉALIGNEMENT','s2-tag':'Accompagnement mensuel','s2-price':'2&nbsp;200&nbsp;€+',
+  's2-price-full':'De 2&nbsp;200 à 3&nbsp;500&nbsp;€',
   's2-desc':'Votre page Steam est en ligne, vos réseaux actifs depuis plusieurs mois. Les wishlists stagnent et le trafic ne suit pas. On identifie ce qui coince avant que vous n\'investissiez davantage.',
   's2-f1':'Audit complet de votre page Steam et de vos supports','s2-f2':'Identification des points de friction qui freinent la conversion',
   's2-f3':'Plan d\'action classé par impact, applicable sans intermédiaire','s2-f4':'Suivi et ajustements de votre stratégie',
-  's3-name':'LE LANCEMENT','s3-tag':'Projet Ponctuel',
+  's3-name':'LE LANCEMENT','s3-tag':'Projet ponctuel',
   's3-desc':'La date approche et il y a mille choses à coordonner en dehors du dev. On prend en charge tout ce qui entoure la sortie pour que vous puissiez rester concentré sur votre jeu.',
   's3-f1':'Planification et rétroplanning','s3-f2':'Coordination presse, partenaires et prestataires',
   's3-f3':'Gestion opérationnelle jusqu\'au jour J','s3-f4':'Reporting & vision stratégique',
-  's4-name':'L\'ALLIANCE','s4-tag':'Partenariat Opérationnel',
+  's4-name':'L\'ALLIANCE','s4-tag':'Partenariat opérationnel',
   's4-desc':'Le marketing vous prend un temps que vous n\'avez pas, sur des décisions que vous ne devriez pas prendre seul en parallèle du dev. On devient votre binôme stratégique et opérationnel.',
   's4-f1':'Pilotage de votre comm, des events et des ops','s4-f2':'Coordination des prestataires et suivi des priorités',
   's4-f3':'Présence régulière pour ne jamais perdre le fil','s4-f4':'Vision long terme : du lancement au post-lancement',
   'cs-dur':'Durée','cs-fmt':'Format','cs-prix':'Prix',
-  'cs-visio':'Visio','cs-1mo':'1 mois','cs-mensuel':'Mensuel · Bilan inclus',
-  'cs-proj':'Durée selon projet','cs-ponct':'Sur mesure','cs-devis':'Devis','cs-sur-devis':'Sur Devis',
+  'cs-visio':'Visio','cs-1mo':'1 mois','cs-mensuel':'Mensuel, bilan inclus',
+  'cs-proj':'Durée selon projet','cs-ponct':'Sur mesure','cs-devis':'Devis','cs-sur-devis':'Sur devis',
   'cs-ongoing':'Durée selon projet','cs-3j':'Sur mesure',
-  'card-hint':'','card-book':'Réserver →',
+  'card-hint':'','card-book':'Réserver',
   'ref-label':'HALL OF FAME','ref-title':'Ils m\'ont fait confiance',
   'ref-sub':'Des studios qui ont choisi de déléguer pour mieux créer.',
   'rp1n':'30+','rp1l':'Studios accompagnés',
   'rp2n':'8+','rp2l':'Années d\'expertise',
-  'rp3n':'+1M€','rp3l':'Budgets pilotés',
+  'rp3n':'+1&nbsp;M€','rp3l':'Budgets pilotés',
   'con-label':'CONTACT','con-title':'Prenons rendez-vous',
-  'f-title':'Envoyez un message','f-sub':'Je réponds sous 24h · audit gratuit inclus',
-  'f-name-lbl':'NOM *','f-email-lbl':'EMAIL *','f-studio-lbl':'STUDIO','f-msg-lbl':'MESSAGE *',
-  'ph-name':'Jane Doe','ph-email':'jane@studio.com','ph-studio':'Indie Studio XYZ','ph-msg':'Décrivez votre projet...',
-  'f-submit':'Envoyer →','f-ok':'✅ Message envoyé ! Je reviens vers vous sous 24h.',
-  'f-err':'⚠ Oups, l\'envoi a échoué. Réessaie ou écris à ',
+  'f-title':'Envoyez un message','f-sub':'Réponse sous 24&nbsp;h. Audit gratuit inclus.',
+  'f-name-lbl':'Nom *','f-email-lbl':'Email *','f-studio-lbl':'Studio','f-msg-lbl':'Message *',
+  'ph-name':'Jane Doe','ph-email':'jane@studio.com','ph-studio':'Indie Studio XYZ','ph-msg':'Décrivez votre projet…',
+  'f-submit':'Envoyer','f-ok':'Message envoyé ! Je reviens vers vous sous 24&nbsp;h.',
+  'f-err':'Oups, l\'envoi a échoué. Réessayez ou écrivez à ',
   'err-name':'Ce champ est requis.','err-email':'Email invalide.','err-msg':'Merci de décrire votre projet.',
-  'cal-title':'Réserver un créneau','cal-sub':'Jours ouvrés · Créneaux disponibles',
-  'slot-lbl':'Horaire pour le','rdv-prefix':'🎉 Créneau :',
+  'cal-title':'Proposer un créneau','cal-sub':'Du lundi au vendredi. Je confirme par email sous 24&nbsp;h.',
+  'slot-lbl':'Horaire pour le','rdv-prefix':'Créneau :',
   'rdv-note':'Remplissez le formulaire pour confirmer.',
   'footer-copy':'© 2026 Meg M.T.B.',
   'DAYS':['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],
   'MONTHS':['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-  'lvl-up':'NIVEAU SUPÉRIEUR !',
-  'ql-title':'QUÊTES EN COURS',
+  'lvl-up':'Niveau %n atteint !',
+  'ql-title':'Quêtes en cours',
   'ql-diag':'Lancer le diagnostic','ql-card':'Explorer une quête',
   'ql-slot':'Choisir un créneau','ql-form':'Envoyer un message',
   'slot-prefix':'Créneau souhaité : ',
   'rec-for-you':'RECOMMANDÉ POUR VOUS',
-  'cb-text':'Ce site utilise Google Analytics pour mesurer son audience. En continuant, tu acceptes.',
-  'cb-ok':'OK',
+  'cb-text':'J\'aimerais mesurer l\'audience du site avec Google Analytics. Rien n\'est activé sans votre accord.',
+  'cb-ok':'Accepter','cb-no':'Refuser','cb-reopen':'Cookies',
+  'aria-menu':'Menu','aria-prev':'Mois précédent','aria-next':'Mois suivant',
+  'aria-ql':'Journal de quêtes','aria-ql-min':'Réduire le journal de quêtes','aria-ql-max':'Afficher le journal de quêtes',
+  'skip':'Aller au contenu','diag-live':'défi(s) identifié(s) sur 6.',
 },
 en:{
   'nav-diag':'Diagnostic','nav-services':'Services','nav-refs':'References','nav-contact':'Contact','nav-cta':'Book a Call',
-  'hero-badge':'Operational Partner · Independent Studios',
+  'hero-badge':'',
   'hero-h2':'YOUR STUDIO.',
-  'hero-sub':'8+ years of expertise dedicated to indie game studios.<br>I drive comms, marketing, ops and events — so you can focus on creating.',
-  'hero-btn1':'View services →','hero-btn2':'Run the diagnostic',
-  'stat-xp':'YEARS XP','stat-clients':'CLIENTS','stat-budgets':'BUDGETS',
+  'hero-sub':'I\'m Meg, operational partner to independent game studios. For 8+ years I\'ve run comms, marketing, ops and events so you can focus on creating.',
+  'hero-btn1':'View services','hero-btn2':'Run the diagnostic',
+  'stat-xp':'years of experience','stat-clients':'studios supported','stat-budgets':'in budgets managed',
   'diag-label':'STUDIO DIAGNOSTIC','diag-title':'Does this sound like you?',
   'diag-sub':'Click each situation that resonates. We\'ll calculate your profile in real time.',
   'p1-t':'My outreach goes nowhere.',
@@ -1206,22 +1256,22 @@ en:{
   'p6-t':'My launch is coming and I\'m not ready',
   'p1-h':'Boss: Ghost Mode','p2-h':'Boss: Launch Fail','p3-h':'Boss: Brand Mismatch',
   'p4-h':'Boss: Wishlist Drought','p5-h':'Boss: Overwhelm','p6-h':'Boss: Panic Mode',
-  'diag-score-lbl':'CHALLENGES IDENTIFIED','diag-score-sub':'out of 6',
+  'diag-score-lbl':'challenges identified','diag-score-sub':'out of 6',
   'diag-msg-0':'No red flags? Blockers are often invisible. A free audit costs nothing.',
   'diag-msg-1':'One or two pain points. The Spark can clarify them in 90 minutes.',
   'diag-msg-2':'Multiple blockers identified. The Realignment is built for you.',
-  'diag-msg-3':'High difficulty level. The Alliance changes everything.',
-  'diag-cta-btn':'See the recommendation →',
+  'diag-msg-3':'High difficulty level. The Alliance is built for this.',
+  'diag-cta-btn':'See my recommendation',
   'srv-label':'SERVICES','srv-title':'Choose your quest',
-  'srv-sub':'Click a card to see the full offer details.',
-  'r-common':'FLASH MISSION','r-rare':'CAMPAIGN','r-epic':'RAID','r-legendary':'✦ ALLIANCE',
-  'rec-tag':'⭐ RECOMMENDED',
+  'srv-sub':'Four formats, from a quick diagnosis to a long-term partnership.',
+  'r-common':'FLASH MISSION','r-rare':'CAMPAIGN','r-epic':'RAID','r-legendary':'ALLIANCE',
+  'rec-tag':'RECOMMENDED',
   's1-name':'THE SPARK','s1-tag':'Flash Diagnosis','s1-price':'€400',
   's1-desc':'There\'s fog around your marketing decisions. This session reframes the real problem before any proposal. Before you invest, a call to make sure we\'re solving the right thing.',
   's1-f1':'90-min video session','s1-f2':'Report delivered within 48h',
   's1-f3':'Immediate action prioritization','s1-f4':'Ideal before a launch or trade show',
   's2-name':'THE REALIGNMENT','s2-tag':'Monthly Support','s2-price':'€2,200+',
-  's2-price-full':'€2,200 – €3,500',
+  's2-price-full':'€2,200 to €3,500',
   's2-desc':'Your Steam page is live, your channels have been active for months. Wishlists are flatlining and traffic isn\'t following. We pinpoint what\'s stuck before you spend more.',
   's2-f1':'Full audit of your Steam page and supporting assets','s2-f2':'Identify friction points blocking conversion',
   's2-f3':'Action plan ranked by impact, ready to apply without a middleman','s2-f4':'Follow-up and strategy adjustments',
@@ -1234,39 +1284,47 @@ en:{
   's4-f1':'Run your comms, events and ops','s4-f2':'Vendor coordination and priority tracking',
   's4-f3':'Regular presence so you never lose the thread','s4-f4':'Long-term vision: from launch to post-launch',
   'cs-dur':'Duration','cs-fmt':'Format','cs-prix':'Price',
-  'cs-visio':'Video','cs-1mo':'1 month','cs-mensuel':'Monthly · Report included',
+  'cs-visio':'Video','cs-1mo':'1 month','cs-mensuel':'Monthly, report included',
   'cs-proj':'Project-based','cs-ponct':'Custom','cs-devis':'Quote','cs-sur-devis':'Custom Quote',
   'cs-ongoing':'Project-based','cs-3j':'Custom',
-  'card-hint':'','card-book':'Book →',
+  'card-hint':'','card-book':'Book',
   'ref-label':'HALL OF FAME','ref-title':'They trusted me',
   'ref-sub':'Studios that chose to delegate so they could create better.',
   'rp1n':'30+','rp1l':'Studios served',
   'rp2n':'8+','rp2l':'Years of expertise',
-  'rp3n':'+€1M','rp3l':'Budgets managed',
+  'rp3n':'+€1&nbsp;M','rp3l':'Budgets managed',
   'con-label':'CONTACT','con-title':"Let's meet",
-  'f-title':'Send a message','f-sub':'I respond within 24h · free audit included',
-  'f-name-lbl':'NAME *','f-email-lbl':'EMAIL *','f-studio-lbl':'STUDIO','f-msg-lbl':'MESSAGE *',
-  'ph-name':'Jane Doe','ph-email':'jane@studio.com','ph-studio':'Indie Studio XYZ','ph-msg':'Describe your project...',
-  'f-submit':'Send →','f-ok':"✅ Message sent! I'll get back to you within 24h.",
-  'f-err':'⚠ Oops, sending failed. Try again or email ',
+  'f-title':'Send a message','f-sub':'Reply within 24&nbsp;h. Free audit included.',
+  'f-name-lbl':'Name *','f-email-lbl':'Email *','f-studio-lbl':'Studio','f-msg-lbl':'Message *',
+  'ph-name':'Jane Doe','ph-email':'jane@studio.com','ph-studio':'Indie Studio XYZ','ph-msg':'Describe your project…',
+  'f-submit':'Send','f-ok':"Message sent! I'll get back to you within 24&nbsp;h.",
+  'f-err':'Oops, sending failed. Try again or email ',
   'err-name':'This field is required.','err-email':'Invalid email.','err-msg':'Please describe your project.',
-  'cal-title':'Book a slot','cal-sub':'Business days · Available slots',
-  'slot-lbl':'Time for','rdv-prefix':'🎉 Slot:',
+  'cal-title':'Suggest a time','cal-sub':'Monday to Friday. I confirm by email within 24&nbsp;h.',
+  'slot-lbl':'Time for','rdv-prefix':'Slot:',
   'rdv-note':"Fill out the form to confirm.",
   'footer-copy':'© 2026 Meg M.T.B.',
   'DAYS':['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
   'MONTHS':['January','February','March','April','May','June','July','August','September','October','November','December'],
-  'lvl-up':'LEVEL UP!',
-  'ql-title':'ACTIVE QUESTS',
+  'lvl-up':'Level %n reached!',
+  'ql-title':'Active quests',
   'ql-diag':'Run the diagnostic','ql-card':'Explore a quest',
   'ql-slot':'Pick a slot','ql-form':'Send a message',
   'slot-prefix':'Preferred slot: ',
   'rec-for-you':'RECOMMENDED FOR YOU',
-  'cb-text':'This site uses Google Analytics to measure audience. By continuing, you accept.',
-  'cb-ok':'OK',
+  'cb-text':'I\'d like to measure site traffic with Google Analytics. Nothing is enabled without your consent.',
+  'cb-ok':'Accept','cb-no':'Decline','cb-reopen':'Cookies',
+  'aria-menu':'Menu','aria-prev':'Previous month','aria-next':'Next month',
+  'aria-ql':'Quest log','aria-ql-min':'Collapse quest log','aria-ql-max':'Expand quest log',
+  'skip':'Skip to content','diag-live':'challenge(s) identified out of 6.',
 }};
 
-let lang = localStorage.getItem('lang') || 'fr';
+let lang = 'fr';
+try { lang = localStorage.getItem('lang') || 'fr'; } catch (e) {}
+if (!T[lang]) lang = 'fr';
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const scrollMode = () => (reduceMotion.matches ? 'auto' : 'smooth');
 
 function applyLang(l) {
   lang = l;
@@ -1280,12 +1338,23 @@ function applyLang(l) {
     const k = el.dataset.i18nPh;
     if (d[k] !== undefined) el.placeholder = d[k];
   });
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const k = el.dataset.i18nAria;
+    if (d[k] !== undefined) el.setAttribute('aria-label', d[k]);
+  });
+  const skip = document.querySelector('.skip-link');
+  if (skip && d['skip']) skip.textContent = d['skip'];
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    const on = b.dataset.lang === l;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  syncQLLabel();
   // Refresh the "recommended" banner on any lifted card
   const lifted = document.querySelector('.play-card.lifted');
   if (lifted && d['rec-for-you']) lifted.setAttribute('data-rec-label', d['rec-for-you']);
   buildCal();
-  localStorage.setItem('lang', l);
+  try { localStorage.setItem('lang', l); } catch (e) {}
 }
 
 /* ── XP / GAMIFICATION ─────────────────────────────────────── */
@@ -1309,18 +1378,18 @@ function awardXP(amount, ev) {
     if (lvlLbl) lvlLbl.textContent = 'LVL ' + lvl;
     const toast = document.getElementById('lvl-toast');
     if (toast) {
-      toast.textContent = (T[lang]['lvl-up'] || 'LEVEL UP!') + ' — LVL ' + lvl;
+      toast.textContent = (T[lang]['lvl-up'] || 'Level %n reached!').replace('%n', lvl);
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
   }
   // Floating "+XP" popup near the click
-  if (ev) {
+  if (ev && !reduceMotion.matches) {
     const pop = document.createElement('div');
     pop.className = 'xp-popup';
     pop.textContent = '+' + amount + ' XP';
     let x, y;
-    if (ev.clientX) { x = ev.clientX; y = ev.clientY - 10; }
+    if (ev.clientX || ev.clientY) { x = ev.clientX; y = ev.clientY - 10; }
     else if (ev.target && ev.target.getBoundingClientRect) {
       const r = ev.target.getBoundingClientRect();
       x = r.left + r.width / 2; y = r.top + 10;
@@ -1332,7 +1401,10 @@ function awardXP(amount, ev) {
   }
   // Reveal quest log on first XP
   const ql = document.getElementById('quest-log');
-  if (ql && !ql.classList.contains('show')) ql.classList.add('show');
+  if (ql && !ql.classList.contains('show')) {
+    if (window.matchMedia('(max-width: 640px)').matches) { ql.classList.add('minimized'); syncQLLabel(); }
+    ql.classList.add('show');
+  }
 }
 
 function completeQuest(name) {
@@ -1353,9 +1425,9 @@ const selected = new Set();
 document.querySelectorAll('.prob-tile').forEach(tile => {
   tile.addEventListener('click', e => {
     const i = +tile.dataset.idx;
-    if (selected.has(i)) { selected.delete(i); tile.classList.remove('selected'); }
+    if (selected.has(i)) { selected.delete(i); tile.classList.remove('selected'); tile.setAttribute('aria-pressed', 'false'); }
     else {
-      selected.add(i); tile.classList.add('selected');
+      selected.add(i); tile.classList.add('selected'); tile.setAttribute('aria-pressed', 'true');
       if (!xpAwarded.diag.has(i)) {
         xpAwarded.diag.add(i);
         awardXP(50, e);
@@ -1384,28 +1456,34 @@ function updateDiag() {
     ctaEl.dataset.recCard = recCard || '';
   }
   if (panel) panel.classList.toggle('visible', n > 0);
-  // Diagnostic engagé → le rec-tag statique se retire pour laisser la place à la reco perso
+  const live = document.getElementById('diag-live');
+  if (live) live.textContent = n > 0 ? (n + ' ' + (T[lang]['diag-live'] || '') + ' ' + (T[lang][mk] || '')) : '';
+  // Diagnostic engagé : le rec-tag statique se retire pour laisser la place à la reco perso
   document.body.classList.toggle('diag-active', n > 0);
 }
 
-// CTA click → scroll pile sur la carte recommandée et "lift" Balatro
+// CTA click : scroll pile sur la carte recommandée et "lift" Balatro
 const diagCtaEl = document.getElementById('diag-cta');
 if (diagCtaEl) {
   diagCtaEl.addEventListener('click', e => {
     const id = diagCtaEl.dataset.recCard;
-    if (!id) return; // 0 défi → fallback #contact (smooth scroll fait le job)
+    if (!id) return; // 0 défi : fallback #contact (smooth scroll fait le job)
     e.preventDefault();
     e.stopImmediatePropagation();
     const card = document.getElementById(id);
     if (!card) return;
     const target = card.closest('.card-wrap') || card;
     const top = target.getBoundingClientRect().top + window.scrollY - 140;
-    window.scrollTo({ top, behavior:'smooth' });
-    setTimeout(() => liftCard(id), 600);
+    window.scrollTo({ top, behavior: scrollMode() });
+    setTimeout(() => {
+      liftCard(id);
+      const cta = card.querySelector('.pc-cta');
+      if (cta) cta.focus({ preventScroll: true });
+    }, reduceMotion.matches ? 0 : 600);
   });
 }
 
-/* ── PLAY CARDS — view-based XP + lift effect ──────────── */
+/* ── PLAY CARDS : view-based XP + lift effect ──────────── */
 // Award XP the first time each card enters viewport
 const cardObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -1437,7 +1515,8 @@ function liftCard(id) {
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+if (reduceMotion.matches) document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+else document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
 /* ── SCROLL SPY ─────────────────────────────────────── */
 const navLinks = document.querySelectorAll('nav a[href^="#"]');
@@ -1454,11 +1533,14 @@ const hdr = document.getElementById('hdr');
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const id = a.getAttribute('href');
-    if (id === '#') return;
+    if (id === '#' || a.classList.contains('skip-link')) return;
     const t = document.querySelector(id);
     if (!t) return;
     e.preventDefault();
-    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - hdr.offsetHeight - 8, behavior: 'smooth' });
+    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - hdr.offsetHeight - 8, behavior: scrollMode() });
+    if (!t.hasAttribute('tabindex')) t.setAttribute('tabindex', '-1');
+    t.focus({ preventScroll: true });
+    if (history.replaceState) history.replaceState(null, '', id);
   });
 });
 
@@ -1477,7 +1559,9 @@ nav.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
 /* ── FORM ───────────────────────────────────────────── */
 function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function setErr(inputId, errId, show) {
-  document.getElementById(inputId).classList.toggle('err', show);
+  const input = document.getElementById(inputId);
+  input.classList.toggle('err', show);
+  input.setAttribute('aria-invalid', show ? 'true' : 'false');
   document.getElementById(errId).classList.toggle('show', show);
   return !show;
 }
@@ -1499,7 +1583,12 @@ conForm.addEventListener('submit', async e => {
     setErr('f-email','err-email', !validEmail(email)),
     setErr('f-msg','err-msg', msg.length < 10),
   ].every(Boolean);
-  if (!ok || honey) return;
+  if (!ok) {
+    const firstErr = conForm.querySelector('[aria-invalid="true"]');
+    if (firstErr) firstErr.focus();
+    return;
+  }
+  if (honey) return;
 
   const errPanel = document.getElementById('f-error');
   const okPanel  = document.getElementById('f-success');
@@ -1513,10 +1602,10 @@ conForm.addEventListener('submit', async e => {
     data.set('access_key', WEB3FORMS_KEY);
     data.set('name', name);
     data.set('email', email);
-    data.set('studio', studio || '—');
+    data.set('studio', studio || 'non précisé');
     data.set('message', msg);
-    data.set('subject', 'Nouveau message via meg-mtb — ' + name + (studio ? ' (' + studio + ')' : ''));
-    data.set('from_name', 'meg-mtb · ' + name);
+    data.set('subject', 'Nouveau message via megmtb.com : ' + name + (studio ? ' (' + studio + ')' : ''));
+    data.set('from_name', 'megmtb.com, ' + name);
     data.set('botcheck', honey);
 
     const res = await fetch('https://api.web3forms.com/submit', {
@@ -1530,7 +1619,7 @@ conForm.addEventListener('submit', async e => {
     }
     if (!quests.form) { awardXP(400); completeQuest('form'); }
     conForm.style.display = 'none';
-    if (okPanel) okPanel.classList.add('show');
+    if (okPanel) { okPanel.classList.add('show'); okPanel.focus(); }
   } catch (err) {
     console.error('[con-form] échec Web3Forms:', err);
     if (btn) { btn.disabled = false; btn.textContent = originalLabel; }
@@ -1540,6 +1629,7 @@ conForm.addEventListener('submit', async e => {
 ['f-name','f-email','f-msg'].forEach(id => {
   document.getElementById(id).addEventListener('input', e => {
     e.target.classList.remove('err');
+    e.target.removeAttribute('aria-invalid');
     const err = document.getElementById('err-' + id.replace('f-',''));
     if (err) err.classList.remove('show');
   });
@@ -1558,12 +1648,16 @@ function buildCal() {
   if (!grid) return;
   grid.innerHTML = '';
   const d = T[lang];
-  if (lbl)  lbl.textContent = d['MONTHS'][calM] + ' ' + calY;
+  const loc = lang === 'fr' ? 'fr-FR' : 'en-GB';
+  if (lbl) {
+    const m = new Intl.DateTimeFormat(loc, { month: 'long', year: 'numeric' }).format(new Date(calY, calM, 1));
+    lbl.textContent = m.charAt(0).toUpperCase() + m.slice(1);
+  }
   if (prev) prev.disabled = (calY === today.getFullYear() && calM === today.getMonth());
 
   d['DAYS'].forEach(name => {
     const h = document.createElement('div');
-    h.className = 'cal-hdr'; h.textContent = name;
+    h.className = 'cal-hdr'; h.textContent = name; h.setAttribute('aria-hidden', 'true');
     grid.appendChild(h);
   });
 
@@ -1571,7 +1665,7 @@ function buildCal() {
   const days  = new Date(calY, calM + 1, 0).getDate();
   const off   = first.getDay() === 0 ? 6 : first.getDay() - 1;
   for (let i = 0; i < off; i++) {
-    const e = document.createElement('div'); e.className = 'cal-day off'; grid.appendChild(e);
+    const e = document.createElement('span'); e.className = 'cal-day off'; e.setAttribute('aria-hidden', 'true'); grid.appendChild(e);
   }
 
   const slots    = document.getElementById('slot-section');
@@ -1583,21 +1677,30 @@ function buildCal() {
     const dow  = date.getDay();
     const past = date < today;
     const wknd = dow === 0 || dow === 6;
-    const cell = document.createElement('div');
-    cell.textContent = d2;
+    const fullLabel = date.toLocaleDateString(loc, { weekday:'long', day:'numeric', month:'long' });
+    let cell;
     if (wknd || past) {
+      cell = document.createElement('span');
       cell.className = 'cal-day off';
+      cell.setAttribute('aria-hidden', 'true');
+      cell.textContent = d2;
     } else {
+      cell = document.createElement('button');
+      cell.type = 'button';
       cell.className = 'cal-day';
-      if (date.getTime() === today.getTime()) cell.classList.add('today');
+      cell.textContent = d2;
+      cell.setAttribute('aria-label', fullLabel);
+      cell.setAttribute('aria-pressed', 'false');
+      if (date.getTime() === today.getTime()) { cell.classList.add('today'); cell.setAttribute('aria-current', 'date'); }
       cell.addEventListener('click', () => {
-        grid.querySelectorAll('.cal-day.sel').forEach(c => c.classList.remove('sel'));
-        cell.classList.add('sel'); selDay = cell;
-        const loc = lang === 'fr' ? 'fr-FR' : 'en-GB';
-        selLbl.textContent = date.toLocaleDateString(loc, { weekday:'long', day:'numeric', month:'long' });
+        grid.querySelectorAll('.cal-day.sel').forEach(c => { c.classList.remove('sel'); c.setAttribute('aria-pressed', 'false'); });
+        cell.classList.add('sel'); cell.setAttribute('aria-pressed', 'true'); selDay = cell;
+        selLbl.textContent = fullLabel;
         slots.style.display = 'block';
-        document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
+        document.querySelectorAll('.slot').forEach(s => { s.classList.remove('sel'); s.setAttribute('aria-pressed', 'false'); });
         rdvConf.classList.remove('show');
+        const firstSlot = document.querySelector('.slot');
+        if (firstSlot) firstSlot.focus();
       });
     }
     grid.appendChild(cell);
@@ -1605,8 +1708,8 @@ function buildCal() {
 
   document.querySelectorAll('.slot').forEach(slot => {
     slot.onclick = (e) => {
-      document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
-      slot.classList.add('sel');
+      document.querySelectorAll('.slot').forEach(s => { s.classList.remove('sel'); s.setAttribute('aria-pressed', 'false'); });
+      slot.classList.add('sel'); slot.setAttribute('aria-pressed', 'true');
       const sep = lang === 'fr' ? ' à ' : ' at ';
       const txt = selLbl.textContent + sep + slot.dataset.t;
       document.getElementById('rdv-txt').textContent = txt;
@@ -1630,7 +1733,7 @@ function resetCalSelection() {
   const rdvConf = document.getElementById('rdv-confirm');
   if (slots)   slots.style.display = 'none';
   if (rdvConf) rdvConf.classList.remove('show');
-  document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
+  document.querySelectorAll('.slot').forEach(s => { s.classList.remove('sel'); s.setAttribute('aria-pressed', 'false'); });
 }
 document.getElementById('cal-prev').addEventListener('click', () => {
   calM--; if (calM < 0) { calM = 11; calY--; }
@@ -1650,35 +1753,62 @@ document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', 
 const qlHeader = document.getElementById('ql-header');
 const qlToggle = document.getElementById('ql-toggle');
 const qlPanel  = document.getElementById('quest-log');
+function syncQLLabel() {
+  const panel = document.getElementById('quest-log');
+  const btn = document.getElementById('ql-toggle');
+  if (!panel || !btn) return;
+  const min = panel.classList.contains('minimized');
+  btn.textContent = min ? '+' : '−';
+  btn.setAttribute('aria-expanded', min ? 'false' : 'true');
+  const k = min ? 'aria-ql-max' : 'aria-ql-min';
+  if (T[lang] && T[lang][k]) btn.setAttribute('aria-label', T[lang][k]);
+}
 function toggleQL() {
   if (!qlPanel) return;
-  const min = qlPanel.classList.toggle('minimized');
-  if (qlToggle) qlToggle.textContent = min ? '+' : '−';
+  qlPanel.classList.toggle('minimized');
+  syncQLLabel();
 }
 if (qlHeader) qlHeader.addEventListener('click', toggleQL);
 if (qlToggle) qlToggle.addEventListener('click', e => { e.stopPropagation(); toggleQL(); });
 
-/* ── COOKIE INFO BANNER — persistance localStorage ───── */
+/* ── CONSENTEMENT COOKIES (CNIL : accord explicite, refus aussi simple que l'acceptation) ── */
 (function() {
-  const KEY = 'cookie-ack-v1';
+  const KEY = 'cookie-consent-v2';
   const bar = document.getElementById('cookie-banner');
   if (!bar) return;
-  if (!localStorage.getItem(KEY)) {
-    // Petit délai pour laisser le page peindre avant le slide-in
-    setTimeout(() => bar.classList.add('show'), 600);
+  let choice = null;
+  try { choice = localStorage.getItem(KEY); } catch (e) {}
+
+  function open() {
+    bar.style.display = '';
+    document.body.classList.add('cb-open');
+    requestAnimationFrame(() => bar.classList.add('show'));
   }
-  document.getElementById('cookie-ok')?.addEventListener('click', () => {
-    localStorage.setItem(KEY, String(Date.now()));
+  function close(value) {
+    try { localStorage.setItem(KEY, value); } catch (e) {}
     bar.classList.remove('show');
-    setTimeout(() => { bar.style.display = 'none'; }, 500);
+    document.body.classList.remove('cb-open');
+    setTimeout(() => { bar.style.display = 'none'; }, reduceMotion.matches ? 0 : 500);
+  }
+
+  if (choice !== 'granted' && choice !== 'denied') setTimeout(open, 600);
+
+  document.getElementById('cookie-ok')?.addEventListener('click', () => {
+    close('granted');
+    if (window.loadAnalytics) window.loadAnalytics();
+  });
+  document.getElementById('cookie-no')?.addEventListener('click', () => close('denied'));
+  document.getElementById('cookie-reopen')?.addEventListener('click', () => {
+    open();
+    document.getElementById('cookie-no')?.focus();
   });
 })();
 
-/* ── EMAIL CLOAK — reconstruction runtime, anti-scrapers ───── */
+/* ── EMAIL CLOAK : reconstruction runtime, anti-scrapers ───── */
 document.querySelectorAll('.email-cloak').forEach(el => {
   const u = el.dataset.u, d = el.dataset.d, t = el.dataset.t;
   if (!u || !d || !t) return;
-  // String.fromCharCode(64) = '@'  →  pas de '@' littéral dans le source JS
+  // String.fromCharCode(64) = '@', pas de '@' littéral dans le source JS
   const addr = u + String.fromCharCode(64) + d + '.' + t;
   const a = document.createElement('a');
   a.href = 'mailto:' + addr;

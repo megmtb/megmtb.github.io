@@ -3,16 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page introuvable — Meg M.T.B.</title>
+  <title>Page introuvable | Meg M.T.B.</title>
   <meta name="robots" content="noindex">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J6J8FDWQBG"></script>
+  <meta name="theme-color" content="#08080f">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Google Analytics : seulement si le visiteur a accepté sur le site -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-J6J8FDWQBG', { page_title: '404 — Page introuvable' });
+    try {
+      if (localStorage.getItem('cookie-consent-v2') === 'granted') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-J6J8FDWQBG';
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', 'G-J6J8FDWQBG', { page_title: '404, page introuvable' });
+      }
+    } catch (e) {}
   </script>
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -38,17 +48,19 @@
       display:inline-flex;align-items:center;gap:8px;
       padding:13px 24px;border-radius:10px;
       background:#E87F24;color:#fff;font-weight:700;font-size:.9rem;
-      text-decoration:none;transition:.2s;
+      text-decoration:none;transition:filter .2s,transform .2s;
     }
     a:hover{filter:brightness(1.1);transform:translateY(-2px)}
+    a:focus-visible{outline:2px solid #FEFDDF;outline-offset:3px}
+    @media (prefers-reduced-motion: reduce){a{transition:none}a:hover{transform:none}}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="code">404</div>
-    <h1>Game Over — Page introuvable</h1>
-    <p>La page que tu cherches n'existe pas ou a été déplacée.</p>
-    <a href="/">← Retour à l'accueil</a>
-  </div>
+  <main class="wrap">
+    <div class="code" aria-hidden="true">404</div>
+    <h1>Game Over. Page introuvable.</h1>
+    <p>La page que vous cherchez n'existe pas ou a été déplacée.</p>
+    <a href="/"><span aria-hidden="true">←</span> Retour à l'accueil</a>
+  </main>
 </body>
 </html>
